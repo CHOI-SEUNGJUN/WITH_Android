@@ -8,21 +8,25 @@
 
     <ImageView
         android:id="@+id/img_recommend_place"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/background_recommend_place"
+
+        android:scaleType="matrix"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_launcher_background"
-        />
+        app:srcCompat="@drawable/ic_launcher_background" />
 
     <TextView
         android:id="@+id/tv_recommend_place"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="PARIS"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="#000000"
+        android:fontFamily="@font/futura_medium"
+        android:letterSpacing="1.6"
+        android:lineSpacingExtra="5sp"
+        android:text="FRANCE"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/img_recommend_place"
         app:layout_constraintEnd_toEndOf="@id/img_recommend_place"
         app:layout_constraintStart_toStartOf="@id/img_recommend_place"
