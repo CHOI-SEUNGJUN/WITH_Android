@@ -9,13 +9,15 @@ import com.with.app.R
 import com.with.app.ui.chat.ChatFragment
 import com.with.app.ui.home.HomeFragment
 import com.with.app.ui.mypage.MyPageFragment
+import com.with.app.ui.postlist.PostListFragment
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
     override fun onNavigationItemSelected(p0 : MenuItem) : Boolean{
         when(p0.itemId) {
             R.id.menu_home -> {
-                val fragment_home = HomeFragment()
+                //val fragment_home = HomeFragment()
+                val fragment_home = PostListFragment()
                 supportFragmentManager.beginTransaction().replace(R.id.main_container, fragment_home).commit()
             }
             R.id.menu_chat -> {
@@ -34,7 +36,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val fragment_home = HomeFragment()
+        //val fragment_home = HomeFragment()
+        val fragment_home = PostListFragment()
         supportFragmentManager.beginTransaction().replace(R.id.main_container, fragment_home).commit()
 
         val bottomNavigationView = findViewById<View>(R.id.bn_bottom_navi) as BottomNavigationView

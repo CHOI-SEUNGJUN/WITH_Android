@@ -12,7 +12,7 @@ class PostListAdapter (private val context: Context): RecyclerView.Adapter<PostL
 
     lateinit var data : List<PostItem>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostListViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.li_post_item,parent,false)
+        val view = LayoutInflater.from(context).inflate(R.layout.item_post_bulletin,parent,false)
 
         return PostListViewHolder(view)
     }
