@@ -3,30 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_mate"
-    android:layout_width="wrap_content"
+    android:layout_width="80dp"
+    android:layout_marginStart="7dp"
+    android:layout_marginEnd="7dp"
     android:layout_height="wrap_content">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_mate_profile"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginEnd="14dp"
         android:src="@drawable/mate_profile"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_mate_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="석영현"
+        android:layout_marginTop="10dp"
         android:textColor="#000000"
         android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@id/img_mate_profile"
-        app:layout_constraintEnd_toEndOf="@+id/img_mate_profile"
+        android:maxLines="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/img_mate_profile"
-        android:layout_marginTop="10dp"
-        tools:layout_editor_absoluteY="72dp" />
+        android:text="석영" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
