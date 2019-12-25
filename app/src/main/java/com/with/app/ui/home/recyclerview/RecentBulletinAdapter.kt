@@ -1,4 +1,4 @@
-package com.with.app.ui.home.recyclerView
+package com.with.app.ui.home.recyclerview
 
 import android.content.Context
 import android.view.LayoutInflater

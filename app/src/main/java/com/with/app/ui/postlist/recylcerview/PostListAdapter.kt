@@ -1,9 +1,10 @@
-package com.with.app
+package com.with.app.ui.postlist.recylcerview
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.with.app.R
 import com.with.app.data.PostItem
 
 

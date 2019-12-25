@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.with.app.R
-import com.with.app.ui.home.recyclerView.*
+import com.with.app.ui.home.recyclerview.*
 import kotlinx.android.synthetic.main.fragment_home.*
 
 /**
