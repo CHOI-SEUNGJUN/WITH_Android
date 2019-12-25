@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.with.app.PostListFragment
 import com.with.app.R
 import com.with.app.ui.chat.ChatFragment
 import com.with.app.ui.home.HomeFragment
