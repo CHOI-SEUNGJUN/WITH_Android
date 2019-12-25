@@ -8,10 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager.widget.ViewPager
 
 import com.with.app.R
 import com.with.app.ui.home.recyclerview.*
+import com.with.app.ui.postlist.PostListFragment
 import kotlinx.android.synthetic.main.fragment_home.*
+
 
 /**
  * A simple [Fragment] subclass.
@@ -32,6 +35,25 @@ class HomeFragment : Fragment() {
         makeRecPlace()
         makeRecentBulletin()
 
+        val adapter = BannerPagerAdapter(bannerList)
+        vp_banner.adapter = adapter
+
+        tv_home_username.setOnClickListener {
+            val fragment_post_list = PostListFragment()
+            activity?.supportFragmentManager
+                ?.beginTransaction()
+                ?.replace(R.id.main_container, fragment_post_list)
+                ?.commit()
+        }
+
+    }
+
+    companion object {
+        val bannerList = arrayListOf(
+            Banner("img1"),
+            Banner("img2"),
+            Banner("img3")
+        )
     }
 
     private fun makeWithMateList() {
