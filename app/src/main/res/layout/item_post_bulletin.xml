@@ -22,8 +22,8 @@
         android:id="@+id/txt_region"
         android:layout_width="69dp"
         android:layout_height="17dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="22dp"
         android:background="@drawable/skyblue_round_backgroud"
         android:gravity="center"
         android:text="남아프리카공화국"
@@ -37,24 +37,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="22dp"
         android:text="20.02.02 ~ 20.03.08"
         android:textColor="@color/colorTextDark"
         android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_region"
         app:layout_constraintStart_toEndOf="@+id/txt_region"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/txt_region" />
 
     <TextView
         android:id="@+id/txt_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="24dp"
         android:text="1분 전"
-        android:textColor="@color/colorSkyblue"
+        android:textColor="@color/colorPrimary"
         android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_date"
         app:layout_constraintStart_toEndOf="@+id/txt_date"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/txt_date" />
 
     <TextView
         android:id="@+id/txt_title"
@@ -76,7 +76,7 @@
         android:layout_marginEnd="20dp"
         android:textSize="14sp"
         android:textColor="#9b9b9b"
-        android:text="Now"
+        android:text="now"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -85,11 +85,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
-        android:layout_marginEnd="29dp"
         android:text="5"
-        android:textSize="14sp"
         android:textColor="#000000"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/txt_now"
+        app:layout_constraintStart_toStartOf="@+id/txt_now"
         app:layout_constraintTop_toBottomOf="@+id/txt_now" />
 
     <View
