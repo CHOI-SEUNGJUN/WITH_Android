@@ -6,7 +6,7 @@ import android.view.MenuItem
 import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.with.app.R
-import com.with.app.ui.chat.ChatFragment
+import com.with.app.ui.chatlist.ChatListFragment
 import com.with.app.ui.home.HomeFragment
 import com.with.app.ui.mypage.MyPageFragment
 
@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 supportFragmentManager.beginTransaction().replace(R.id.main_container, fragment_home).commit()
             }
             R.id.menu_chat -> {
-                val fragment_chat = ChatFragment()
+                val fragment_chat = ChatListFragment()
                 supportFragmentManager.beginTransaction().replace(R.id.main_container, fragment_chat).commit()
             }
             R.id.menu_myPage -> {
