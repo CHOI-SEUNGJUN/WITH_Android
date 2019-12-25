@@ -10,19 +10,19 @@
         android:id="@+id/img_recommend_place"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="@drawable/background_recommend_place"
-
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/background_place"
         android:scaleType="matrix"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_launcher_background" />
+        app:srcCompat="@drawable/img_france" />
 
     <TextView
         android:id="@+id/tv_recommend_place"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/futura_medium"
-        android:letterSpacing="1.6"
+        android:letterSpacing="0.1"
         android:lineSpacingExtra="5sp"
         android:text="FRANCE"
         android:textColor="@android:color/white"
