@@ -31,7 +31,7 @@ class PostListFragment : Fragment() {
 
         /*view.txt_datePicker.setOnClickListener {
             ShowDatePicker(view)
-        }//맞나?*/
+        }//맞나?.*/
         GetPostListData(view)
         return view
     }
