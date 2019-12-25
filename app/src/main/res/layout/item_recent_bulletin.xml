@@ -66,7 +66,7 @@
         android:ellipsize="end"
         android:lineSpacingExtra="6sp"
         android:maxLines="2"
-        android:text="내일 아침 에펠탑 앞에서 흑맥주 마실 2명 구해요~!"
+        android:text="메리크리스마스"
         android:textColor="@android:color/black"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
