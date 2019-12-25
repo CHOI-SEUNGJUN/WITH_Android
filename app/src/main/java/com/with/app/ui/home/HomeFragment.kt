@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
+import com.google.android.material.tabs.TabLayout
 
 import com.with.app.R
 import com.with.app.ui.home.recyclerview.*
@@ -38,7 +39,9 @@ class HomeFragment : Fragment() {
         val adapter = BannerPagerAdapter(bannerList)
         vp_banner.adapter = adapter
 
-        tv_home_username.setOnClickListener {
+        tab_layout.setupWithViewPager(vp_banner, true)
+
+        btn_mate.setOnClickListener {
             val fragment_post_list = PostListFragment()
             activity?.supportFragmentManager
                 ?.beginTransaction()

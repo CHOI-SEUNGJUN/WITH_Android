@@ -9,7 +9,9 @@
         android:id="@+id/img_banner"
         android:layout_width="339dp"
         android:layout_height="102dp"
+        android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/background_place"
         app:srcCompat="@drawable/dog" />
 </androidx.constraintlayout.widget.ConstraintLayout>

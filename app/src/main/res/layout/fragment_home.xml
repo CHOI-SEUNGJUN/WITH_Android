@@ -24,47 +24,86 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/tv_home_username"
+                <ImageView
+                    android:id="@+id/img_main_background"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="48dp"
-                    android:text="Ruhee Kim님,"
-                    android:textColor="@android:color/black"
-                    android:textSize="24sp"
+                    android:layout_height="381dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/home_img"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_home_intro"
+                    android:id="@+id/tv_main_intro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="우리 함께 W!TH해요"
-                    android:textColor="@android:color/black"
-                    android:textSize="24sp"
-                    app:layout_constraintStart_toStartOf="@+id/tv_home_username"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_home_username" />
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="80dp"
+                    android:lineSpacingExtra="12sp"
+                    android:text="안전하고 간편한\n여행동행 매칭 플랫폼"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/img_main_background"
+                    app:layout_constraintTop_toTopOf="@+id/img_main_background" />
+
+                <TextView
+                    android:id="@+id/tv_main_sub_intro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:lineSpacingExtra="6sp"
+                    android:text="현지에서 위드메이트를 찾아보세요.\n여러분을 위한 무슨 최고의 어플이에영"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@+id/tv_main_intro"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_main_intro" />
+
+                <Button
+                    android:id="@+id/btn_mate"
+                    android:layout_width="319dp"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="30dp"
+                    android:background="@drawable/background_place"
+                    android:gravity="center_vertical"
+
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:lineSpacingExtra="8sp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:padding="0dp"
+                    android:text="동행구하기"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/img_main_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
                     android:id="@+id/tv_with_mate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="46dp"
                     android:lineSpacingExtra="3sp"
                     android:text="W!TH MATE"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_home_intro" />
+                    app:layout_constraintTop_toBottomOf="@+id/img_main_background" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_with_mate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="20dp"
+                    android:clipToPadding="false"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_with_mate" />
 
@@ -72,7 +111,7 @@
                     android:id="@+id/tv_recommend_place"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="48dp"
                     android:lineSpacingExtra="3sp"
                     android:text="추천동행지"
@@ -86,6 +125,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="20dp"
+                    android:clipToPadding="false"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_recommend_place" />
 
@@ -93,7 +136,7 @@
                     android:id="@+id/tv_recent_bulletin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="48dp"
                     android:lineSpacingExtra="3sp"
                     android:text="최근 본 게시물"
@@ -107,9 +150,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:clipToPadding="false"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="9dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.3"
-                    app:layout_constraintStart_toStartOf="@+id/tv_recent_bulletin"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_recent_bulletin" />
 
                 <TextView
@@ -132,6 +177,19 @@
                     android:layout_marginTop="16dp"
                     app:layout_constraintStart_toStartOf="@id/tv_banner"
                     app:layout_constraintTop_toBottomOf="@id/tv_banner" />
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tab_layout"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    app:tabBackground="@drawable/tab_selector"
+                    app:tabGravity="center"
+                    app:tabIndicatorHeight="0dp"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintEnd_toEndOf="@+id/vp_banner"
+                    app:layout_constraintHorizontal_bias="0.533"
+                    app:layout_constraintStart_toStartOf="@+id/vp_banner"
+                    app:layout_constraintTop_toBottomOf="@+id/vp_banner"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>

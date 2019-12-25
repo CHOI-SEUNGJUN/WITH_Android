@@ -7,14 +7,15 @@
 
     <ImageView
         android:id="@+id/img_recent_bulletin"
-        android:layout_width="172dp"
-        android:layout_height="127dp"
-        android:layout_marginEnd="3dp"
-        android:layout_marginBottom="3dp"
+        android:layout_width="171dp"
+        android:layout_height="133dp"
+        android:layout_marginEnd="7dp"
+        android:layout_marginBottom="7dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/shadow_184724" />
+        app:srcCompat="@drawable/shadow" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_bulletin_profile"
