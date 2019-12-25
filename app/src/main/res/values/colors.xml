@@ -7,7 +7,8 @@
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlack">#000000</color>
     <color name="colorSkyblue">#658ad0</color>
-    <color name="colorTextGray">#23213e</color>
+    <color name="colorTextDark">#23213e</color>
+    <color name="colorLightGray">#b5b5b5</color>
 
     <color name="colorPostNation">#658ad0</color>
 </resources>

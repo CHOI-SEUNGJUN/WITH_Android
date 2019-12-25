@@ -39,7 +39,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="22dp"
         android:text="20.02.02 ~ 20.03.08"
-        android:textColor="@color/colorTextGray"
+        android:textColor="@color/colorTextDark"
         android:textSize="10sp"
         app:layout_constraintStart_toEndOf="@+id/txt_region"
         app:layout_constraintTop_toTopOf="parent" />
