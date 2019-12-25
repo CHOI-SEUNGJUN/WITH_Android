@@ -1,4 +1,4 @@
-package com.with.app
+package com.with.app.ui.postlist.recylcerview
 
 import com.with.app.data.PostItem
 

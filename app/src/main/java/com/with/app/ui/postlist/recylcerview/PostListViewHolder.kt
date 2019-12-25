@@ -1,10 +1,10 @@
-package com.with.app
+package com.with.app.ui.postlist.recylcerview
 
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import com.with.app.R
 import com.with.app.data.PostItem
 
 class PostListViewHolder(view : View) : RecyclerView.ViewHolder(view) {

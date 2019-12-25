@@ -1,20 +1,15 @@
-package com.with.app
+package com.with.app.ui.postlist
 
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.DatePicker
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.with.app.R
 import com.with.app.data.PostItem
-import kotlinx.android.synthetic.main.fragment_post_list.*
-import kotlinx.android.synthetic.main.fragment_post_list.view.*
-import java.util.*
+import com.with.app.ui.postlist.recylcerview.PostListAdapter
 
 
 class PostListFragment : Fragment() {
@@ -51,7 +46,8 @@ class PostListFragment : Fragment() {
     private fun GetPostListData(v : View) {
 
         rvPostList = v.findViewById(R.id.rv_postList)
-        postListAdapter = PostListAdapter(context!!)
+        postListAdapter =
+            PostListAdapter(context!!)
 
         rvPostList.adapter = postListAdapter
         rvPostList.layoutManager = LinearLayoutManager(context)

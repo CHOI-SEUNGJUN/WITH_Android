@@ -1,4 +1,4 @@
-package com.with.app.ui.home.recyclerView
+package com.with.app.ui.home.recyclerview
 
 data class RecentBulletinItem (
     //val profile_url : String?,
