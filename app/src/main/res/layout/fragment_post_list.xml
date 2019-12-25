@@ -23,6 +23,7 @@
         android:layout_height="30dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="49dp"
+        android:gravity="center"
         android:background="@drawable/white_round_background"
         android:text="남아프리카공화국"
         android:textColor="#000000"
@@ -36,6 +37,9 @@
         android:layout_height="30dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="49dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:gravity="center"
         android:background="@drawable/white_round_background"
         android:text="19.02.02 | 19.02.02"
         android:textColor="#000000"
@@ -57,10 +61,12 @@
         tools:layout_editor_absoluteX="53dp"
         tools:layout_editor_absoluteY="247dp" />-->
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:id="@+id/btn_posting"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:padding="0dp"
+        android:background="@null"
         android:layout_marginTop="48dp"
         android:layout_marginEnd="20dp"
         android:src="@drawable/post_icon"
@@ -69,7 +75,7 @@
 
     <EditText
         android:id="@+id/edt_search"
-        android:layout_width="335dp"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
@@ -84,11 +90,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView2"
+    <ImageButton
+        android:id="@+id/btn_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
+        android:background="@null"
         android:src="@drawable/search_icon"
         app:layout_constraintBottom_toBottomOf="@+id/edt_search"
         app:layout_constraintEnd_toEndOf="@+id/edt_search"
@@ -117,16 +124,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_postList"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_postList"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
