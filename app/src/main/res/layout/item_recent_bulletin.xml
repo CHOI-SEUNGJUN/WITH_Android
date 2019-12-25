@@ -6,25 +6,28 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/item_main_post"
+        android:id="@+id/img_recent_bulletin"
         android:layout_width="172dp"
         android:layout_height="127dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/shadow_184724" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/main_post_profile"
+        android:id="@+id/img_bulletin_profile"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="22dp"
         android:layout_marginTop="22dp"
+        android:src="@drawable/mate_profile"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_launcher_background" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_main_post_name"
+        android:id="@+id/tv_bulletin_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
@@ -37,7 +40,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_post_nation"
+        android:id="@+id/tv_bulletin_place"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
@@ -50,11 +53,11 @@
         android:text="남아프리카공화국"
         android:textColor="@android:color/white"
         android:textSize="9sp"
-        app:layout_constraintEnd_toEndOf="@+id/tv_main_post_name"
-        app:layout_constraintTop_toBottomOf="@+id/tv_main_post_name" />
+        app:layout_constraintEnd_toEndOf="@+id/tv_bulletin_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_bulletin_name" />
 
     <TextView
-        android:id="@+id/tv_main_post_desc"
+        android:id="@+id/tv_bulletin_desc"
         android:layout_width="128dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="22dp"

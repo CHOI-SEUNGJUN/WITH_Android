@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.HomeFragment">
+    tools:context=".ui.home.HomeFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
@@ -47,7 +47,92 @@
                     app:layout_constraintStart_toStartOf="@+id/tv_home_username"
                     app:layout_constraintTop_toBottomOf="@+id/tv_home_username" />
 
-                
+                <TextView
+                    android:id="@+id/tv_with_mate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="50dp"
+                    android:lineSpacingExtra="3sp"
+                    android:text="W!TH MATE"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_home_intro" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_with_mate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintStart_toStartOf="@+id/tv_with_mate"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_with_mate" />
+
+                <TextView
+                    android:id="@+id/tv_recommend_place"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="48dp"
+                    android:lineSpacingExtra="3sp"
+                    android:text="추천동행지"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_with_mate" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_recommend_place"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintStart_toStartOf="@+id/tv_recommend_place"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_recommend_place" />
+
+                <TextView
+                    android:id="@+id/tv_recent_bulletin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="48dp"
+                    android:lineSpacingExtra="3sp"
+                    android:text="최근 본 게시물"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_recommend_place" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_recent_bulletin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.3"
+                    app:layout_constraintStart_toStartOf="@+id/tv_recent_bulletin"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_recent_bulletin" />
+
+                <TextView
+                    android:id="@+id/tv_banner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="51dp"
+                    android:lineSpacingExtra="3sp"
+                    android:text="이벤트"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_recent_bulletin" />
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/vp_banner"
+                    android:layout_width="339dp"
+                    android:layout_height="102dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintStart_toStartOf="@id/tv_banner"
+                    app:layout_constraintTop_toBottomOf="@id/tv_banner" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

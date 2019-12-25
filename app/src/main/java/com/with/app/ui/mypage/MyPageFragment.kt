@@ -1,4 +1,4 @@
-package com.with.app.ui
+package com.with.app.ui.mypage
 
 
 import android.os.Bundle
@@ -12,14 +12,14 @@ import com.with.app.R
 /**
  * A simple [Fragment] subclass.
  */
-class ChatFragment : Fragment() {
+class MyPageFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chat, container, false)
+        return inflater.inflate(R.layout.fragment_my_page, container, false)
     }
 
 
