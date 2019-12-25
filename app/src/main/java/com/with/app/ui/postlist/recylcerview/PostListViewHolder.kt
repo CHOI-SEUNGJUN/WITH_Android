@@ -23,5 +23,9 @@ class PostListViewHolder(view : View) : RecyclerView.ViewHolder(view) {
         txt_time.text = data.time
         txt_title.text = data.title
         txt_participant.text = data.participant
+
+        itemView.setOnClickListener{
+            //상세게시글로 넘어가도록
+        }
     }
 }

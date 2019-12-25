@@ -9,6 +9,7 @@ import com.with.app.R
 import com.with.app.ui.chatlist.ChatListFragment
 import com.with.app.ui.home.HomeFragment
 import com.with.app.ui.mypage.MyPageFragment
+import com.with.app.ui.postlist.PostListFragment
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
