@@ -13,6 +13,7 @@ class BannerPagerAdapter (private val list: ArrayList<Banner>) : PagerAdapter() 
         val view = inflater.inflate(R.layout.layout_banner, container, false)
 
         view.img_banner.setImageResource(list[position].getImageId(container.context))
+        view.img_banner.clipToOutline = true
 
         container.addView(view)
         return view
