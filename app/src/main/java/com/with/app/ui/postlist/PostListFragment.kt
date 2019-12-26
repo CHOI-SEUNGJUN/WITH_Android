@@ -43,6 +43,7 @@ class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
     }
 
     override fun onRefresh() {
+        //mSwipeRefreshLayout.setRefreshing(false);
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -116,5 +117,6 @@ class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
         )
         postListAdapter.notifyDataSetChanged()
     }
+
 }
 
