@@ -7,9 +7,7 @@ import com.with.app.R
 import com.with.app.data.ChatVO
 import com.with.app.ui.chatroom.recyclerview.viewholder.ChatMyViewHolder
 
-class ChatRoomAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-    var data = arrayListOf<ChatVO>()
+class ChatRoomAdapter(private val data : MutableList<ChatVO>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val MY_CHAT = 0 // 내 채팅
     private val OTHER_CHAT = 1 // 다른 사람 채팅
@@ -17,6 +15,8 @@ class ChatRoomAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val OTHER_INVITE = 3 // 다른사람이 초대장 받는 뷰
     private val MY_COMPLETE = 4 // 내 화면에 성사 완료 뷰
     private val OTHER_COMPLETE = 5 // 다른사람 화면에 성사 완료 뷰
+    private val OTHER_PROFILE = 6 // 다른사람 프로필 뷰
+    private val DATE = 7 // 데이트
 
     override fun getItemViewType(position: Int): Int {
         val chatData = data[position]
@@ -51,10 +51,6 @@ class ChatRoomAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                holder.bind(data[position])
             }
         }
-    }
-
-    fun addChat(item : ChatVO) {
-        data.add(item)
     }
 
 }
