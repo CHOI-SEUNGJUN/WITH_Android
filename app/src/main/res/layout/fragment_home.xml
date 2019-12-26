@@ -160,6 +160,8 @@
                     app:layout_constraintBottom_toTopOf="@+id/vp_banner"/>
 
 
+
+
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/vp_banner"
                     android:layout_width="match_parent"
@@ -183,6 +185,8 @@
                     app:tabBackground="@drawable/tab_selector"
                     app:tabGravity="center"
                     app:tabIndicatorHeight="0dp" />
+
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>

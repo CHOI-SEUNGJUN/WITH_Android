@@ -54,8 +54,8 @@ class HomeFragment : Fragment() {
     companion object {
         val bannerList = arrayListOf(
             Banner("img1"),
-            Banner("img2"),
-            Banner("img3")
+            Banner("img3"),
+            Banner("img2")
         )
     }
 
@@ -153,7 +153,7 @@ class HomeFragment : Fragment() {
             RecentBulletinItem(
                 name = "김은별",
                 place = "남아프리카공화국",
-                desc = "메리크리스마스><"
+                desc = "메리크리스마스 메리크리스마스 메리크리스마스"
                 //profile_url =  ""
             ),
             RecentBulletinItem(

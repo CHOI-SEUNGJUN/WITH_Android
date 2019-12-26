@@ -2,8 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="164dp"
-    android:layout_height="133dp">
+    android:layout_width="165dp"
+    android:layout_height="127dp">
 
     <ImageView
         android:id="@+id/img_recent_bulletin"
@@ -18,21 +18,39 @@
         app:srcCompat="@drawable/shadow" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cs_layout"
+        android:id="@+id/bulletin_top_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintEnd_toEndOf="@+id/img_recent_bulletin"
+        app:layout_constraintStart_toStartOf="@+id/img_recent_bulletin"
+        app:layout_constraintTop_toTopOf="@+id/img_recent_bulletin">
+
+        <TextView
+            android:id="@+id/tv_bulletin_place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/rec_post_nation"
+            android:lineSpacingExtra="2sp"
+            android:paddingStart="4dp"
+            android:paddingTop="3dp"
+            android:paddingEnd="4dp"
+            android:paddingBottom="3dp"
+            android:text="남아프리카공화국"
+            android:textColor="@android:color/white"
+            android:textSize="9sp"
+            app:layout_constraintEnd_toEndOf="@id/bulletin_top_layout"
+            app:layout_constraintTop_toBottomOf="@+id/tv_bulletin_name" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_bulletin_profile"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="14dp"
             android:src="@drawable/mate_profile"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/bulletin_top_layout"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -40,13 +58,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="13dp"
+            android:layout_marginEnd="16dp"
             android:letterSpacing="0.14"
             android:lineSpacingExtra="2sp"
             android:text="김은별"
             android:textColor="@android:color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="@id/bulletin_top_layout"
+            app:layout_constraintTop_toTopOf="@id/bulletin_top_layout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -54,31 +72,15 @@
         android:id="@+id/tv_bulletin_desc"
         android:layout_width="128dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="22dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginStart="16dp"
         android:ellipsize="end"
         android:lineSpacingExtra="6sp"
         android:maxLines="2"
         android:text="메리크리스마스"
         android:textColor="@android:color/black"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_bulletin_place"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/rec_post_nation"
-        android:lineSpacingExtra="2sp"
-        android:paddingStart="4dp"
-        android:paddingTop="3dp"
-        android:paddingEnd="4dp"
-        android:paddingBottom="3dp"
-        android:text="남아프리카공화국"
-        android:textColor="@android:color/white"
-        android:textSize="9sp"
-        tools:layout_editor_absoluteX="70dp"
-        tools:layout_editor_absoluteY="54dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/img_recent_bulletin"
+        app:layout_constraintStart_toStartOf="@id/img_recent_bulletin"
+        app:layout_constraintTop_toBottomOf="@+id/bulletin_top_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
