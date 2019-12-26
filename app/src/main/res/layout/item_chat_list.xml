@@ -33,9 +33,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxLines="1"
+        android:maxEms="9"
+        android:ellipsize="end"
         android:layout_marginTop="32dp"
         android:layout_marginStart="20dp"
-        android:text="부다페스트 : 맥주마셔yo"
+        android:text="부다페스트 : 맥주마셔요"
+        android:textStyle="bold"
         android:textColor="@color/colorPrimary"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/iv_profile"
@@ -56,6 +59,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxLines="1"
+        android:maxEms="12"
+        android:ellipsize="end"
         android:text="어떤 맥주 좋아하세요?"
         android:layout_marginTop="10dp"
         android:textColor="@android:color/black"
@@ -63,32 +68,35 @@
         app:layout_constraintStart_toStartOf="@+id/tv_title"
         app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
-    <TextView
-        android:id="@+id/tv_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:maxLines="1"
-        android:text="04:25"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:textColor="#bcc1ce"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:maxLines="1"
+            android:text="04:25"
+            android:textColor="#bcc1ce"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_chat_remain"
-        android:layout_width="24dp"
-        android:layout_height="17dp"
-        android:gravity="center"
-        android:background="@drawable/radius_chat_background"
-        android:maxLines="1"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="32dp"
-        android:text="99+"
-        android:textColor="@android:color/white"
-        android:textSize="9sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <TextView
+            android:id="@+id/tv_chat_remain"
+            android:layout_width="24dp"
+            android:layout_height="17dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/corner_chatred_9dp"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="99+"
+            android:textColor="@android:color/white"
+            android:textSize="9sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
