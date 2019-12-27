@@ -1,27 +1,40 @@
 package com.with.app.util
 
 import android.content.Context
+import androidx.core.content.edit
+import org.koin.dsl.module
 
-val PREFS_FILENAME = "prefs"
+class PrefManager(context : Context) {
 
-fun Context.setPrefStr(key: String, value: String) {
-    val prefs = this.getSharedPreferences(PREFS_FILENAME, Context.MODE_PRIVATE)
-    val editor = prefs!!.edit()
-    editor.putString(key, value).apply()
+    private val preferences = context.getSharedPreferences(DATE_PREFERENCES, Context.MODE_PRIVATE)
+
+    var startDate : String
+        get() {
+            return preferences.getString(START_DATE, null).orEmpty()
+        }
+        set(value) {
+            preferences.edit {
+                putString(START_DATE, value)
+            }
+        }
+
+    var endDate : String
+        get() {
+            return preferences.getString(END_DATE, null).orEmpty()
+        }
+        set(value) {
+            preferences.edit {
+                putString(END_DATE, value)
+            }
+        }
+
+    companion object {
+        const val DATE_PREFERENCES = "date"
+        const val START_DATE = "start"
+        const val END_DATE = "end"
+    }
 }
 
-fun Context.getPrefStr(key: String): String? {
-    val prefs = this.getSharedPreferences(PREFS_FILENAME, Context.MODE_PRIVATE)
-    return prefs.getString(key, null)
-}
-
-fun Context.setPrefBoolean(key: String, value: Boolean) {
-    val prefs = this.getSharedPreferences(PREFS_FILENAME, Context.MODE_PRIVATE)
-    val editor = prefs!!.edit()
-    editor.putBoolean(key, value).apply()
-}
-
-fun Context.getPrefBoolean(key: String): Boolean? {
-    val prefs = this.getSharedPreferences(PREFS_FILENAME, Context.MODE_PRIVATE)
-    return prefs.getBoolean(key, false)
+val prefModule = module {
+    single { PrefManager(get()) }
 }
