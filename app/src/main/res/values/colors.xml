@@ -18,4 +18,7 @@
     <color name="colorCloudyBlue">#bcc1ce</color>
 
     <color name="colorUnselectedRegion">#a8a8a8</color>
+
+    <color name="colorSearchGray">#efefef</color>
+
 </resources>

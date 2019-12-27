@@ -5,128 +5,172 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.postlist.PostListFragment">
-
-
-    <View
-        android:id="@+id/view"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="190dp"
-        android:background="@color/colorBackGray"
+        android:layout_height="56dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/txt_country"
-        android:layout_width="110dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="49dp"
-        android:gravity="center"
-        android:background="@drawable/corner_white_2dp"
-        android:text="남아프리카공화국"
-        android:textColor="#000000"
-        android:textSize="13sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="14dp"
+            android:text="검색 결과"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/txt_datePicker"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="49dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:gravity="center"
-        android:background="@drawable/corner_white_2dp"
-        android:text="19.02.02 | 19.02.02"
-        android:textColor="#000000"
-        android:textSize="13sp"
-        app:layout_constraintStart_toEndOf="@+id/txt_country"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageButton
+            android:id="@+id/btn_posting"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="20dp"
+            android:background="@null"
+            android:padding="0dp"
+            android:src="@drawable/post_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-    <ImageButton
-        android:id="@+id/btn_posting"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:padding="0dp"
-        android:background="@null"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="20dp"
-        android:src="@drawable/post_icon"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/colorCloudyBlue"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/edt_search"
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_search"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="60dp"
-        android:background="@drawable/corner_white_2dp"
-        android:hint="검색어를 입력하세요."
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:textColor="@color/colorLightGray"
-        android:textSize="13sp"
-        android:maxLength="25"
-        app:layout_constraintBottom_toBottomOf="@+id/view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageButton
-        android:id="@+id/btn_search"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:background="@null"
-        android:src="@drawable/search_icon"
-        app:layout_constraintBottom_toBottomOf="@+id/edt_search"
-        app:layout_constraintEnd_toEndOf="@+id/edt_search"
-        app:layout_constraintTop_toTopOf="@+id/edt_search" />
+        android:background="@drawable/shadow_toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_toolbar">
+
+        <EditText
+            android:id="@+id/edt_search"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/corner_searchgray_6dp"
+            android:hint="검색어를 입력하세요."
+            android:maxLength="25"
+            android:paddingLeft="37dp"
+            android:paddingRight="16dp"
+            android:textColor="@color/colorLightGray"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/layout_search" />
+
+        <TextView
+            android:id="@+id/txt_country"
+            android:layout_width="110dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="18dp"
+            android:background="@drawable/btn_region"
+            android:gravity="center"
+            android:text="남아프리카공화국"
+            android:textColor="@color/colorPrimary"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edt_search" />
+
+        <TextView
+            android:id="@+id/txt_datePicker"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/btn_region"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="19.02.02 ~ 19.02.02"
+            android:textColor="@color/colorPrimary"
+            android:textSize="13sp"
+            app:layout_constraintStart_toEndOf="@+id/txt_country"
+            app:layout_constraintTop_toBottomOf="@+id/edt_search" />
+
+
+        <ImageButton
+            android:id="@+id/btn_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:background="@null"
+            android:paddingLeft="13dp"
+            android:src="@drawable/search_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/edt_search"
+            app:layout_constraintStart_toStartOf="@id/edt_search"
+            app:layout_constraintTop_toTopOf="@+id/edt_search" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
         android:text="최근 게시글"
-        android:textSize="18sp"
         android:textColor="@color/colorTextDark"
+        android:textSize="18sp"
+        android:layout_marginTop="18dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
+        app:layout_constraintTop_toBottomOf="@+id/layout_search" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="20dp"
+        android:text="동성필터"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_search" />
 
     <Switch
-        android:id="@+id/switch1"
-        android:layout_width="46dp"
+        android:id="@+id/switch_filter"
+        android:layout_width="wrap_content"
         android:layout_height="22dp"
+        android:layout_marginTop="4dp"
         android:thumb="@drawable/switch_thumb"
         android:track="@drawable/switch_track_selector"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
+        app:layout_constraintEnd_toEndOf="@+id/textView4"
+        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintTop_toBottomOf="@+id/switch_filter">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_postList"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
