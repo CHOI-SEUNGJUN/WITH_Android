@@ -72,11 +72,15 @@
         android:id="@+id/txt_now"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="20dp"
-        android:textSize="14sp"
+        android:gravity="center_horizontal"
+        android:lineSpacingExtra="2sp"
+        android:text="W!TH\nMATE"
         android:textColor="#9b9b9b"
-        android:text="now"
+
+        android:textSize="8sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -88,6 +92,7 @@
         android:text="5"
         android:textColor="#000000"
         android:textSize="14sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/txt_now"
         app:layout_constraintStart_toStartOf="@+id/txt_now"
         app:layout_constraintTop_toBottomOf="@+id/txt_now" />
