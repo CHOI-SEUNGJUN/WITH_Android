@@ -19,101 +19,99 @@
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="71dp"
+            android:background="@drawable/shadow_toolbar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/shadow_toolbar"
-            >
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="71dp"
+                android:orientation="vertical">
+
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkedButton="@id/btn_europe_all"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="71dp"
-                        android:orientation="vertical" >
+                    <RadioButton
+                        android:id="@+id/btn_europe_all"
+                        android:layout_width="46dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="20dp"
+                        android:background="@drawable/btn_region"
+                        android:button="@android:color/transparent"
+                        android:gravity="center"
+                        android:padding="0dp"
+                        android:paddingEnd="0dp"
+                        android:scrollbarSize="0dp"
+                        android:text="전체"
+                        android:textColor="@color/selector_region"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                        <RadioGroup
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
+                    <RadioButton
+                        android:id="@+id/btn_europe_west"
+                        android:layout_width="58dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/btn_region"
+                        android:button="@android:color/transparent"
+                        android:gravity="center"
+                        android:padding="0dp"
+                        android:paddingEnd="0dp"
+                        android:scrollbarSize="0dp"
+                        android:text="서유럽"
+                        android:textColor="@color/selector_region"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/btn_europe_all"
+                        app:layout_constraintTop_toTopOf="parent" />
 
+                    <RadioButton
+                        android:id="@+id/btn_europe_east"
+                        android:layout_width="58dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/btn_region"
+                        android:button="@android:color/transparent"
+                        android:gravity="center"
+                        android:padding="0dp"
+                        android:paddingEnd="0dp"
+                        android:scrollbarSize="0dp"
+                        android:text="동유럽"
+                        android:textColor="@color/selector_region"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/btn_europe_west"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                            <RadioButton
-                                android:id="@+id/btn_europe_all"
-                                android:layout_width="46dp"
-                                android:layout_height="30dp"
-                                android:layout_marginStart="20dp"
-                                android:background="@drawable/btn_region"
-                                android:button="@android:color/transparent"
-                                android:gravity="center"
-                                android:padding="0dp"
-                                android:paddingEnd="0dp"
-                                android:scrollbarSize="0dp"
-                                android:text="전체"
-                                android:textColor="#FFFFFF"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <RadioButton
-                                android:id="@+id/btn_europe_west"
-                                android:layout_width="58dp"
-                                android:layout_height="30dp"
-                                android:layout_marginStart="10dp"
-                                android:background="@drawable/btn_region"
-                                android:button="@android:color/transparent"
-                                android:gravity="center"
-                                android:padding="0dp"
-                                android:paddingEnd="0dp"
-                                android:scrollbarSize="0dp"
-                                android:text="서유럽"
-                                android:textColor="#FFFFFF"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toEndOf="@id/btn_europe_all"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <RadioButton
-                                android:id="@+id/btn_europe_east"
-                                android:layout_width="58dp"
-                                android:layout_height="30dp"
-                                android:layout_marginStart="10dp"
-                                android:background="@drawable/btn_region"
-                                android:button="@android:color/transparent"
-                                android:gravity="center"
-                                android:padding="0dp"
-                                android:paddingEnd="0dp"
-                                android:scrollbarSize="0dp"
-                                android:text="동유럽"
-                                android:textColor="#FFFFFF"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toEndOf="@id/btn_europe_west"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <RadioButton
-                                android:id="@+id/btn_europe_north"
-                                android:layout_width="58dp"
-                                android:layout_height="30dp"
-                                android:layout_marginStart="10dp"
-                                android:background="@drawable/btn_region"
-                                android:button="@android:color/transparent"
-                                android:gravity="center"
-                                android:padding="0dp"
-                                android:paddingEnd="0dp"
-                                android:scrollbarSize="0dp"
-                                android:text="북유럽"
-                                android:textColor="#FFFFFF"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toEndOf="@id/btn_europe_east"
-                                app:layout_constraintTop_toTopOf="parent" />
-                        </RadioGroup>
+                    <RadioButton
+                        android:id="@+id/btn_europe_north"
+                        android:layout_width="58dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/btn_region"
+                        android:button="@android:color/transparent"
+                        android:gravity="center"
+                        android:padding="0dp"
+                        android:paddingEnd="0dp"
+                        android:scrollbarSize="0dp"
+                        android:text="북유럽"
+                        android:checked="false"
+                        android:textColor="@color/selector_region"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/btn_europe_east"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </RadioGroup>
 
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </HorizontalScrollView>
