@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.with.app.R
 
 class WithMateViewHolder(view : View) : RecyclerView.ViewHolder(view) {
-    val img_mate_profile : ImageView = view.findViewById(R.id.img_mate_profile)
+    val img_mate_profile : ImageView = view.findViewById(R.id.img_region_profile)
     val tv_mate_name : TextView = view.findViewById(R.id.tv_mate_name)
 
     fun bind(mate : WithMateItem) {
