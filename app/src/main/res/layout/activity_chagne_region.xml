@@ -35,7 +35,7 @@
         app:tabPaddingEnd="0dp"
         app:tabPaddingStart="0dp"></com.google.android.material.tabs.TabLayout>
 
-    <androidx.viewpager.widget.ViewPager
+    <com.with.app.ui.postlist.SwipeLockableViewPager
         android:id="@+id/vp_region"
         android:layout_width="0dp"
         android:layout_height="0dp"

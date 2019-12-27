@@ -13,11 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.signin.SignInActivity">
-
-        </activity>
+        <activity android:name=".ui.chatlist.evaluation.EvaluateActivity"></activity>
+        <activity android:name=".ui.signin.SignInActivity"></activity>
         <activity android:name=".ui.posting.PostingActivity" />
-        <activity android:name=".ui.postlist.ChangeRegionActivity"></activity>
+        <activity android:name=".ui.postlist.ChangeRegionActivity" />
         <activity android:name=".ui.detailpost.DetailPostActivity" />
         <activity
             android:name=".ui.chatroom.ChatRoomActivity"

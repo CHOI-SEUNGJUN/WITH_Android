@@ -7,14 +7,18 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.with.app.R
+import com.with.app.ui.postlist.recyclerview.RegionListAdapter
+import com.with.app.ui.postlist.recyclerview.RegionListItem
 import kotlinx.android.synthetic.main.fragment_region_europe.*
 
 /**
  * A simple [Fragment] subclass.
  */
 class RegionEuropeFragment : Fragment() {
+    private lateinit var regionListAdapter : RegionListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,6 +30,8 @@ class RegionEuropeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        makeRegionList()
 
     }
 
@@ -41,6 +47,61 @@ class RegionEuropeFragment : Fragment() {
         }
     }
 
+    private fun makeRegionList() {
+        regionListAdapter = RegionListAdapter(context!!)
 
+        rv_region_list.adapter = regionListAdapter
+
+        rv_region_list.layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
+
+        regionListAdapter.region = listOf(
+            RegionListItem(
+                name = "프랑스"
+                //profile_url =  ""
+            ),
+            RegionListItem(
+                name = "프랑스"
+                //profile_url =  ""
+            ),RegionListItem(
+                name = "프랑스"
+                //profile_url =  ""
+            ),
+            RegionListItem(
+                name = "프랑스"
+                //profile_url =  ""
+            ),
+            RegionListItem(
+                name = "프랑스"
+                //profile_url =  ""
+            ),
+            RegionListItem(
+                name = "프랑스"
+                //profile_url =  ""
+            ),RegionListItem(
+                name = "프랑스"
+                //profile_url =  ""
+            ),
+            RegionListItem(
+                name = "프랑스"
+                //profile_url =  ""
+            ),
+            RegionListItem(
+                name = "프랑스"
+                //profile_url =  ""
+            ),
+            RegionListItem(
+                name = "프랑스"
+                //profile_url =  ""
+            ),RegionListItem(
+                name = "프랑스"
+                //profile_url =  ""
+            ),
+            RegionListItem(
+                name = "프랑스"
+                //profile_url =  ""
+            )
+        )
+        regionListAdapter.notifyDataSetChanged()
+    }
 
 }
