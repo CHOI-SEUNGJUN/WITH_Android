@@ -1,7 +1,7 @@
 package com.with.app.repository
 
-import com.with.app.data.remote.ResponseLoginData
-import com.with.app.data.remote.RequestLoginData
+import com.with.app.data.remote.ResponseSignInData
+import com.with.app.data.remote.RequestSignInData
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.Header
@@ -14,8 +14,12 @@ interface AuthRepositoryInterface {
      */
 
     @POST("/auth/signin")
-    fun requestLogin(
-        @Body data : RequestLoginData, @Header("token") token : String
-    ) : Call<ResponseLoginData>
+    fun getSignIn(
+        @Body data : RequestSignInData, @Header("token") token : String
+    ) : Call<ResponseSignInData>
+
+    /**
+     * 회원가입
+     */
 
 }
