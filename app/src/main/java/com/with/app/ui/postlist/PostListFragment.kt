@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.with.app.R
 import com.with.app.data.PostItem
-import com.with.app.ui.detailpost.DetailPostActivity
 import com.with.app.ui.posting.PostingActivity
 import com.with.app.ui.postlist.recylcerview.PostListAdapter
 import kotlinx.android.synthetic.main.fragment_post_list.*
@@ -48,7 +47,14 @@ class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        edt_search.setOnClickListener {
+            val intent = Intent(activity, ChangeRegionActivity::class.java)
+
+            startActivity(intent)
+        }
         swipe.setOnRefreshListener(this)
+
     }
 
 /*    private fun ShowDatePicker(v : View) {
