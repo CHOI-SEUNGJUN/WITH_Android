@@ -20,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="71dp"
             android:background="@drawable/shadow_toolbar"
+            android:scrollbarSize="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +33,7 @@
 
 
                 <RadioButton
-                    android:id="@+id/btn_north_america_all"
+                    android:id="@+id/btn_south_america_all"
                     android:layout_width="46dp"
                     android:layout_height="30dp"
                     android:layout_marginStart="20dp"
@@ -57,13 +58,13 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_europe_list"
+        android:id="@+id/cl_south_america_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cl_north_america_detail">
+        app:layout_constraintTop_toBottomOf="@+id/cl_south_america_detail">
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

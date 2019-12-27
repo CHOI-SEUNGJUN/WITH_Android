@@ -20,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="71dp"
             android:background="@drawable/shadow_toolbar"
+            android:scrollbarSize="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -57,7 +58,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_europe_list"
+        android:id="@+id/cl_north_america_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

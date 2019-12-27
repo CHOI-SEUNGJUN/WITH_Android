@@ -10,6 +10,7 @@
         android:id="@+id/cl_region_tabbar"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
+        android:animateLayoutChanges="false"
         android:orientation="horizontal">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,7 +31,7 @@
                 android:layout_marginEnd="12dp"
                 android:fontFamily="sans-serif-smallcaps"
                 android:text="유럽"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/colorUnselectedRegion"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -55,9 +56,9 @@
             android:id="@+id/cl_region_frag_idx1"
             android:layout_width="69dp"
             android:layout_height="40dp"
+            android:background="#00FFFFFF"
             app:layout_constraintStart_toEndOf="@+id/cl_region_frag_idx0"
-            app:layout_constraintTop_toTopOf="@+id/cl_region_tabbar"
-            android:background="#00FFFFFF">
+            app:layout_constraintTop_toTopOf="@+id/cl_region_tabbar">
 
             <TextView
                 android:id="@+id/tv_region_tabbar_idx1"
@@ -67,7 +68,7 @@
                 android:layout_marginEnd="12dp"
                 android:fontFamily="sans-serif-smallcaps"
                 android:text="아시아"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/colorUnselectedRegion"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -80,11 +81,11 @@
                 android:layout_width="44dp"
                 android:layout_height="3dp"
                 android:layout_marginTop="7dp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="@+id/tv_region_tabbar_idx1"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/tv_region_tabbar_idx1"
                 app:layout_constraintTop_toBottomOf="@+id/tv_region_tabbar_idx1"
-                android:visibility="gone"
                 app:srcCompat="@drawable/continent_box_3" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -104,9 +105,9 @@
                 android:layout_marginEnd="12dp"
                 android:fontFamily="sans-serif-smallcaps"
                 android:text="북아메리카"
-                android:textStyle="bold"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/colorUnselectedRegion"
                 android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -117,11 +118,11 @@
                 android:layout_width="74dp"
                 android:layout_height="3dp"
                 android:layout_marginTop="7dp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="@+id/tv_region_tabbar_idx2"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/tv_region_tabbar_idx2"
                 app:layout_constraintTop_toBottomOf="@+id/tv_region_tabbar_idx2"
-                android:visibility="gone"
                 app:srcCompat="@drawable/continent_box_5" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -140,7 +141,7 @@
                 android:layout_marginEnd="12dp"
                 android:fontFamily="sans-serif-smallcaps"
                 android:text="남아메리카"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/colorUnselectedRegion"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -153,11 +154,11 @@
                 android:layout_width="74dp"
                 android:layout_height="3dp"
                 android:layout_marginTop="7dp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="@+id/tv_region_tabbar_idx3"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/tv_region_tabbar_idx3"
                 app:layout_constraintTop_toBottomOf="@+id/tv_region_tabbar_idx3"
-                android:visibility="gone"
                 app:srcCompat="@drawable/continent_box_5" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -177,7 +178,7 @@
                 android:layout_marginEnd="12dp"
                 android:fontFamily="sans-serif-smallcaps"
                 android:text="오세아니아"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/colorUnselectedRegion"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -190,11 +191,11 @@
                 android:layout_width="74dp"
                 android:layout_height="3dp"
                 android:layout_marginTop="7dp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="@+id/tv_region_tabbar_idx4"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/tv_region_tabbar_idx4"
                 app:layout_constraintTop_toBottomOf="@+id/tv_region_tabbar_idx4"
-                android:visibility="gone"
                 app:srcCompat="@drawable/continent_box_5" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -214,7 +215,7 @@
                 android:layout_marginEnd="12dp"
                 android:fontFamily="sans-serif-smallcaps"
                 android:text="아프리카"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/colorUnselectedRegion"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -227,11 +228,11 @@
                 android:layout_width="59dp"
                 android:layout_height="3dp"
                 android:layout_marginTop="7dp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="@+id/tv_region_tabbar_idx5"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/tv_region_tabbar_idx5"
                 app:layout_constraintTop_toBottomOf="@+id/tv_region_tabbar_idx5"
-                android:visibility="gone"
                 app:srcCompat="@drawable/continent_box_4" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -253,7 +254,7 @@
                 android:layout_marginEnd="12dp"
                 android:fontFamily="sans-serif-smallcaps"
                 android:text="국내"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/colorUnselectedRegion"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"

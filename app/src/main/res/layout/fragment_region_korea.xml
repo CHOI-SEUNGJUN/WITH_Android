@@ -18,39 +18,42 @@
 
         <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="71dp"
+            android:background="@drawable/shadow_toolbar"
+            android:scrollbarSize="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/shadow_toolbar">
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical" >
+                android:layout_height="71dp"
+                android:orientation="vertical">
 
-                <Button
+
+                <RadioButton
                     android:id="@+id/btn_korea_all"
                     android:layout_width="46dp"
                     android:layout_height="30dp"
                     android:layout_marginStart="20dp"
                     android:background="@drawable/btn_region"
-                    android:fontFamily="sans-serif-condensed-medium"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
+                    android:button="@android:color/transparent"
+                    android:checked="true"
+                    android:gravity="center"
                     android:padding="0dp"
-                    android:paddingLeft="0dp"
-                    android:paddingTop="0dp"
-                    android:paddingRight="0dp"
-                    android:paddingBottom="0dp"
+                    android:paddingEnd="0dp"
+                    android:scrollbarSize="0dp"
                     android:text="전체"
-                    app:iconPadding="0dp"
+                    android:textColor="@color/selector_region"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+
         </HorizontalScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
