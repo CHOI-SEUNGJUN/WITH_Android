@@ -8,9 +8,9 @@ class PrefManager(context : Context) {
 
     private val preferences = context.getSharedPreferences(DATE_PREFERENCES, Context.MODE_PRIVATE)
 
-    var startDate : String?
+    var startDate : String
         get() {
-            return preferences.getString(START_DATE, null).orEmpty()
+            return preferences.getString(START_DATE, "2019.12.25")!!
         }
         set(value) {
             preferences.edit {
@@ -18,9 +18,9 @@ class PrefManager(context : Context) {
             }
         }
 
-    var endDate : String?
+    var endDate : String
         get() {
-            return preferences.getString(END_DATE, null).orEmpty()
+            return preferences.getString(END_DATE, "2019.12.25")!!
         }
         set(value) {
             preferences.edit {

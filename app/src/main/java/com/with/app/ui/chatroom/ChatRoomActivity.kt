@@ -30,6 +30,8 @@ class ChatRoomActivity : AppCompatActivity() {
     }
 
     private fun init() {
+        reference = FirebaseDatabase.getInstance().getReference("conversations").child("chat01")
+
         lm = LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL, false)
         adapter = ChatRoomAdapter()
         rv_chat.layoutManager = lm
@@ -40,19 +42,32 @@ class ChatRoomActivity : AppCompatActivity() {
 
         adapter.setMessagesWithNotify(dummy())
         rv_chat.scrollToPosition(rv_chat.adapter!!.itemCount - 1) // 첫 접속시 리싸이클러뷰가 상단에 올라가기 때문.
+        chat()
         sendMessage()
     }
 
     private fun chat() {
-        reference = FirebaseDatabase.getInstance().getReference("conversations").child("김은별")
-        reference.addValueEventListener(object : ValueEventListener {
+        reference.addChildEventListener(object : ChildEventListener {
             override fun onCancelled(p0: DatabaseError) {
-                Log.e("ValueEventListener", p0.toString())
-            }
-
-            override fun onDataChange(p0: DataSnapshot) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
+
+            override fun onChildMoved(p0: DataSnapshot, p1: String?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onChildChanged(p0: DataSnapshot, p1: String?) {
+            }
+
+            override fun onChildAdded(p0: DataSnapshot, p1: String?) {
+                adapter.addMessageWithNotify(p0.getValue(ChatVO::class.java)!!)
+                rv_chat.scrollToPosition(rv_chat.adapter!!.itemCount - 1)
+            }
+
+            override fun onChildRemoved(p0: DataSnapshot) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
         })
     }
 
@@ -64,8 +79,12 @@ class ChatRoomActivity : AppCompatActivity() {
             val now = Calendar.getInstance().time
             val pattern = SimpleDateFormat("yyyy년 MM월 dd일 HH:mm")
             val nowDate = pattern.format(now)
+            val chatVO = ChatVO(MY_CHAT, "나", edt_chat.text.toString(), "", nowDate, "")
 
-            adapter.addMessageWithNotify(ChatVO(MY_CHAT, "나", edt_chat.text.toString(), "", nowDate, ""))
+            reference.push().setValue(chatVO)
+
+
+            // adapter.addMessageWithNotify(ChatVO(MY_CHAT, "나", edt_chat.text.toString(), "", nowDate, ""))
             edt_chat.setText("")
             rv_chat.scrollToPosition(rv_chat.adapter!!.itemCount - 1) // 아이템을 추가시켰으니 다시 스크롤 조
         }
