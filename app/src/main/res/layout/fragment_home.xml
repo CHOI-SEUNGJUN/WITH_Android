@@ -159,9 +159,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/tv_recent_bulletin"
                     app:layout_constraintBottom_toTopOf="@+id/vp_banner"/>
 
-
-
-
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/vp_banner"
                     android:layout_width="match_parent"

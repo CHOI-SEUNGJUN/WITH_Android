@@ -17,6 +17,7 @@
 
         </activity>
         <activity android:name=".ui.posting.PostingActivity" />
+        <activity android:name=".ui.postlist.ChangeRegionActivity"></activity>
         <activity android:name=".ui.detailpost.DetailPostActivity" />
         <activity
             android:name=".ui.chatroom.ChatRoomActivity"
