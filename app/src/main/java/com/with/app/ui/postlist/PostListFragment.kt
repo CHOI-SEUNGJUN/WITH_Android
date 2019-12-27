@@ -3,14 +3,17 @@ package com.with.app.ui.postlist
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.DatePicker
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.with.app.R
+import com.with.app.data.PickerDTO
 import com.with.app.data.PostItem
 import com.with.app.ui.posting.PostingActivity
 import com.with.app.ui.postlist.recylcerview.PostListAdapter
@@ -26,6 +29,8 @@ class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
 
     private val prefManager : PrefManager by inject()
 
+    private var startDate : String = prefManager.startDate ?: "2019.12.25"
+    private var endDate : String = prefManager.endDate ?: "2019.12.25"
     private lateinit var rvPostList : RecyclerView
     private lateinit var postListAdapter : PostListAdapter
 
@@ -57,18 +62,23 @@ class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
                 .show()
 
             dialogView.apply {
+                // split한 데이터를 datepicker에 설정
+                start_datepicker.setDate(startDate.splitDate())
+                end_datepicker.setDate(endDate.splitDate())
+
                 btn_close.setOnClickListener {
                     dialog.dismiss()
                 }
                 btn_save.setOnClickListener{
-                    this@PostListFragment.txt_datePicker.text = "${start_datepicker.year%100}.${start_datepicker.month+1}.${start_datepicker.dayOfMonth}" +
-                            " | ${end_datepicker.year%100}.${end_datepicker.month+1}.${end_datepicker.dayOfMonth}"
-                    prefManager.startDate = this@PostListFragment.txt_datePicker.text as String
+                    // SAVE와 동시에 LOAD시킴
+                    this@PostListFragment.txt_datePicker.text = "${start_datepicker.saveLoad(1)} | ${end_datepicker.saveLoad(2)}"
                     dialog.dismiss()
                 }
             }
         }
     }
+
+
 
     override fun onRefresh() {
         //mSwipeRefreshLayout.setRefreshing(false);
@@ -142,5 +152,32 @@ class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
         postListAdapter.notifyDataSetChanged()
     }
 
+    private fun DatePicker.saveLoad(mode : Int) : String{
+        return when (mode) {
+            1 -> {
+                prefManager.startDate = "${this.year}.${this.month + 1}.${this.dayOfMonth}"
+                return "${this.year % 100}.${this.month + 1}.${this.dayOfMonth}"
+            }
+            2 -> {
+                prefManager.endDate = "${this.year}.${this.month + 1}.${this.dayOfMonth}"
+                return "${this.year % 100}.${this.month + 1}.${this.dayOfMonth}"
+            }
+            else ->  ""
+        }
+    }
+
+    private fun String.splitDate() : PickerDTO {
+        val data = this.split(".")
+        Log.e("DKDKDK", data.toString())
+        val dto = PickerDTO(data[0].toInt(), data[1].toInt(), data[2].toInt())
+        return dto
+    }
+
+    private fun DatePicker.setDate(data : PickerDTO) {
+        this.updateDate(data.year, data.month-1, data.day)
+    }
+
 }
+
+
 
