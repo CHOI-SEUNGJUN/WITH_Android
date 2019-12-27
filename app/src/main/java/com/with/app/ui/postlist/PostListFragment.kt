@@ -56,7 +56,6 @@ class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
                 .setView(dialogView)
                 .show()
 
-
             dialogView.apply {
                 btn_close.setOnClickListener {
                     dialog.dismiss()
