@@ -26,17 +26,7 @@ class RegionEuropeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        btn_europe_all.setOnTouchListener { _: View, event:MotionEvent ->
-            when(event.action) {
-                MotionEvent.ACTION_DOWN -> {
-                    btn_europe_all.setBackgroundResource(R.drawable.africaall_selected_btn)
-                }
-                MotionEvent.ACTION_UP -> {
-                    btn_europe_all.setBackgroundResource(R.drawable.westeurope_unselected_btn)
-                }
-            }
-            true
-        }
+
     }
 
     companion object {
