@@ -9,33 +9,33 @@
 
     <TextView
         android:id="@+id/tv_content"
-        android:gravity="center_vertical"
-        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/corner_primary_6dp"
-        android:textColor="@android:color/white"
-        android:textSize="13sp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/corner_palegray_6dp"
+        android:gravity="center_vertical"
         android:maxEms="18"
+        android:layout_marginStart="20dp"
+        android:paddingStart="16dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="8dp"
         android:singleLine="false"
         android:text="좋은 하루에요! 하루에요! 하루에요! 하루에요! 하루에요! 하루에요! 하루에요! 하루에요! 하루에요!"
+        android:textColor="@android:color/black"
+        android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
         android:text="04:25"
+        android:layout_marginStart="10dp"
         android:textColor="@color/colorCloudyBlue"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tv_content" />
+        app:layout_constraintStart_toEndOf="@+id/tv_content" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

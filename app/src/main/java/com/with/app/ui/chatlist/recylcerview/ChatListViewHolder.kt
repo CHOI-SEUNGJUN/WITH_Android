@@ -1,11 +1,13 @@
 package com.with.app.ui.chatlist.recylcerview
 
+import android.content.Intent
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.with.app.R
 import com.with.app.data.ChatListVO
+import com.with.app.ui.chatroom.ChatRoomActivity
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.item_chat_list.view.*
 
@@ -31,5 +33,10 @@ class ChatListViewHolder(view : View) : RecyclerView.ViewHolder(view) {
         } else {
             tv_chat_remain.text = data.remain.toString()
         }
+
+        itemView.setOnClickListener {
+            itemView.context.startActivity(Intent(itemView.context, ChatRoomActivity::class.java))
+        }
+
     }
 }
