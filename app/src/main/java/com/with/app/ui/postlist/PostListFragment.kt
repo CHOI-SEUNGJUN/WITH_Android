@@ -1,5 +1,6 @@
 package com.with.app.ui.postlist
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,6 +14,7 @@ import com.with.app.R
 import com.with.app.data.PostItem
 import com.with.app.ui.posting.PostingActivity
 import com.with.app.ui.postlist.recylcerview.PostListAdapter
+import kotlinx.android.synthetic.main.date_picker.view.*
 import kotlinx.android.synthetic.main.fragment_post_list.*
 import kotlinx.android.synthetic.main.fragment_post_list.view.*
 
@@ -29,16 +31,36 @@ class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
 
         val view = inflater.inflate(R.layout.fragment_post_list, container, false)
 
-        /*view.txt_datePicker.setOnClickListener {
-            ShowDatePicker(view)
-        }//맞나?.*/
-
         GetPostListData(view)
         view.btn_posting.setOnClickListener {
             val intent = Intent(context, PostingActivity::class.java)
             startActivity(intent)
         }
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        //datePicker 시작
+        view.txt_datePicker.setOnClickListener {
+            val dialogView = layoutInflater.inflate(R.layout.date_picker, null)
+
+            val dialog = AlertDialog.Builder(context)
+                .setView(dialogView)
+                .show()
+
+            dialogView.apply {
+                btn_close.setOnClickListener {
+                    dialog.dismiss()
+                }
+                btn_save.setOnClickListener{
+                    this@PostListFragment.txt_datePicker.text = "${start_datepicker.year%100}.${start_datepicker.month+1}.${start_datepicker.dayOfMonth}" +
+                            " | ${end_datepicker.year%100}.${end_datepicker.month+1}.${end_datepicker.dayOfMonth}"
+                    dialog.dismiss()
+                }
+            }
+        }
     }
 
     override fun onRefresh() {
@@ -56,17 +78,6 @@ class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
         swipe.setOnRefreshListener(this)
 
     }
-
-/*    private fun ShowDatePicker(v : View) {
-        //visiblity 속성중요
-        val today = Calendar.getInstance()
-        date_picker.init(today.get(Calendar.YEAR), today.get(Calendar.MONTH),
-            today.get(Calendar.DAY_OF_MONTH)
-        ){ view, year, month, day ->
-                val month = month + 1
-                txt_datePicker.text = "$year.$month.$day | $year.$month.$day"
-            }
-    }*/
 
     private fun GetPostListData(v : View) {
 
