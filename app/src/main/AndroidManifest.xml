@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".WithApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -12,10 +13,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.postlist.ChangeRegionActivity"></activity>
+        <activity android:name=".ui.signin.SignInActivity">
+
+        </activity>
         <activity android:name=".ui.posting.PostingActivity" />
+        <activity android:name=".ui.postlist.ChangeRegionActivity"></activity>
         <activity android:name=".ui.detailpost.DetailPostActivity" />
-        <activity android:name=".ui.chatroom.ChatRoomActivity" />
+        <activity
+            android:name=".ui.chatroom.ChatRoomActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".ui.base.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
