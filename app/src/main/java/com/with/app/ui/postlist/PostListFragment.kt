@@ -15,6 +15,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.with.app.R
 import com.with.app.data.PickerDTO
 import com.with.app.data.PostItem
+import com.with.app.ui.chatlist.evaluation.EvaluateActivity
 import com.with.app.ui.posting.PostingActivity
 import com.with.app.ui.postlist.recylcerview.PostListAdapter
 import com.with.app.util.PrefManager
@@ -108,7 +109,7 @@ class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
         super.onActivityCreated(savedInstanceState)
 
         edt_search.setOnClickListener {
-            val intent = Intent(activity, ChangeRegionActivity::class.java)
+            val intent = Intent(activity, EvaluateActivity::class.java)
 
             startActivity(intent)
         }
