@@ -3,6 +3,7 @@ package com.with.app
 import android.app.Application
 import com.with.app.auth.authModule
 import com.with.app.auth.requestModule
+import com.with.app.util.prefModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -13,7 +14,8 @@ class WithApplication : Application() {
             androidContext(this@WithApplication)
             modules(listOf(
                 authModule,
-                requestModule
+                requestModule,
+                prefModule
             ))
         }
     }

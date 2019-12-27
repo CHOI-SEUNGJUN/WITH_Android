@@ -14,15 +14,21 @@ import com.with.app.R
 import com.with.app.data.PostItem
 import com.with.app.ui.posting.PostingActivity
 import com.with.app.ui.postlist.recylcerview.PostListAdapter
+import com.with.app.util.PrefManager
+import kotlinx.android.synthetic.main.date_picker.*
 import kotlinx.android.synthetic.main.date_picker.view.*
 import kotlinx.android.synthetic.main.fragment_post_list.*
 import kotlinx.android.synthetic.main.fragment_post_list.view.*
+import org.koin.android.ext.android.inject
 
 
 class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
 
+    private val prefManager : PrefManager by inject()
+
     private lateinit var rvPostList : RecyclerView
     private lateinit var postListAdapter : PostListAdapter
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,6 +56,7 @@ class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
                 .setView(dialogView)
                 .show()
 
+
             dialogView.apply {
                 btn_close.setOnClickListener {
                     dialog.dismiss()
@@ -57,6 +64,7 @@ class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
                 btn_save.setOnClickListener{
                     this@PostListFragment.txt_datePicker.text = "${start_datepicker.year%100}.${start_datepicker.month+1}.${start_datepicker.dayOfMonth}" +
                             " | ${end_datepicker.year%100}.${end_datepicker.month+1}.${end_datepicker.dayOfMonth}"
+                    prefManager.startDate = this@PostListFragment.txt_datePicker.text as String
                     dialog.dismiss()
                 }
             }
