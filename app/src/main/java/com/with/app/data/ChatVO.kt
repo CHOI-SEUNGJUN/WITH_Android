@@ -1,12 +1,12 @@
 package com.with.app.data
 
 data class ChatVO (
-    val type : Int,
-    val name : String?,
-    val msg : String?,
-    val userId : String?,
-    val date : String?,
-    val profile : String?
+    var type : Int = 0,
+    var name : String? = null,
+    var msg : String? = null,
+    var userId : String? = null,
+    var date : String? = null,
+    var profile : String? = null
 )
 
 fun ChatVO.isNotChat(): Boolean {
