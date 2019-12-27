@@ -45,6 +45,7 @@ class HomeFragment : Fragment() {
             val fragment_post_list = PostListFragment()
             activity?.supportFragmentManager
                 ?.beginTransaction()
+                ?.addToBackStack(null)
                 ?.replace(R.id.main_container, fragment_post_list)
                 ?.commit()
         }
@@ -183,6 +184,5 @@ class HomeFragment : Fragment() {
         )
         recBulletinAdapter.notifyDataSetChanged()
     }
-
 
 }

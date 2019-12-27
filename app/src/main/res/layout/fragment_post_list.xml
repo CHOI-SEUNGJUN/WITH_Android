@@ -47,19 +47,6 @@
         app:layout_constraintStart_toEndOf="@+id/txt_country"
         app:layout_constraintTop_toTopOf="parent" />
 
-<!--    <DatePicker
-        android:id="@+id/datepicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:calendarViewShown="false"
-        android:visibility="gone"
-        android:datePickerMode="spinner"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteX="53dp"
-        tools:layout_editor_absoluteY="247dp" />-->
 
     <ImageButton
         android:id="@+id/btn_posting"
@@ -86,6 +73,7 @@
         android:paddingRight="16dp"
         android:textColor="@color/colorLightGray"
         android:textSize="13sp"
+        android:maxLength="25"
         app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
