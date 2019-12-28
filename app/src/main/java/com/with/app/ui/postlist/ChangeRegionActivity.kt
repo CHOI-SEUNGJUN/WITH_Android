@@ -20,6 +20,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.viewpager.widget.PagerAdapter
 import com.google.android.material.tabs.TabLayout
 import com.with.app.R
+import com.with.app.ui.chatlist.evaluation.EvaluateActivity
 import kotlinx.android.synthetic.main.activity_chagne_region.*
 import kotlinx.android.synthetic.main.fragment_region_tabbar.*
 
@@ -63,7 +64,6 @@ class ChangeRegionActivity : AppCompatActivity() {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 var i = tab.position
                 vp_region.currentItem = i
-
                 when(i) {
                     0 -> {
                         ind_region_0.visibility = View.VISIBLE
