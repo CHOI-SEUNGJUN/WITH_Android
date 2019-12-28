@@ -47,7 +47,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView5">
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/img_close_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -56,7 +56,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/profileBackground" />
+            app:srcCompat="@drawable/profile_background" />
 
         <TextView
             android:id="@+id/textView7"
@@ -68,7 +68,7 @@
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imageView2" />
+            app:layout_constraintTop_toTopOf="@+id/img_close_button" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_profile"
@@ -78,7 +78,7 @@
             android:src="@drawable/img"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imageView2" />
+            app:layout_constraintTop_toTopOf="@+id/img_close_button" />
 
         <TextView
             android:id="@+id/textView8"
