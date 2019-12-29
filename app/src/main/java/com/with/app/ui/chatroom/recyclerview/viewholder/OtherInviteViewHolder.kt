@@ -50,7 +50,7 @@ class OtherInviteViewHolder(view : View) : RecyclerView.ViewHolder(view) {
             val now = Calendar.getInstance().time
             val pattern = SimpleDateFormat("yyyy년 MM월 dd일 HH:mm")
             val nowDate = pattern.format(now)
-            val vo = ChatVO(MY_CHAT, "", "완료", myId, nowDate)
+            val vo = ChatVO(MY_INVITE, "", "완료", myId, nowDate)
             reference.push().setValue(vo)
             accept.isClickable = false
         }

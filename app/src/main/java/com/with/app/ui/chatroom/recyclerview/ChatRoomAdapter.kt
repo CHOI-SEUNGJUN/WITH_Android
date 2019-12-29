@@ -75,7 +75,7 @@ class ChatRoomAdapter(private val myId: String, private val otherName: String, p
             chatVO.type = OTHER_COMPLETE
             chatVO.msg = "${otherName}님이\n동행을 수락하셨습니다."
         }
-        if (chatVO.isInviteComplete() && chatVO.isSameName(myId)) {
+        if (chatVO.isInviteComplete() && chatVO.isOtherName(myId)) {
             chatVO.type = MY_INVITE
             chatVO.msg = "${otherName}님의\n동행을 수락하셨습니다."
         }
