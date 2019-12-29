@@ -58,7 +58,7 @@
         app:layout_constraintTop_toBottomOf="@+id/layout_toolbar">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/iv_profile"
+            android:id="@+id/img_profile"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="20dp"
@@ -81,7 +81,7 @@
             android:layout_marginStart="18dp"
             android:layout_marginTop="22dp"
             android:textColor="@android:color/white"
-            app:layout_constraintStart_toEndOf="@+id/iv_profile"
+            app:layout_constraintStart_toEndOf="@+id/img_profile"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -108,7 +108,7 @@
             android:maxLines="1"
             android:text="런던에서 같이 레미제라블 볼 분"
             android:textColor="@android:color/black"
-            app:layout_constraintStart_toEndOf="@+id/iv_profile"
+            app:layout_constraintStart_toEndOf="@+id/img_profile"
             app:layout_constraintTop_toBottomOf="@+id/tv_region" />
 
         <ImageButton
