@@ -24,7 +24,6 @@ class SignInActivity : AppCompatActivity() {
                 )
             )
                 .safeEnqueue(onSuccess = {
-
                 })
         }
     }
