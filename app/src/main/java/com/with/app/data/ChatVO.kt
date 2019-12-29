@@ -12,8 +12,12 @@ fun ChatVO.isMessage(): Boolean {
     return this.type == 0 || this.type == 1
 }
 
+fun ChatVO.isNotMessage(): Boolean {
+    return !this.isMessage()
+}
+
 fun ChatVO.isNotMessageButChat(): Boolean {
-    return !this.isMessage() && !this.isNotChat()
+    return this.isNotMessage() && this.isChat()
 }
 
 fun ChatVO.isNotChat(): Boolean {
