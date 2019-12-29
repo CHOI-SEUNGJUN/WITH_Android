@@ -5,9 +5,16 @@ data class ChatVO (
     var name : String? = null,
     var msg : String? = null,
     var userId : String? = null,
-    var date : String? = null,
-    var profile : String? = null
+    var date : String? = null
 )
+
+fun ChatVO.isMessage(): Boolean {
+    return this.type == 0 || this.type == 1
+}
+
+fun ChatVO.isNotMessageButChat(): Boolean {
+    return !this.isMessage() && !this.isNotChat()
+}
 
 fun ChatVO.isNotChat(): Boolean {
     return this.type == 5 || this.type == 6
@@ -22,9 +29,25 @@ fun ChatVO.isOtherChat(): Boolean {
 }
 
 fun ChatVO.isSameName(vo: ChatVO): Boolean {
-    return this.name == vo.name
+    return this.userId == vo.userId
 }
 
 fun ChatVO.isOtherName(vo: ChatVO): Boolean {
     return !this.isSameName(vo)
+}
+
+fun ChatVO.isSameName(id : String): Boolean {
+    return this.userId == id
+}
+
+fun ChatVO.isOtherName(id : String): Boolean {
+    return !this.isSameName(id)
+}
+
+fun ChatVO.isInviteApply(): Boolean {
+    return this.isNotMessageButChat() && this.msg == "신청"
+}
+
+fun ChatVO.isInviteComplete(): Boolean {
+    return this.isNotMessageButChat() && this.msg == "완료"
 }

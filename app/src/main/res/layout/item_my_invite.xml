@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_invite"
         android:layout_width="222dp"
-        android:layout_height="150dp"
+        android:layout_height="167dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/corner_border_gray_6dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -30,7 +30,8 @@
             android:id="@+id/tv_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="은별님과의 동행을 신청하셨습니다."
+            android:gravity="center"
+            android:text="은별님과의\n동행을 신청하셨습니다."
             android:textColor="@android:color/black"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
