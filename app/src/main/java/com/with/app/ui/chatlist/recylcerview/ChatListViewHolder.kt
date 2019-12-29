@@ -9,11 +9,10 @@ import com.with.app.R
 import com.with.app.data.ChatListVO
 import com.with.app.ui.chatroom.ChatRoomActivity
 import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.main.item_chat_list.view.*
 
 class ChatListViewHolder(view : View) : RecyclerView.ViewHolder(view) {
 
-    val profile : CircleImageView = view.findViewById(R.id.iv_profile)
+    val profile : CircleImageView = view.findViewById(R.id.img_profile)
     val tv_name : TextView = view.findViewById(R.id.tv_name)
     val tv_title : TextView = view.findViewById(R.id.tv_title)
     val iv_dot : ImageView = view.findViewById(R.id.iv_dot)

@@ -10,7 +10,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 class OtherProfileViewHolder(view : View) : RecyclerView.ViewHolder(view) {
 
     val name : TextView = view.findViewById(R.id.tv_name)
-    val profile : CircleImageView = view.findViewById(R.id.iv_profile)
+    val profile : CircleImageView = view.findViewById(R.id.img_profile)
 
     fun bind(data : ChatVO) {
         name.text = data.name
