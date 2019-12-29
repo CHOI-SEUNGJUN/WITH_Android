@@ -1,7 +1,6 @@
 package com.with.app.ui.chatroom
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.*
@@ -10,8 +9,7 @@ import com.with.app.data.ChatVO
 import com.with.app.ui.chatroom.recyclerview.ChatRoomAdapter
 import com.with.app.ui.chatroom.recyclerview.ChatRoomAdapter.Companion.MY_CHAT
 import com.with.app.ui.chatroom.recyclerview.ChatRoomAdapter.Companion.MY_INVITE
-import com.with.app.ui.chatroom.recyclerview.ChatRoomAdapter.Companion.OTHER_CHAT
-import com.with.app.ui.chatroom.recyclerview.ChatRoomAdapter.Companion.OTHER_COMPLETE
+import com.with.app.util.addListener
 import kotlinx.android.synthetic.main.activity_chat_room.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -20,6 +18,16 @@ import java.util.*
 class ChatRoomActivity : AppCompatActivity() {
     private lateinit var lm : LinearLayoutManager
     private lateinit var adapter : ChatRoomAdapter
+
+    // AuthManager에서 받아와야함
+    private var myId = "with"
+    // 서버에서 받아와야함
+    private var otherId = "withme"
+    private var otherName = "김은별"
+    private var otherProfile = " "
+    // 채팅하기 버튼 눌렀을때 받아와야함(처음에만)
+    private var posterId = " "
+    private var senderId = " "
 
     private lateinit var reference : DatabaseReference
 
@@ -33,42 +41,30 @@ class ChatRoomActivity : AppCompatActivity() {
         reference = FirebaseDatabase.getInstance().getReference("conversations").child("chat01")
 
         lm = LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL, false)
-        adapter = ChatRoomAdapter()
+        adapter = ChatRoomAdapter(myId, otherName, otherProfile)
         rv_chat.layoutManager = lm
         rv_chat.adapter = adapter
         rv_chat.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
             rv_chat.scrollToPosition(rv_chat.adapter!!.itemCount - 1)
         } // Keyboard가 레이아웃 가리는 부분을 Recyclerview의 스크롤 위치를 조정시킴
 
-        adapter.setMessagesWithNotify(dummy())
+        //adapter.setMessagesWithNotify(dummy())
         rv_chat.scrollToPosition(rv_chat.adapter!!.itemCount - 1) // 첫 접속시 리싸이클러뷰가 상단에 올라가기 때문.
         chat()
         sendMessage()
+        invite()
     }
 
-    private fun chat() {
-        reference.addChildEventListener(object : ChildEventListener {
-            override fun onCancelled(p0: DatabaseError) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
+    private fun invite() {
+        btn_invite.setOnClickListener {
+            val now = Calendar.getInstance().time
+            val pattern = SimpleDateFormat("yyyy년 MM월 dd일 HH:mm")
+            val nowDate = pattern.format(now)
+            val chatVO = ChatVO(MY_INVITE, "김은별", "신청", myId, nowDate)
 
-            override fun onChildMoved(p0: DataSnapshot, p1: String?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-
-            override fun onChildChanged(p0: DataSnapshot, p1: String?) {
-            }
-
-            override fun onChildAdded(p0: DataSnapshot, p1: String?) {
-                adapter.addMessageWithNotify(p0.getValue(ChatVO::class.java)!!)
-                rv_chat.scrollToPosition(rv_chat.adapter!!.itemCount - 1)
-            }
-
-            override fun onChildRemoved(p0: DataSnapshot) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-
-        })
+            reference.push().setValue(chatVO)
+            rv_chat.scrollToPosition(rv_chat.adapter!!.itemCount - 1) // 아이템을 추가시켰으니 다시 스크롤 조
+        }
     }
 
     private fun sendMessage() {
@@ -79,7 +75,7 @@ class ChatRoomActivity : AppCompatActivity() {
             val now = Calendar.getInstance().time
             val pattern = SimpleDateFormat("yyyy년 MM월 dd일 HH:mm")
             val nowDate = pattern.format(now)
-            val chatVO = ChatVO(MY_CHAT, "나", edt_chat.text.toString(), "", nowDate, "")
+            val chatVO = ChatVO(MY_CHAT, "김은별", edt_chat.text.toString(), myId, nowDate)
 
             reference.push().setValue(chatVO)
 
@@ -90,7 +86,17 @@ class ChatRoomActivity : AppCompatActivity() {
         }
     }
 
-    private fun dummy(): MutableList<ChatVO> {
+    private fun chat() {
+        reference.addListener(
+            onChildAdded = {
+                    snap, _ ->
+                adapter.addMessageWithNotify(snap.getValue(ChatVO::class.java)!!)
+                rv_chat.scrollToPosition(rv_chat.adapter!!.itemCount - 1)
+            }
+        )
+    }
+
+    /*private fun dummy(): MutableList<ChatVO> {
         // type, name, msg, userid, date, profile
         return mutableListOf(
             ChatVO(OTHER_CHAT, "김은별", "안녕하세요. 맥주 맛있나요?", "", "2019년 12월 24일 21:10", ""),
@@ -104,5 +110,5 @@ class ChatRoomActivity : AppCompatActivity() {
             ChatVO(MY_INVITE, "나", "은별님과의 동행을 신청하셨습니다.", "", "2019년 12월 25일 21:15", ""),
             ChatVO(OTHER_COMPLETE, "김은별", "은별님이 동행을 수락하셨습니다.", "", "2019년 12월 25일 21:18", "")
         )
-    }
+    }*/
 }

@@ -11,7 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_invite"
         android:layout_width="222dp"
-        android:layout_height="150dp"
+        android:layout_height="167dp"
         android:layout_marginStart="20dp"
         android:background="@drawable/corner_border_gray_6dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -31,6 +31,7 @@
             android:id="@+id/tv_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="은별님이 동행을 수락하셨습니다."
             android:textColor="@android:color/black"
             android:textSize="14sp"
