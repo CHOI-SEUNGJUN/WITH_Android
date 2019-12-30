@@ -2,6 +2,7 @@ package com.with.app.manage
 
 import android.content.Context
 import com.with.app.data.remote.RequestSignInData
+import com.with.app.data.remote.RequestSignUpData
 import com.with.app.data.repository.AuthRepositoryInterface
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -17,7 +18,9 @@ class RequestManager(val context: Context, val authManager: AuthManager) {
         .addConverterFactory(GsonConverterFactory.create())
         .build().create(AuthRepositoryInterface::class.java)
 
-    fun requestSignIn(data: RequestSignInData) = retrofit.getSignIn(data, authManager.token)
+    fun requestSignIn(data: RequestSignInData) = retrofit.postSignIn(data)
+
+    fun requestSignUp(data: RequestSignUpData) = retrofit.postSignUp(data)
 
 
 }

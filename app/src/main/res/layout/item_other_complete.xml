@@ -10,8 +10,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_invite"
-        android:layout_width="222dp"
-        android:layout_height="167dp"
+        android:layout_width="226dp"
+        android:layout_height="193dp"
         android:layout_marginStart="20dp"
         android:background="@drawable/corner_border_gray_6dp"
         app:layout_constraintBottom_toBottomOf="parent"

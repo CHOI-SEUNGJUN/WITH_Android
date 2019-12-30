@@ -1,6 +1,8 @@
 package com.with.app.ui.chatroom
 
 import android.os.Bundle
+import android.util.Log
+import android.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.*
@@ -14,6 +16,7 @@ import com.with.app.ui.chatroom.recyclerview.ChatRoomAdapter.Companion.MY_INVITE
 import com.with.app.util.addListener
 import com.with.app.util.addSingleListener
 import kotlinx.android.synthetic.main.activity_chat_room.*
+import kotlinx.android.synthetic.main.dialog_invite.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -32,12 +35,14 @@ class ChatRoomActivity : AppCompatActivity() {
     private var myIdx = 1
     // 서버에서 받아와야함
     private var boardIdx : Int = 0
-    private var otherIdx = 3
+    private var otherIdx = 4
     private var otherName = "김남수"
     private var otherProfile = " "
     // 채팅하기 눌렀을때 불러와야함
     private var posterIdx = 1
-    private var senderIdx = 3
+    private var senderIdx = 4
+
+    private var meetDate = ""
 
     private val chatRoomId = "${posterIdx}_${senderIdx}"
 
@@ -82,22 +87,42 @@ class ChatRoomActivity : AppCompatActivity() {
 
     private fun inviteMessage() {
         btn_invite.setOnClickListener {
-            val now = Calendar.getInstance().time
-            val pattern = SimpleDateFormat("yyyy년 MM월 dd일 HH:mm")
-            val nowDate = pattern.format(now)
-            val chatVO = ChatVO(MY_INVITE,  "동행 신청 메시지입니다.", myIdx, nowDate)
+                val view = layoutInflater.inflate(R.layout.dialog_invite, null)
 
-            value.lastMessage = "동행 신청 메시지입니다."
-            tempValue.lastMessage = "동행 신청 메시지입니다."
-            value.lastTime = nowDate
-            tempValue.lastTime = nowDate
+                val dialog = AlertDialog.Builder(this)
+                    .setView(view)
+                    .show()
 
-            chatReference.push().setValue(chatVO)
-            usersReference.child("$myIdx").child(chatRoomId).setValue(value)
-            value.unSeenCount++
-            usersReference.child("$otherIdx").child(chatRoomId).setValue(value)
+                view.apply {
+                    tv_otherName.text = otherName
 
-            rv_chat.scrollToPosition(rv_chat.adapter!!.itemCount - 1) // 아이템을 추가시켰으니 다시 스크롤
+                    btn_close.setOnClickListener {
+                        dialog.cancel()
+                    }
+                    btn_goWith.setOnClickListener{
+                        meetDate = "${dp_with.year}년 ${dp_with.month+1}월 ${dp_with.dayOfMonth}일"
+                        val now = Calendar.getInstance().time
+                        val pattern = SimpleDateFormat("yyyy년 MM월 dd일 HH:mm")
+                        val nowDate = pattern.format(now)
+                        val chatVO = ChatVO(MY_INVITE,  "동행 신청 메시지입니다.-${meetDate}", myIdx, nowDate)
+
+                        value.lastMessage = "동행 신청 메시지입니다."
+                        tempValue.lastMessage = "동행 신청 메시지입니다."
+                        value.lastTime = nowDate
+                        tempValue.lastTime = nowDate
+
+                        chatReference.push().setValue(chatVO)
+                        usersReference.child("$myIdx").child(chatRoomId).setValue(value)
+                        value.unSeenCount++
+                        usersReference.child("$otherIdx").child(chatRoomId).setValue(value)
+
+                        // rv_chat.scrollToPosition(rv_chat.adapter!!.itemCount - 1) // 아이템을 추가시켰으니 다시 스크롤
+
+                        dialog.cancel()
+                    }
+                }
+
+
         }
     }
 
@@ -138,8 +163,16 @@ class ChatRoomActivity : AppCompatActivity() {
         usersReference.child("$otherIdx/$chatRoomId").addSingleListener(
             onDataChange = {
                     snap ->
-                value = snap.getValue(ChatUserVO::class.java)!!
-                tempValue = snap.getValue(ChatUserVO::class.java)!!
+                snap.getValue(ChatUserVO::class.java).let {
+                    if (it != null) {
+                        value = it
+                    }
+                }
+                snap.getValue(ChatUserVO::class.java).let {
+                    if (it != null) {
+                        tempValue = it
+                    }
+                }
             }
         )
     }
