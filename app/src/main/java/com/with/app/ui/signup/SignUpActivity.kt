@@ -14,7 +14,6 @@ import android.provider.MediaStore
 import android.util.Log
 import com.bumptech.glide.Glide
 import com.with.app.R
-import com.with.app.data.remote.RequestSignUpData
 import com.with.app.manage.RequestManager
 import com.with.app.manage.authModule
 import com.with.app.util.safeEnqueue
