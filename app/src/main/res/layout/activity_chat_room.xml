@@ -138,9 +138,7 @@
         android:id="@+id/layout_send"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="20dp"
         android:layout_marginBottom="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -149,32 +147,34 @@
 
         <EditText
             android:id="@+id/edt_chat"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
             android:background="@drawable/corner_border_gray_6dp"
             android:maxLines="3"
             android:minHeight="40dp"
-            android:paddingStart="50dp"
-            android:paddingTop="12dp"
+            android:layout_marginStart="12dp"
+            android:paddingStart="12dp"
+            android:paddingTop="10dp"
             android:paddingEnd="50dp"
-            android:paddingBottom="12dp"
+            android:paddingBottom="10dp"
             android:textColor="@android:color/black"
             android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_invite"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/btn_invite"
+            android:visibility="gone"
             android:layout_width="28dp"
             android:layout_height="28dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginStart="16dp"
             android:background="@null"
             android:src="@drawable/btn_invite"
-            app:layout_constraintStart_toStartOf="@+id/edt_chat"
-            app:layout_constraintTop_toTopOf="@+id/edt_chat" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/btn_send"
@@ -185,7 +185,7 @@
             android:background="@null"
             android:src="@drawable/btn_send"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="@+id/edt_chat" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
