@@ -10,6 +10,7 @@ import com.with.app.R
 import com.with.app.data.AdapterPassData
 import com.with.app.data.ChatVO
 import com.with.app.data.ChatUserVO
+import com.with.app.manage.RequestManager
 import com.with.app.ui.chatroom.recyclerview.ChatRoomAdapter
 import com.with.app.ui.chatroom.recyclerview.ChatRoomAdapter.Companion.MY_CHAT
 import com.with.app.ui.chatroom.recyclerview.ChatRoomAdapter.Companion.MY_INVITE
@@ -17,11 +18,15 @@ import com.with.app.util.addListener
 import com.with.app.util.addSingleListener
 import kotlinx.android.synthetic.main.activity_chat_room.*
 import kotlinx.android.synthetic.main.dialog_invite.view.*
+import org.koin.android.ext.android.inject
 import java.text.SimpleDateFormat
 import java.util.*
 
 
 class ChatRoomActivity : AppCompatActivity() {
+
+    private val requestManager : RequestManager by inject()
+
     private lateinit var lm : LinearLayoutManager
     private lateinit var adapter : ChatRoomAdapter
 
@@ -35,12 +40,12 @@ class ChatRoomActivity : AppCompatActivity() {
     private var myIdx = 1
     // 서버에서 받아와야함
     private var boardIdx : Int = 0
-    private var otherIdx = 4
+    private var otherIdx = 7
     private var otherName = "김남수"
     private var otherProfile = " "
     // 채팅하기 눌렀을때 불러와야함
     private var posterIdx = 1
-    private var senderIdx = 4
+    private var senderIdx = 7
 
     private var meetDate = ""
 

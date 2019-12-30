@@ -4,6 +4,8 @@ import android.content.Context
 import com.with.app.data.remote.RequestSignInData
 import com.with.app.data.remote.RequestSignUpData
 import com.with.app.data.repository.AuthRepositoryInterface
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -20,8 +22,7 @@ class RequestManager(val context: Context, val authManager: AuthManager) {
 
     fun requestSignIn(data: RequestSignInData) = retrofit.postSignIn(data)
 
-    fun requestSignUp(data: RequestSignUpData) = retrofit.postSignUp(data)
-
+    fun requestSignUp(a: RequestBody, b: RequestBody, c: RequestBody, d: RequestBody, e: RequestBody, f: MultipartBody.Part?) = retrofit.postSignUp(a,b,c,d,e,f)
 
 }
 

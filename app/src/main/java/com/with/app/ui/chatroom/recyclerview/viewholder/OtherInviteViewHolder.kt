@@ -13,6 +13,7 @@ import com.with.app.data.ChatVO
 import com.with.app.data.ChatUserVO
 import com.with.app.ui.chatroom.recyclerview.ChatRoomAdapter.Companion.MY_INVITE
 import com.with.app.util.addSingleListener
+import com.with.app.util.toSpanned
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -29,7 +30,7 @@ class OtherInviteViewHolder(view : View) : RecyclerView.ViewHolder(view) {
         last: Boolean,
         passData: AdapterPassData
         ) {
-        msg.text = data.msg
+        msg.text = data.msg?.toSpanned()
         date.text = data.date?.substring(13)
 
         val references : DatabaseReference = FirebaseDatabase.getInstance().reference

@@ -14,10 +14,16 @@ import android.provider.MediaStore
 import android.util.Log
 import com.bumptech.glide.Glide
 import com.with.app.R
+import com.with.app.data.remote.RequestSignUpData
+import com.with.app.manage.RequestManager
+import com.with.app.manage.authModule
+import com.with.app.util.safeEnqueue
+import com.with.app.util.toast
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import org.koin.android.ext.android.inject
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileNotFoundException
@@ -25,15 +31,39 @@ import java.io.InputStream
 
 class SignUpActivity : AppCompatActivity() {
 
+    private val requestManager : RequestManager by inject()
+
     private val OPEN_GALLERY = 100
     lateinit var data : Uri
     var imageUri: Uri? = null
-    var receivedImgUri : Uri? = null
     private var profileImg: MultipartBody.Part? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
+
+        button.setOnClickListener {
+            requestManager.requestSignUp(
+                    RequestBody.create(MediaType.parse("text.plain"), "1"),
+                    RequestBody.create(MediaType.parse("text.plain"), "1"),
+                    RequestBody.create(MediaType.parse("text.plain"), "안드로이드테스트계정임지우지마셈"),
+                    RequestBody.create(MediaType.parse("text.plain"), "1995-01-01"),
+                    RequestBody.create(MediaType.parse("text.plain"), "-1"),
+                profileImg
+            ).safeEnqueue(
+                onSuccess = {
+                    finish()
+                },
+                onError = {
+                    toast("네트워크 연결 오류")
+                    Log.e("error", it.toString())
+                },
+                onFailure = {
+                    toast("회원가입 실패")
+                    Log.e("failure", it.message())
+                }
+            )
+        }
 
         img_gallery.setOnClickListener{
             changeImage()
@@ -77,7 +107,6 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
 
-        // receivedImgUri = intent.getParcelableExtra<Parcelable>("imageUri") as Uri
         val options = BitmapFactory.Options()
 
         var input : InputStream? = null
@@ -91,9 +120,9 @@ class SignUpActivity : AppCompatActivity() {
         val baos = ByteArrayOutputStream()
         bitmap?.compress(Bitmap.CompressFormat.JPEG, 20, baos)
         val photoBody = RequestBody.create(MediaType.parse("image/jpg"), baos.toByteArray())
-        val img = File(getRealPathFromURI(applicationContext, imageUri!!).toString())
+        val img = File(getRealPathFromURI(applicationContext, imageUri!!))
 
-        profileImg = MultipartBody.Part.createFormData("profileImg", img.name, photoBody)
+        profileImg = MultipartBody.Part.createFormData("img", img.name, photoBody)
         Log.v("Signup Activity", "$profileImg")
 
 

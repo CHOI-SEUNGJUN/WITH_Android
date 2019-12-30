@@ -17,7 +17,13 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".ui.signup.SignUpActivity"></activity>
         <activity android:name=".ui.chatlist.evaluation.EvaluateActivity" />
-        <activity android:name=".ui.signin.SignInActivity" />
+        <activity android:name=".ui.signin.SignInActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ui.posting.PostingActivity" />
         <activity android:name=".ui.postlist.ChangeRegionActivity" />
         <activity android:name=".ui.detailpost.DetailPostActivity" />
@@ -25,11 +31,7 @@
             android:name=".ui.chatroom.ChatRoomActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".ui.base.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
