@@ -5,11 +5,15 @@ import com.google.gson.annotations.SerializedName
 data class ResponseSignInData(
     val success : Boolean,
     val message : String,
-    @SerializedName("data")
-    val token : String
+    val data : ResponseAuthData
 )
 
 data class RequestSignInData(
     val userId : String,
     val password : String
+)
+
+data class ResponseAuthData(
+    val token : String,
+    val userIdx : Int
 )

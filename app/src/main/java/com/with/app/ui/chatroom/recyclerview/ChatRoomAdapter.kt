@@ -15,6 +15,7 @@ import com.with.app.ui.chatroom.recyclerview.viewholder.*
 import com.with.app.util.addSingleListener
 import com.with.app.util.isDiffDay
 import com.with.app.util.parseDate
+import com.with.app.util.toSpanned
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -79,19 +80,27 @@ class ChatRoomAdapter(private val context: Context, private val passData: Adapte
             chatVO.type = OTHER_CHAT
         if (chatVO.isInviteApply() && chatVO.isSameName(myId)) {
             chatVO.type = MY_INVITE
-            chatVO.msg = "${otherName}님과의\n동행을 신청하셨습니다."
+            var temp = chatVO.msg
+            temp = temp?.replace("동행 신청 메시지입니다.-", "")
+            chatVO.msg = "<font color=\"#311a80\"><b>${temp}<br>${otherName}</font></b>님과의<br>동행을 신청하셨습니다."
         }
         if (chatVO.isInviteApply() && chatVO.isOtherName(myId)) {
             chatVO.type = OTHER_INVITE
-            chatVO.msg = "${otherName}님이\n동행을 신청하셨습니다."
+            var temp = chatVO.msg
+            temp = temp?.replace("동행 신청 메시지입니다.-", "")
+            chatVO.msg = "<font color=\"#311a80\"><b>${temp}<br>${otherName}</font></b>님이<br>동행을 신청하셨습니다."
         }
         if (chatVO.isInviteComplete() && chatVO.isSameName(myId)) {
             chatVO.type = MY_INVITE
-            chatVO.msg = "${otherName}님이\n동행을 수락하셨습니다."
+            var temp = chatVO.msg
+            temp = temp?.replace("동행 성사 메시지입니다.-", "")
+            chatVO.msg = "<font color=\"#311a80\"><b>${temp}<br>${otherName}</font></b>님이<br>동행을 수락하셨습니다."
         }
         if (chatVO.isInviteComplete() && chatVO.isOtherName(myId)) {
             chatVO.type = OTHER_COMPLETE
-            chatVO.msg = "${otherName}님의\n동행을 수락하셨습니다."
+            var temp = chatVO.msg
+            temp = temp?.replace("동행 성사 메시지입니다.-", "")
+            chatVO.msg = "<font color=\"#311a80\"><b>${temp}<br>${otherName}</font></b>님의<br>동행을 수락하셨습니다."
         }
 
         if (data.isEmpty()) {

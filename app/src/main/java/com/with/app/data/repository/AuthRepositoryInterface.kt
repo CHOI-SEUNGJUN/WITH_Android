@@ -3,11 +3,11 @@ package com.with.app.data.repository
 import com.with.app.data.remote.ResponseSignInData
 import com.with.app.data.remote.RequestSignInData
 import com.with.app.data.remote.RequestSignUpData
+import com.with.app.data.remote.ResponseSignUpData
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.Header
-import retrofit2.http.Multipart
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface AuthRepositoryInterface {
 
@@ -24,9 +24,14 @@ interface AuthRepositoryInterface {
      * 회원가입
      */
     @Multipart
-    @POST("/auth/signup")
+    @POST("/Auth/signup")
     fun postSignUp(
-        @Body data : RequestSignUpData
-    ) : Call<ResponseSignInData>
+        @Part("userId") userId : RequestBody,
+        @Part("password") password : RequestBody,
+        @Part("name") name : RequestBody,
+        @Part("birth") birth : RequestBody,
+        @Part("gender") gender : RequestBody,
+        @Part img : MultipartBody.Part?
+    ) : Call<ResponseSignUpData>
 
 }

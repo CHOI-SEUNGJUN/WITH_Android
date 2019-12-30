@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.with.app.R
 import com.with.app.data.ChatVO
+import com.with.app.util.toSpanned
 import java.text.SimpleDateFormat
 
 class OtherCompleteViewHolder(view : View) : RecyclerView.ViewHolder(view) {
@@ -15,7 +16,7 @@ class OtherCompleteViewHolder(view : View) : RecyclerView.ViewHolder(view) {
     val date : TextView = view.findViewById(R.id.tv_date)
 
     fun bind(data : ChatVO, next : ChatVO, last : Boolean) {
-        msg.text = data.msg
+        msg.text = data.msg?.toSpanned()
         date.text = data.date?.substring(14)
 
         if (!last) {
