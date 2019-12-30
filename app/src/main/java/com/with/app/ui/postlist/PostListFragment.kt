@@ -60,6 +60,12 @@ class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        view.txt_country.setOnClickListener {
+            val intent = Intent(context, ChangeRegionActivity::class.java)
+            startActivity(intent)
+            //지역선택에서 값 받아서 txt_country 설정해야함
+        }
+
         //datePicker 시작
         view.txt_datePicker.setOnClickListener {
             val dialogView = layoutInflater.inflate(R.layout.date_picker, null)
