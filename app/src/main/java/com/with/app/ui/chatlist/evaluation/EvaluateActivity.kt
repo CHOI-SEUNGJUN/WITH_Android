@@ -61,13 +61,13 @@ class EvaluateActivity : AppCompatActivity() {
                         if(bottom_text == "위드하기") {
                         }
                         else if(eval_count == eval_count_total) {
-                            img_background.visibility = View.GONE
+                            img_close_button.visibility = View.GONE
                             tv_elevation_intro.setText("당신의 여행에\n더 멋진 동행이\n기다리고 있어요!")
                             btn_elevation_bottom.setText("위드하기")
                             btn_elevation_top.visibility = View.GONE
                         } else {
                             tv_elevation_intro.setText("당신의 여행에\n더 멋진 동행이\n기다리고 있어요!")
-                            img_background.visibility = View.GONE
+                            img_close_button.visibility = View.GONE
                             btn_elevation_top.setText("다른 동행은 어떠셨나요?")
                             btn_elevation_bottom.setText("위드하기")
                         }
@@ -94,7 +94,7 @@ class EvaluateActivity : AppCompatActivity() {
                             tv_elevation_intro.setText("앞으로도\n위드와 함께해요")
                             btn_elevation_bottom.setText("위드하기")
                             btn_elevation_top.visibility = View.GONE
-                            img_background.visibility = View.GONE
+                            img_close_button.visibility = View.GONE
 
                         } else {
                             if(top_text == "다른 동행은 어떠셨나요?") {
@@ -105,13 +105,13 @@ class EvaluateActivity : AppCompatActivity() {
                                 btn_elevation_top.setText("좋았어요")
                                 btn_elevation_bottom.setText("별로였어요")
                                 tv_elevation_count.setText(count_string)
-                                img_background.visibility = View.VISIBLE
+                                img_close_button.visibility = View.VISIBLE
                             }
                             else {
                                 tv_elevation_intro.setText("앞으로도\n위드와 함께해요")
                                 btn_elevation_top.setText("다른 동행은 어떠셨나요?")
                                 btn_elevation_bottom.setText("위드하기")
-                                img_background.visibility = View.GONE
+                                img_close_button.visibility = View.GONE
                             }
                         }
 
