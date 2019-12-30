@@ -3,6 +3,8 @@
     package="com.with.app">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".WithApplication"
@@ -13,8 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.chatlist.evaluation.EvaluateActivity"></activity>
-        <activity android:name=".ui.signin.SignInActivity"></activity>
+        <activity android:name=".ui.signup.SignUpActivity"></activity>
+        <activity android:name=".ui.chatlist.evaluation.EvaluateActivity" />
+        <activity android:name=".ui.signin.SignInActivity" />
         <activity android:name=".ui.posting.PostingActivity" />
         <activity android:name=".ui.postlist.ChangeRegionActivity" />
         <activity android:name=".ui.detailpost.DetailPostActivity" />

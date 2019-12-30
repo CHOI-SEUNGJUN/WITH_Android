@@ -149,26 +149,33 @@
                     android:id="@+id/rv_recent_bulletin"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="51dp"
                     android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="13dp"
+                    android:layout_marginBottom="62dp"
 
+                    app:layout_constraintBottom_toTopOf="@+id/vp_banner"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_recent_bulletin"
-                    app:layout_constraintBottom_toTopOf="@+id/vp_banner"/>
+                    app:layout_constraintTop_toBottomOf="@+id/tv_recent_bulletin" />
 
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/vp_banner"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="102dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginEnd="15dp"
+                    android:alwaysDrawnWithCache="false"
+                    android:backgroundTint="#FFFFFF"
+                    android:backgroundTintMode="src_in"
+                    android:fadingEdge="horizontal"
+                    android:fadingEdgeLength="0dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="0dp"
+                    android:splitMotionEvents="true"
                     app:layout_constraintBottom_toTopOf="@+id/tab_layout"
-                    tools:layout_editor_absoluteY="1303dp" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tab_layout"

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.with.app.R
 
 class RegionListViewHolder(view : View) : RecyclerView.ViewHolder(view) {
-    val img_region_profile : ImageView = view.findViewById(R.id.img_region_profile)
+    val img_region_profile : ImageView = view.findViewById(R.id.img_signup_profile)
     val tv_region_name : TextView = view.findViewById(R.id.tv_region_name)
 
     fun bind(region : RegionListItem) {
