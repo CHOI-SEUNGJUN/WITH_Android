@@ -1,12 +1,14 @@
 package com.with.app.ui.posting
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.CompoundButton
 import com.with.app.R
+import com.with.app.ui.detailpost.DetailPostActivity
 import com.with.app.util.toast
 import kotlinx.android.synthetic.main.activity_posting.*
 import kotlinx.android.synthetic.main.date_picker.view.*
@@ -30,6 +32,7 @@ class PostingActivity : AppCompatActivity() {
             }
         }
 
+        //게시글 수정
         if(intent.getIntExtra("mode",0)==1) {
 
             //수정에서 넘어왔을 때 게시글 수정 텍스트 변경, 삭제 버튼
@@ -42,6 +45,16 @@ class PostingActivity : AppCompatActivity() {
             isSwitchChecked = intent.getIntExtra("filter", 0)//동성필터 여부 받아오기
 
             btn_delete.visibility = View.VISIBLE
+            txt_category.text = "게시글 수정"
+            //btn_delete.setOnClickListener{} //서버에게 삭제 요청
+            btn_save.setOnClickListener {
+                val intent = Intent(this,DetailPostActivity::class.java)
+                startActivity(intent)
+            }//서버에게 수정저장 요청후 상세 게시글 액티비티로 전환
+        }
+
+        else {//게시글 작성
+            btn_save.setOnClickListener { }//서버에게 저장 요청
         }
 
         edt_date.setOnClickListener{
@@ -72,8 +85,5 @@ class PostingActivity : AppCompatActivity() {
             }
         }
 
-        btn_back.setOnClickListener {
-            finish()
-        }
     }
 }

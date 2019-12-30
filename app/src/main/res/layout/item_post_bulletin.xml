@@ -20,12 +20,14 @@
 
     <TextView
         android:id="@+id/txt_region"
-        android:layout_width="69dp"
+        android:layout_width="wrap_content"
         android:layout_height="17dp"
         android:layout_marginStart="22dp"
         android:layout_marginTop="22dp"
         android:background="@drawable/corner_primary_2dp"
         android:gravity="center"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
         android:text="남아프리카공화국"
         android:textColor="#ffffff"
         android:textSize="9sp"
