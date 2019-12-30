@@ -48,9 +48,9 @@ fun ChatVO.isOtherName(idx : Int): Boolean {
 }
 
 fun ChatVO.isInviteApply(): Boolean {
-    return this.isNotMessageButChat() && this.msg == "동행 신청 메시지입니다."
+    return this.isNotMessageButChat() && this.msg?.contains("동행 신청 메시지입니다.") ?: false
 }
 
 fun ChatVO.isInviteComplete(): Boolean {
-    return this.isNotMessageButChat() && this.msg == "동행 성사 메시지입니다."
+    return this.isNotMessageButChat() && this.msg?.contains("동행 성사 메시지입니다.") ?: false
 }

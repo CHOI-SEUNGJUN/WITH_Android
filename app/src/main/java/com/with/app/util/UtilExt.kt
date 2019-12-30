@@ -1,5 +1,8 @@
 package com.with.app.util
 
+import android.os.Build
+import android.text.Html
+import android.text.Spanned
 import com.google.firebase.database.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -43,4 +46,13 @@ fun DatabaseReference.addSingleListener(
             onDataChange(p0)
         }
     })
+}
+
+fun String.toSpanned() : Spanned {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        return Html.fromHtml(this, Html.FROM_HTML_MODE_LEGACY)
+    } else {
+        @Suppress("DEPRECATION")
+        return Html.fromHtml(this)
+    }
 }

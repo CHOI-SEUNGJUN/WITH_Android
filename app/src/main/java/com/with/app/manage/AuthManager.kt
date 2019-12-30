@@ -20,10 +20,20 @@ class AuthManager(context: Context) {
             }
         }
 
+    var idx: Int
+        get() {
+            return preferences.getInt(IDX_KEY, 0)
+        }
+        set(value) {
+            preferences.edit{
+                putInt(IDX_KEY, value)
+            }
+        }
+
     private companion object {
         const val AUTH_PREFERENCES = "auth"
-
         const val TOKEN_KEY = "token"
+        const val IDX_KEY = "idx"
     }
 }
 

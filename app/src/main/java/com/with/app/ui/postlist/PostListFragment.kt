@@ -85,8 +85,8 @@ class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
                         return@setOnClickListener
                     }
                     // SAVE와 동시에 LOAD시킴
-                    prefManager.startDate = "${start_datepicker.year}.{${start_datepicker.month+1}}.{${start_datepicker.dayOfMonth}"
-                    prefManager.endDate = "${end_datepicker.year}.{${end_datepicker.month+1}}.{${end_datepicker.dayOfMonth}"
+                    prefManager.startDate = "${start_datepicker.year}.${start_datepicker.month+1}.${start_datepicker.dayOfMonth}"
+                    prefManager.endDate = "${end_datepicker.year}.${end_datepicker.month+1}.${end_datepicker.dayOfMonth}"
                     this@PostListFragment.txt_datePicker.text = "${start_datepicker.saveLoad(1)} | ${end_datepicker.saveLoad(2)}"
                     dialog.cancel()
                 }
