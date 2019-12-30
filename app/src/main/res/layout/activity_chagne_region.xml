@@ -43,6 +43,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tl_region_tabbar"
-        android:background="@drawable/line_indicator"/>
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
