@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.with.app.R
 import com.with.app.ui.postlist.recyclerview.RegionListAdapter
 import com.with.app.ui.postlist.recyclerview.RegionListItem
+import kotlinx.android.synthetic.main.fragment_region_asia.*
 import kotlinx.android.synthetic.main.fragment_region_europe.*
+import kotlinx.android.synthetic.main.fragment_region_europe.rv_region_list
 
 /**
  * A simple [Fragment] subclass.
@@ -30,9 +32,24 @@ class RegionAsiaFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // defaultAllRegionList()
+
+      /*  // 전체 버튼 눌렀을 때
+        btn_asia_all.setOnClickListener{
+            makeRegionList(1)
+        }
+
+        // 서유럽 버튼 눌렀을 때
+        btn_asia_west_south.setOnClickListener {
+            makeRegionList(2)
+        }*/
+
+        // 동유럽
+
         makeRegionList()
 
     }
+
 
     companion object {
         private const val num = "num"
@@ -46,7 +63,17 @@ class RegionAsiaFragment : Fragment() {
         }
     }
 
+    // 처음에 디폴트로 실행되는 전체 리스트
+    private fun defaultAllRegionList(){
+
+        // 아시아 - all 리스트 받아오기(통신)
+    }
+
+
+    // 라디오 버튼 눌렀을 때 실행되는 리스트
     private fun makeRegionList() {
+
+
         regionListAdapter = RegionListAdapter(context!!)
 
         rv_region_list.adapter = regionListAdapter

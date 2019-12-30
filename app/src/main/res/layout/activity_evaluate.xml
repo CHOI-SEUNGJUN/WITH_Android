@@ -65,7 +65,7 @@
             app:srcCompat="@drawable/people_icon" />
 
         <ImageView
-            android:id="@+id/img_background"
+            android:id="@+id/img_close_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"

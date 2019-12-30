@@ -18,7 +18,6 @@
             android:layout_width="62dp"
             android:layout_height="40dp"
             android:background="#00FFFFFF"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/cl_region_tabbar"
             app:layout_constraintTop_toTopOf="@+id/cl_region_tabbar">
 
@@ -45,11 +44,21 @@
                 android:layout_height="3dp"
                 android:layout_marginTop="7dp"
                 android:layout_weight="1"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="@+id/tv_region_tabbar_idx0"
                 app:layout_constraintStart_toStartOf="@+id/tv_region_tabbar_idx0"
                 app:layout_constraintTop_toBottomOf="@+id/tv_region_tabbar_idx0"
                 app:srcCompat="@drawable/continent_box_2" />
+
+            <ImageView
+                android:id="@+id/ind_line_0"
+                android:layout_width="62dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_region_tabbar_idx0"
+                app:srcCompat="@drawable/line_indicator" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -87,6 +96,16 @@
                 app:layout_constraintStart_toStartOf="@+id/tv_region_tabbar_idx1"
                 app:layout_constraintTop_toBottomOf="@+id/tv_region_tabbar_idx1"
                 app:srcCompat="@drawable/continent_box_3" />
+
+            <ImageView
+                android:id="@+id/ind_line_1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_region_tabbar_idx1"
+                app:srcCompat="@drawable/line_indicator" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -124,6 +143,16 @@
                 app:layout_constraintStart_toStartOf="@+id/tv_region_tabbar_idx2"
                 app:layout_constraintTop_toBottomOf="@+id/tv_region_tabbar_idx2"
                 app:srcCompat="@drawable/continent_box_5" />
+
+            <ImageView
+                android:id="@+id/ind_line_2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_region_tabbar_idx2"
+                app:srcCompat="@drawable/line_indicator" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -160,6 +189,16 @@
                 app:layout_constraintStart_toStartOf="@+id/tv_region_tabbar_idx3"
                 app:layout_constraintTop_toBottomOf="@+id/tv_region_tabbar_idx3"
                 app:srcCompat="@drawable/continent_box_5" />
+
+            <ImageView
+                android:id="@+id/ind_line_3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_region_tabbar_idx3"
+                app:srcCompat="@drawable/line_indicator" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -198,6 +237,16 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_region_tabbar_idx4"
                 app:srcCompat="@drawable/continent_box_5" />
 
+            <ImageView
+                android:id="@+id/ind_line_4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_region_tabbar_idx4"
+                app:srcCompat="@drawable/line_indicator" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -234,6 +283,16 @@
                 app:layout_constraintStart_toStartOf="@+id/tv_region_tabbar_idx5"
                 app:layout_constraintTop_toBottomOf="@+id/tv_region_tabbar_idx5"
                 app:srcCompat="@drawable/continent_box_4" />
+
+            <ImageView
+                android:id="@+id/ind_line_5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_region_tabbar_idx5"
+                app:srcCompat="@drawable/line_indicator" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -241,7 +300,6 @@
             android:layout_width="62dp"
             android:layout_height="40dp"
             android:background="#00FFFFFF"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/cl_region_tabbar"
             app:layout_constraintTop_toTopOf="@+id/cl_region_tabbar">
 
@@ -273,6 +331,16 @@
                 app:layout_constraintStart_toStartOf="@+id/tv_region_tabbar_idx6"
                 app:layout_constraintTop_toBottomOf="@+id/tv_region_tabbar_idx6"
                 app:srcCompat="@drawable/continent_box_2" />
+
+            <ImageView
+                android:id="@+id/ind_line_6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_region_tabbar_idx6"
+                app:srcCompat="@drawable/line_indicator" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </HorizontalScrollView>

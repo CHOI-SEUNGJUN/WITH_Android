@@ -34,6 +34,10 @@ class EvaluateActivity : AppCompatActivity() {
         tv_elevation_intro.setText("$name" + "님과의\n동행은 어떠셨나요?")
         tv_elevation_count_total.setText("$eval_count_total")
 
+        img_close_button.setOnClickListener{
+            finish()
+        }
+
 
         btn_elevation_bottom.setOnTouchListener(object : View.OnTouchListener {
             override fun onTouch(v: View?, event: MotionEvent?): Boolean {
@@ -47,7 +51,7 @@ class EvaluateActivity : AppCompatActivity() {
                         if(bottom_text == "위드하기") {
                             val intent = Intent(this@EvaluateActivity, ChangeRegionActivity::class.java)
                             startActivity(intent)
-
+                            finish()
                         }
 
                     }
@@ -67,7 +71,6 @@ class EvaluateActivity : AppCompatActivity() {
                             btn_elevation_top.setText("다른 동행은 어떠셨나요?")
                             btn_elevation_bottom.setText("위드하기")
                         }
-
                     }
                 }
                 return false
