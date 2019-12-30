@@ -1,4 +1,4 @@
-package com.with.app.auth
+package com.with.app.manage
 
 import android.content.Context
 import androidx.core.content.edit

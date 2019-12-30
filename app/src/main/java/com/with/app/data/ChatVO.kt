@@ -2,9 +2,8 @@ package com.with.app.data
 
 data class ChatVO (
     var type : Int = 0,
-    var name : String? = null,
     var msg : String? = null,
-    var userId : String? = null,
+    var userIdx : Int = 0,
     var date : String? = null
 )
 
@@ -33,25 +32,25 @@ fun ChatVO.isOtherChat(): Boolean {
 }
 
 fun ChatVO.isSameName(vo: ChatVO): Boolean {
-    return this.userId == vo.userId
+    return this.userIdx == vo.userIdx
 }
 
 fun ChatVO.isOtherName(vo: ChatVO): Boolean {
     return !this.isSameName(vo)
 }
 
-fun ChatVO.isSameName(id : String): Boolean {
-    return this.userId == id
+fun ChatVO.isSameName(idx : Int): Boolean {
+    return this.userIdx == idx
 }
 
-fun ChatVO.isOtherName(id : String): Boolean {
-    return !this.isSameName(id)
+fun ChatVO.isOtherName(idx : Int): Boolean {
+    return !this.isSameName(idx)
 }
 
 fun ChatVO.isInviteApply(): Boolean {
-    return this.isNotMessageButChat() && this.msg == "신청"
+    return this.isNotMessageButChat() && this.msg == "동행 신청 메시지입니다."
 }
 
 fun ChatVO.isInviteComplete(): Boolean {
-    return this.isNotMessageButChat() && this.msg == "완료"
+    return this.isNotMessageButChat() && this.msg == "동행 성사 메시지입니다."
 }

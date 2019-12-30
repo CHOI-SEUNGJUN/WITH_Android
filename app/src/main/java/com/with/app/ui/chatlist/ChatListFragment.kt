@@ -1,23 +1,34 @@
 package com.with.app.ui.chatlist
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 import com.with.app.R
 import com.with.app.data.ChatListVO
+import com.with.app.data.ChatUserVO
 import com.with.app.ui.chatlist.recylcerview.ChatListAdapter
+import com.with.app.util.addListener
 import kotlinx.android.synthetic.main.fragment_chat_list.*
 
 class ChatListFragment : Fragment() {
 
+    private var myIdx = 1
+
+    private var value : ChatUserVO = ChatUserVO()
+
     private lateinit var data : MutableList<ChatListVO>
     private lateinit var adapter : ChatListAdapter
     private lateinit var lm : LinearLayoutManager
+    private lateinit var reference : DatabaseReference
+    private lateinit var usersReference : DatabaseReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +44,11 @@ class ChatListFragment : Fragment() {
     }
 
     private fun init() {
-        dummy()
+        reference = FirebaseDatabase.getInstance().reference
+        usersReference = reference.child("users")
+
+        data = mutableListOf()
+        fireBaseChatListener()
         adapter = ChatListAdapter(data)
         lm = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         rv_chat_list.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
@@ -41,20 +56,26 @@ class ChatListFragment : Fragment() {
         rv_chat_list.adapter = adapter
     }
 
-    private fun dummy() {
-        data = mutableListOf(
-            ChatListVO(" ", "김은별", "부다페스트 맥주마실까?", " ", "너무춥다ㅠㅠ", "09:26", 0),
-            ChatListVO(" ", "최승준", "프랑스 맥주마실까?", " ", "너무춥다ㅠㅠ", "09:25", 102),
-            ChatListVO(" ", "김루희", "런던에서 맥주마실까?", " ", "너무춥다ㅠㅠ", "09:24", 99),
-            ChatListVO(" ", "조현아", "한강에서 소주마실까?", " ", "너무춥다ㅠㅠ", "09:23", 44),
-            ChatListVO(" ", "석영현", "그냥 놀아", " ", "너무춥다ㅠㅠ", "09:22", 6),
-            ChatListVO(" ", "현환희", "부다페스트 맥주마실까?", " ", "너무춥다ㅠㅠ", "09:21", 3),
-            ChatListVO(" ", "김민준", "부다페스트 맥주마실까?", " ", "너무춥다ㅠㅠ", "09:20", 0),
-            ChatListVO(" ", "김미정", "부다페스트 맥주마실까?", " ", "너무춥다ㅠㅠ", "09:19", 0),
-            ChatListVO(" ", "김남수", "부다페스트 맥주마실까?", " ", "너무춥다ㅠㅠ", "09:18", 0),
-            ChatListVO(" ", "권준", "부다페스트 맥주마실까?", " ", "너무춥다ㅠㅠ", "09:00", 0),
-            ChatListVO(" ", "권준", "부다페스트 맥주마실까?", " ", "너무춥다ㅠㅠ", "09:00", 0),
-            ChatListVO(" ", "권", "부다페스트 맥주마실까?", " ", "너무춥다ㅠㅠ", "09:00", 25)
+    private fun fireBaseChatListener() {
+        usersReference.child("$myIdx").addListener(
+            onChildAdded = {
+                    snap, _ ->
+                value = snap.getValue(ChatUserVO::class.java)!!
+                data.add(ChatListVO(snap.key," ","김남수","맥주마실까요?"," ", value))
+                adapter.notifyDataSetChanged()
+            },
+            onChildChanged = {
+                snap, _ ->
+                value = snap.getValue(ChatUserVO::class.java)!!
+                for ( item in data ) {
+                }
+                data.filter {
+                    it.chatRoomId == snap.key
+                }.forEach{
+                    it.response = value
+                }
+                adapter.notifyDataSetChanged()
+            }
         )
     }
 }

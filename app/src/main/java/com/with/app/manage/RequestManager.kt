@@ -1,8 +1,8 @@
-package com.with.app.auth
+package com.with.app.manage
 
 import android.content.Context
 import com.with.app.data.remote.RequestSignInData
-import com.with.app.repository.AuthRepositoryInterface
+import com.with.app.data.repository.AuthRepositoryInterface
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

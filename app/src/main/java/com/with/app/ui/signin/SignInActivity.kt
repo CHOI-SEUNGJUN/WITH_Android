@@ -3,7 +3,7 @@ package com.with.app.ui.signin
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.with.app.R
-import com.with.app.auth.RequestManager
+import com.with.app.manage.RequestManager
 import com.with.app.data.remote.RequestSignInData
 import com.with.app.util.safeEnqueue
 import kotlinx.android.synthetic.main.activity_sign_in.*

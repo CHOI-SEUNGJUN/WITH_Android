@@ -23,14 +23,14 @@ class ChatListViewHolder(view : View) : RecyclerView.ViewHolder(view) {
     fun bind(data : ChatListVO) {
         tv_name.text = data.name
         tv_title.text = data.title
-        tv_message.text = data.message
-        tv_date.text = data.date
-        if (data.remain == 0) {
+        tv_message.text = data.response.lastMessage
+        tv_date.text = data.response.lastTime
+        if (data.response.unSeenCount <= 0) {
             tv_chat_remain.visibility = View.GONE
-        } else if (data.remain > 99 ){
+        } else if (data.response.unSeenCount > 99 ){
             tv_chat_remain.text = "99+"
         } else {
-            tv_chat_remain.text = data.remain.toString()
+            tv_chat_remain.text = data.response.unSeenCount.toString()
         }
 
         itemView.setOnClickListener {

@@ -1,15 +1,28 @@
 package com.with.app.ui.chatroom.recyclerview
 
+import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.with.app.R
 import com.with.app.data.*
 import com.with.app.ui.chatroom.recyclerview.viewholder.*
+import com.with.app.util.addSingleListener
 import com.with.app.util.isDiffDay
 import com.with.app.util.parseDate
+import java.text.SimpleDateFormat
+import java.util.*
 
-class ChatRoomAdapter(private val myId: String, private val otherName: String, private val otherProfile: String) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ChatRoomAdapter(private val context: Context, private val passData: AdapterPassData) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private var myId = passData.myIdx
+    private var otherName = passData.otherName
+
+    private var inviteCheckPosition = -1
 
     private var data : MutableList<ChatVO> = mutableListOf()
         set(value) {
@@ -72,16 +85,19 @@ class ChatRoomAdapter(private val myId: String, private val otherName: String, p
             chatVO.msg = "${otherName}님이\n동행을 신청하셨습니다."
         }
         if (chatVO.isInviteComplete() && chatVO.isSameName(myId)) {
-            chatVO.type = OTHER_COMPLETE
+            chatVO.type = MY_INVITE
             chatVO.msg = "${otherName}님이\n동행을 수락하셨습니다."
         }
         if (chatVO.isInviteComplete() && chatVO.isOtherName(myId)) {
-            chatVO.type = MY_INVITE
+            chatVO.type = OTHER_COMPLETE
             chatVO.msg = "${otherName}님의\n동행을 수락하셨습니다."
         }
 
         if (data.isEmpty()) {
             data.add(chatVO.copy(type = DATE))
+            if(chatVO.isOtherName(myId)) {
+                data.add(chatVO.copy(type = OTHER_PROFILE))
+            }
             data.add(chatVO)
             notifyDataSetChanged()
         } else {
@@ -95,7 +111,6 @@ class ChatRoomAdapter(private val myId: String, private val otherName: String, p
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-
         lateinit var viewHolder : RecyclerView.ViewHolder
 
         return when (viewType) {
@@ -179,11 +194,58 @@ class ChatRoomAdapter(private val myId: String, private val otherName: String, p
                 }            }
             is OtherInviteViewHolder -> {
                 holder.setIsRecyclable(false)
-                if (position == data.size-1) {
-                    holder.bind(data[position], data[position], true, myId)
-                } else {
-                    holder.bind(data[position], data[position+1], false, myId)
-                }            }
+                if (position != data.size-1) {
+                    if (data[position+1].isOtherChat()) {
+                        val pattern = SimpleDateFormat("yyyy년 MM월 dd일 HH:mm")
+                        val now_date = pattern.parse(data[position].date)
+                        val next_date = pattern.parse(data[position+1].date)
+                        val diffs = (next_date.time - now_date.time) / (60 * 1000) // minutes 단위
+
+                        if (diffs.toString() == "0") {
+                            holder.date.visibility = View.GONE
+                        }
+                    }
+                }
+
+                holder.msg.text = data[position].msg
+                holder.date.text = data[position].date?.substring(13)
+
+                val references : DatabaseReference = FirebaseDatabase.getInstance().reference
+                val chatReference : DatabaseReference = references.child("conversations").child(passData.chatRoomId!!)
+                val usersReference : DatabaseReference = references.child("users")
+                var value : ChatUserVO = ChatUserVO()
+
+                usersReference.child("${passData.otherIdx}/${passData.chatRoomId}").addSingleListener(
+                    onDataChange = {
+                            snap ->
+                        value = snap.getValue(ChatUserVO::class.java)!!
+                    }
+                )
+                holder.accept.setOnClickListener {
+                    val now = Calendar.getInstance().time
+                    val pattern = SimpleDateFormat("yyyy년 MM월 dd일 HH:mm")
+                    val nowDate = pattern.format(now)
+                    val vo = ChatVO(MY_INVITE, "동행 성사 메시지입니다.", passData.myIdx, nowDate)
+
+                    value.lastMessage = "동행 성사 메시지입니다."
+                    value.lastTime = nowDate
+
+                    chatReference.push().setValue(vo)
+                    usersReference.child("${passData.myIdx}").child("${passData.chatRoomId}").setValue(value)
+                    value.unSeenCount++
+                    usersReference.child("${passData.otherIdx}").child("${passData.chatRoomId}").setValue(value)
+
+                    inviteCheckPosition = position
+                    notifyDataSetChanged()
+                }
+
+                if (inviteCheckPosition == position){
+                    holder.accept.setBackgroundResource(R.drawable.corner_cloudyblue_6dp)
+                    holder.accept.setBackgroundColor(R.drawable.corner_cloudyblue_6dp)
+                    holder.accept.isClickable = false
+                }
+
+            }
             is OtherCompleteViewHolder -> {
                 holder.setIsRecyclable(false)
                 if (position == data.size-1) {
@@ -194,7 +256,7 @@ class ChatRoomAdapter(private val myId: String, private val otherName: String, p
             }
             is OtherProfileViewHolder -> {
                 holder.setIsRecyclable(false)
-                holder.bind(data[position])
+                holder.bind(passData.otherName, passData.otherProfile)
             }
             is DateViewHolder -> {
                 holder.setIsRecyclable(false)
