@@ -1,9 +1,6 @@
 package com.with.app.util
 
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -33,5 +30,17 @@ fun DatabaseReference.addListener(
         override fun onChildAdded(p0: DataSnapshot, p1: String?) { onChildAdded(p0, p1) }
 
         override fun onChildRemoved(p0: DataSnapshot) { onChildRemoved(p0) }
+    })
+}
+
+fun DatabaseReference.addSingleListener(
+    onCancelled : (DatabaseError) -> Unit = {},
+    onDataChange : (DataSnapshot) -> Unit = {}
+) {
+    this.addListenerForSingleValueEvent(object : ValueEventListener {
+        override fun onCancelled(p0: DatabaseError) { onCancelled(p0) }
+        override fun onDataChange(p0: DataSnapshot) {
+            onDataChange(p0)
+        }
     })
 }

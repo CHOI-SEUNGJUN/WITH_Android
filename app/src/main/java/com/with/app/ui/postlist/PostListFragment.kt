@@ -3,7 +3,6 @@ package com.with.app.ui.postlist
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,17 +17,13 @@ import com.with.app.data.PostItem
 import com.with.app.ui.chatlist.evaluation.EvaluateActivity
 import com.with.app.ui.posting.PostingActivity
 import com.with.app.ui.postlist.recylcerview.PostListAdapter
-import com.with.app.util.PrefManager
-import com.with.app.util.isDiffDay
-import com.with.app.util.parseDate
+import com.with.app.manage.PrefManager
 import com.with.app.util.toast
-import kotlinx.android.synthetic.main.date_picker.*
 import kotlinx.android.synthetic.main.date_picker.view.*
 import kotlinx.android.synthetic.main.fragment_post_list.*
 import kotlinx.android.synthetic.main.fragment_post_list.view.*
 import org.koin.android.ext.android.inject
 import java.text.SimpleDateFormat
-import java.util.*
 
 
 class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{

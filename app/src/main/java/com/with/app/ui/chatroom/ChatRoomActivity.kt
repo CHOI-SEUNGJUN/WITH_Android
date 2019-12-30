@@ -5,11 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.*
 import com.with.app.R
+import com.with.app.data.AdapterPassData
 import com.with.app.data.ChatVO
+import com.with.app.data.ChatUserVO
 import com.with.app.ui.chatroom.recyclerview.ChatRoomAdapter
 import com.with.app.ui.chatroom.recyclerview.ChatRoomAdapter.Companion.MY_CHAT
 import com.with.app.ui.chatroom.recyclerview.ChatRoomAdapter.Companion.MY_INVITE
 import com.with.app.util.addListener
+import com.with.app.util.addSingleListener
 import kotlinx.android.synthetic.main.activity_chat_room.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -19,17 +22,28 @@ class ChatRoomActivity : AppCompatActivity() {
     private lateinit var lm : LinearLayoutManager
     private lateinit var adapter : ChatRoomAdapter
 
+    private var value : ChatUserVO = ChatUserVO()
+    private var tempValue : ChatUserVO = ChatUserVO()
+    private var passData : AdapterPassData = AdapterPassData()
+
+    private var unSeenCount : Int = 0
+
     // AuthManager에서 받아와야함
-    private var myId = "with"
+    private var myIdx = 1
     // 서버에서 받아와야함
-    private var otherId = "withme"
-    private var otherName = "김은별"
+    private var boardIdx : Int = 0
+    private var otherIdx = 3
+    private var otherName = "김남수"
     private var otherProfile = " "
-    // 채팅하기 버튼 눌렀을때 받아와야함(처음에만)
-    private var posterId = " "
-    private var senderId = " "
+    // 채팅하기 눌렀을때 불러와야함
+    private var posterIdx = 1
+    private var senderIdx = 3
+
+    private val chatRoomId = "${posterIdx}_${senderIdx}"
 
     private lateinit var reference : DatabaseReference
+    private lateinit var chatReference : DatabaseReference
+    private lateinit var usersReference : DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,32 +52,52 @@ class ChatRoomActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        reference = FirebaseDatabase.getInstance().getReference("conversations").child("chat01")
+        reference = FirebaseDatabase.getInstance().reference
+        chatReference = reference.child("conversations").child(chatRoomId)
+        usersReference = reference.child("users")
+
+        fireBaseChatListener()
+        setBarData()
+        sendMessage()
+        inviteMessage()
+
+        passData = AdapterPassData(myIdx, otherIdx, otherName, otherProfile, chatRoomId, boardIdx)
 
         lm = LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL, false)
-        adapter = ChatRoomAdapter(myId, otherName, otherProfile)
+        adapter = ChatRoomAdapter(applicationContext, passData)
         rv_chat.layoutManager = lm
         rv_chat.adapter = adapter
         rv_chat.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
             rv_chat.scrollToPosition(rv_chat.adapter!!.itemCount - 1)
         } // Keyboard가 레이아웃 가리는 부분을 Recyclerview의 스크롤 위치를 조정시킴
 
-        //adapter.setMessagesWithNotify(dummy())
         rv_chat.scrollToPosition(rv_chat.adapter!!.itemCount - 1) // 첫 접속시 리싸이클러뷰가 상단에 올라가기 때문.
-        chat()
-        sendMessage()
-        invite()
     }
 
-    private fun invite() {
+    private fun setBarData() {
+        tv_name.text = otherName
+        value.boardIdx = boardIdx
+        tempValue.boardIdx = boardIdx
+    }
+
+    private fun inviteMessage() {
         btn_invite.setOnClickListener {
             val now = Calendar.getInstance().time
             val pattern = SimpleDateFormat("yyyy년 MM월 dd일 HH:mm")
             val nowDate = pattern.format(now)
-            val chatVO = ChatVO(MY_INVITE, "김은별", "신청", myId, nowDate)
+            val chatVO = ChatVO(MY_INVITE,  "동행 신청 메시지입니다.", myIdx, nowDate)
 
-            reference.push().setValue(chatVO)
-            rv_chat.scrollToPosition(rv_chat.adapter!!.itemCount - 1) // 아이템을 추가시켰으니 다시 스크롤 조
+            value.lastMessage = "동행 신청 메시지입니다."
+            tempValue.lastMessage = "동행 신청 메시지입니다."
+            value.lastTime = nowDate
+            tempValue.lastTime = nowDate
+
+            chatReference.push().setValue(chatVO)
+            usersReference.child("$myIdx").child(chatRoomId).setValue(value)
+            value.unSeenCount++
+            usersReference.child("$otherIdx").child(chatRoomId).setValue(value)
+
+            rv_chat.scrollToPosition(rv_chat.adapter!!.itemCount - 1) // 아이템을 추가시켰으니 다시 스크롤
         }
     }
 
@@ -75,40 +109,50 @@ class ChatRoomActivity : AppCompatActivity() {
             val now = Calendar.getInstance().time
             val pattern = SimpleDateFormat("yyyy년 MM월 dd일 HH:mm")
             val nowDate = pattern.format(now)
-            val chatVO = ChatVO(MY_CHAT, "김은별", edt_chat.text.toString(), myId, nowDate)
+            val chatVO = ChatVO(MY_CHAT, edt_chat.text.toString(), myIdx, nowDate)
 
-            reference.push().setValue(chatVO)
+            value.lastMessage = edt_chat.text.toString()
+            tempValue.lastMessage = edt_chat.text.toString()
+            value.lastTime = nowDate
+            tempValue.lastTime = nowDate
 
+            chatReference.push().setValue(chatVO)
+            usersReference.child("$myIdx").child(chatRoomId).setValue(value)
+            value.unSeenCount++
+            usersReference.child("$otherIdx").child(chatRoomId).setValue(value)
 
-            // adapter.addMessageWithNotify(ChatVO(MY_CHAT, "나", edt_chat.text.toString(), "", nowDate, ""))
             edt_chat.setText("")
             rv_chat.scrollToPosition(rv_chat.adapter!!.itemCount - 1) // 아이템을 추가시켰으니 다시 스크롤 조
         }
     }
 
-    private fun chat() {
-        reference.addListener(
+    private fun fireBaseChatListener() {
+        chatReference.addListener(
             onChildAdded = {
                     snap, _ ->
                 adapter.addMessageWithNotify(snap.getValue(ChatVO::class.java)!!)
                 rv_chat.scrollToPosition(rv_chat.adapter!!.itemCount - 1)
             }
         )
+
+        usersReference.child("$otherIdx/$chatRoomId").addSingleListener(
+            onDataChange = {
+                    snap ->
+                value = snap.getValue(ChatUserVO::class.java)!!
+                tempValue = snap.getValue(ChatUserVO::class.java)!!
+            }
+        )
     }
 
-    /*private fun dummy(): MutableList<ChatVO> {
-        // type, name, msg, userid, date, profile
-        return mutableListOf(
-            ChatVO(OTHER_CHAT, "김은별", "안녕하세요. 맥주 맛있나요?", "", "2019년 12월 24일 21:10", ""),
-            ChatVO(OTHER_CHAT, "김은별", "설거지 잘하는데요?", "", "2019년 12월 25일 21:12", ""),
-            ChatVO(OTHER_CHAT, "김은별", "ㅡ", "", "2019년 12월 25일 21:12", ""),
-            ChatVO(OTHER_CHAT, "김은별", "ㅡ대답좀요", "", "2019년 12월 25일 21:13", ""),
-            ChatVO(MY_CHAT, "나", "네 대답할게요;", "", "2019년 12월 25일 21:14", ""),
-            ChatVO(MY_CHAT, "나", "설거지 잘하세요?", "", "2019년 12월 25일 21:14", ""),
-            ChatVO(MY_CHAT, "나", "ㅈ박해ㅔㅂ잗헤ㅐㅂ잗해ㅔㅂ잗헤ㅐㅏㅇ네ㅐㄷ합ㅈ데ㅐ하데잽하ㅐㅔㅈㄷㅂ하ㅔㅐㅂㅈ다ㅐ헵잗ㅎㅂ잗해ㅔ자해ㅔㅈ받해ㅔㅂ자데ㅐ하ㅐㅔㅇㄴ마페ㅐ~~~~~~긴거테스트;", "", "2019년 12월 25일 21:15", ""),
-            ChatVO(MY_CHAT, "나", "메시지 보낼게요", "", "2019년 12월 25일 21:15", ""),
-            ChatVO(MY_INVITE, "나", "은별님과의 동행을 신청하셨습니다.", "", "2019년 12월 25일 21:15", ""),
-            ChatVO(OTHER_COMPLETE, "김은별", "은별님이 동행을 수락하셨습니다.", "", "2019년 12월 25일 21:18", "")
-        )
-    }*/
+    override fun onPause() {
+        super.onPause()
+        tempValue.unSeenCount = 0
+        usersReference.child("$myIdx").child(chatRoomId).setValue(tempValue)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        tempValue.unSeenCount = 0
+        usersReference.child("$myIdx").child(chatRoomId).setValue(tempValue)
+    }
 }

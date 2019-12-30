@@ -26,7 +26,7 @@ class MyInviteViewHolder(view : View) : RecyclerView.ViewHolder(view) {
                 val next_date = pattern.parse(next.date)
                 val diffs = (next_date.time - now_date.time) / (60 * 1000) // minutes 단위
 
-                if (diffs.toString().equals("0")) {
+                if (diffs.toString() == "0") {
                     date.visibility = View.GONE
                 }
             }
