@@ -18,6 +18,7 @@ import com.with.app.ui.chatlist.evaluation.EvaluateActivity
 import com.with.app.ui.posting.PostingActivity
 import com.with.app.ui.postlist.recylcerview.PostListAdapter
 import com.with.app.manage.PrefManager
+import com.with.app.ui.signup.SignUpActivity
 import com.with.app.util.toast
 import kotlinx.android.synthetic.main.date_picker.view.*
 import kotlinx.android.synthetic.main.fragment_post_list.*
@@ -104,7 +105,7 @@ class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
         super.onActivityCreated(savedInstanceState)
 
         edt_search.setOnClickListener {
-            val intent = Intent(activity, EvaluateActivity::class.java)
+            val intent = Intent(activity, SignUpActivity::class.java)
 
             startActivity(intent)
         }

@@ -7,11 +7,11 @@
 
     <ImageView
         android:id="@+id/img_banner"
-        android:layout_width="339dp"
+        android:layout_width="309dp"
         android:layout_height="102dp"
+        android:background="@drawable/corner_sub_6dp"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/corner_primary_6dp"
         app:srcCompat="@drawable/dog" />
 </androidx.constraintlayout.widget.ConstraintLayout>
