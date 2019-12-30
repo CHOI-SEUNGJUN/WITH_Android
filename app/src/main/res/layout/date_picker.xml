@@ -37,8 +37,6 @@
         android:layout_gravity="center_horizontal"
         android:calendarViewShown="false"
         android:datePickerMode="spinner"
-        android:scaleX="0.80"
-        android:scaleY="0.80"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,8 +60,6 @@
         android:layout_gravity="center_horizontal"
         android:calendarViewShown="false"
         android:datePickerMode="spinner"
-        android:scaleX="0.80"
-        android:scaleY="0.80"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -86,7 +82,6 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.266"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/end_datepicker" />
 
