@@ -2,7 +2,6 @@ package com.with.app.manage
 
 import android.content.Context
 import com.with.app.data.remote.RequestSignInData
-import com.with.app.data.remote.RequestSignUpData
 import com.with.app.data.repository.AuthRepositoryInterface
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
