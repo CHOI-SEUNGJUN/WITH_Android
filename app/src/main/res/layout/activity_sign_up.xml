@@ -13,53 +13,77 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_toolbar"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_signup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="회원가입"
+                android:textColor="@color/colorBlack"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/btn_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="18dp"
+                android:backgroundTint="@android:color/transparent"
+                android:padding="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/cancel_btn" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_signup_profile"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginTop="100dp"
-            android:src="@drawable/mate_profile"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/btn_login_profile"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/img_gallery"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="6dp"
-            app:layout_constraintBottom_toBottomOf="@+id/img_signup_profile"
-            app:layout_constraintEnd_toEndOf="@+id/img_signup_profile"
-            app:srcCompat="@drawable/btn_login_edit_photo" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_profile_desc" />
 
         <TextView
             android:id="@+id/tv_profile_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:text="본인의 얼굴을 등록해주세요"
-            android:textColor="@color/colorBlack"
-            android:textSize="20sp"
+            android:layout_marginTop="30dp"
+            android:lineSpacingExtra="7sp"
+            android:text="본인의 얼굴 사진을 등록해주세요"
+            android:textColor="#a8a8a8"
+            android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_signup_profile" />
+            app:layout_constraintTop_toBottomOf="@+id/cl_toolbar" />
 
         <EditText
             android:id="@+id/edt_email"
             android:layout_width="320dp"
             android:layout_height="48dp"
-            android:layout_marginTop="40dp"
             android:ems="10"
             android:hint="e-mail"
             android:inputType="textPersonName"
             android:text="e-mail"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_profile_desc" />
+            tools:layout_editor_absoluteY="293dp" />
 
         <TextView
             android:id="@+id/tv_email"
@@ -165,10 +189,20 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:text="Button"
-            app:layout_constraintTop_toBottomOf="@id/radioGroup"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/radioGroup"
             tools:layout_editor_absoluteX="298dp" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="34dp"
+            android:text="TextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_signup_profile" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
