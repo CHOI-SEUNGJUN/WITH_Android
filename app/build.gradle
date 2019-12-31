@@ -65,6 +65,9 @@ dependencies {
 // Koin AndroidX Experimental features
     implementation "org.koin:koin-androidx-ext:$koin_version"
 
+    implementation 'com.afollestad.material-dialogs:core:3.1.1'
+
+
 }
 
 apply plugin: 'com.google.gms.google-services'
