@@ -9,13 +9,14 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Parcelable
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import com.bumptech.glide.Glide
 import com.with.app.R
 import com.with.app.manage.RequestManager
-import com.with.app.manage.authModule
 import com.with.app.util.safeEnqueue
 import com.with.app.util.toast
 import kotlinx.android.synthetic.main.activity_sign_up.*
@@ -30,24 +31,210 @@ import java.io.InputStream
 
 class SignUpActivity : AppCompatActivity() {
 
-    private val requestManager : RequestManager by inject()
+    private val requestManager: RequestManager by inject()
 
     private val OPEN_GALLERY = 100
-    lateinit var data : Uri
+    lateinit var data: Uri
     var imageUri: Uri? = null
     private var profileImg: MultipartBody.Part? = null
+
+    private var validate = false
+    private var b_id = false
+    private var b_pw = false
+    private var b_pwck = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
-        button.setOnClickListener {
+        signup() // 회원가입 유효성 조건문 & 서버 요청
+        validate() // 아이디 중복체크
+        textWatcher() // TextWatcher : ID, PW, PW_CK
+
+
+        img_signup_profile.setOnClickListener {
+            changeImage()
+        }
+
+        img_gallery.setOnClickListener {
+            changeImage()
+        }
+
+    }
+
+    private fun validate() {
+        edt_signup_password.setOnClickListener {
+            var userID = edt_signup_email.text.toString()
+
+            // 빈칸 체크
+            if (userID.isEmpty()) {
+                tv_email_warning.setText("아이디를 입력해주세요")
+                tv_email_warning.visibility = View.VISIBLE
+                return@setOnClickListener
+            }
+            // 중복 체크
+        }
+    }
+
+    private fun textWatcher() {
+
+        // ID WATCHER
+        edt_signup_email.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if ( edt_signup_email.text.toString().contains(Regex("^[ㄱ-ㅎㅏ-ㅣ가-힣\\s]"))) {
+                    tv_email_warning.setText("이메일 형식이 올바르지 않습니다")
+                    tv_email_warning.visibility = View.VISIBLE
+                    b_id = false
+                }
+                 else {
+                    b_id = true
+                    tv_email_warning.visibility = View.INVISIBLE
+                }
+
+            }
+        })
+
+        edt_signup_password.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                //최소 6글자 / 영문, 숫자 혼합
+                if (edt_signup_password.text.toString().contains(Regex("^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z[0-9]]{6,100}\$"))) {
+                    tv_password_warning.visibility = View.INVISIBLE
+                    b_pw = true
+                } else {
+                    tv_password_warning.visibility = View.VISIBLE
+                    b_pw = false
+                }
+
+                // Confirm 재확인 (중간에 바꿀 경우 대비)
+                if (!edt_pw_check.text.toString().isEmpty()) {
+                    if (edt_pw_check.text.toString().contentEquals(edt_signup_password.text.toString())) {
+                        tv_pw_check_warning.visibility = View.INVISIBLE
+                        b_pwck = true
+                    } else {
+                        tv_pw_check_warning.visibility = View.VISIBLE
+                        b_pwck = false
+                    }
+                }
+            }
+        })
+
+        // Password Confirm WATCHER
+        edt_pw_check.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (!edt_pw_check.text.toString().isEmpty()) {
+                    if (edt_pw_check.text.toString().contentEquals(edt_signup_password.text.toString())) {
+                        tv_pw_check_warning.visibility = View.INVISIBLE
+                        b_pwck = true
+                    } else {
+                        tv_pw_check_warning.visibility = View.VISIBLE
+                        b_pwck = false
+                    }
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+        })
+
+        edt_name.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (!edt_name.text.toString().isEmpty()) {
+                    tv_name_warning.visibility = View.INVISIBLE
+                } else {
+                    tv_name_warning.visibility = View.VISIBLE
+                }
+            }
+        })
+
+        edt_birth.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (!edt_birth.text.toString().isEmpty()) {
+                    tv_birth_warning.visibility = View.INVISIBLE
+                } else {
+                    tv_birth_warning.visibility = View.VISIBLE
+                }
+            }
+        })
+
+        radioGroup.setOnCheckedChangeListener { radioGroup, i ->
+            when(i) {
+                R.id.rbtn_male ->
+                    tv_gender_warning.visibility = View.INVISIBLE
+                R.id.rbtn_female ->
+                    tv_gender_warning.visibility = View.INVISIBLE
+                else ->
+                    tv_gender_warning.visibility = View.VISIBLE
+            }
+        }
+
+    }
+
+    // 회원가입 유효성 조건문 & 서버 요청
+    private fun signup() {
+        btn_signup.setOnClickListener {
+            // 아이디 중복체크
+            if (!validate) {
+                tv_email_warning.visibility = View.VISIBLE
+                return@setOnClickListener
+            }
+
+            val userID = edt_signup_email.text.toString()
+            val password = edt_signup_password.text.toString()
+            val name = edt_birth.text.toString()
+            if (rbtn_male.isChecked) {
+                val gender = 1
+            } else {
+                val gender = -1
+            }
+
+            if (userID.isEmpty() || password.isEmpty() || name.isEmpty() || !b_id || !b_pw || !b_pwck) {
+                toast("회원가입 조건에 맞게 모두 채워주세요!")
+                return@setOnClickListener
+            }
+
             requestManager.requestSignUp(
-                    RequestBody.create(MediaType.parse("text.plain"), "1"),
-                    RequestBody.create(MediaType.parse("text.plain"), "1"),
-                    RequestBody.create(MediaType.parse("text.plain"), "안드로이드테스트계정임지우지마셈"),
-                    RequestBody.create(MediaType.parse("text.plain"), "1995-01-01"),
-                    RequestBody.create(MediaType.parse("text.plain"), "-1"),
+                RequestBody.create(MediaType.parse("text.plain"), "1"),
+                RequestBody.create(MediaType.parse("text.plain"), "1"),
+                RequestBody.create(MediaType.parse("text.plain"), "안드로이드테스트계정임지우지마셈"),
+                RequestBody.create(MediaType.parse("text.plain"), "1995-01-01"),
+                RequestBody.create(MediaType.parse("text.plain"), "-1"),
                 profileImg
             ).safeEnqueue(
                 onSuccess = {
@@ -63,13 +250,6 @@ class SignUpActivity : AppCompatActivity() {
                 }
             )
         }
-
-        img_gallery.setOnClickListener{
-            changeImage()
-        }
-
-
-
     }
 
     fun getRealPathFromURI(context: Context, contentUri: Uri): String {
@@ -108,10 +288,10 @@ class SignUpActivity : AppCompatActivity() {
 
         val options = BitmapFactory.Options()
 
-        var input : InputStream? = null
+        var input: InputStream? = null
         try {
             input = contentResolver.openInputStream(imageUri!!)
-        } catch (e : FileNotFoundException) {
+        } catch (e: FileNotFoundException) {
             e.printStackTrace()
         }
 

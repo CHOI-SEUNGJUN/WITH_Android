@@ -2,7 +2,6 @@ package com.with.app.data.repository
 
 import com.with.app.data.remote.ResponseSignInData
 import com.with.app.data.remote.RequestSignInData
-import com.with.app.data.remote.RequestSignUpData
 import com.with.app.data.remote.ResponseSignUpData
 import okhttp3.MultipartBody
 import okhttp3.RequestBody

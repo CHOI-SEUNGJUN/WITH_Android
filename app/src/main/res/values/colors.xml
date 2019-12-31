@@ -18,6 +18,8 @@
     <color name="colorPaleGray">#f3f2f8</color>
     <color name="colorCloudyBlue">#bcc1ce</color>
 
+    <color name="colorWarningRed">#ff5f57</color>
+
     <color name="colorUnselectedRegion">#a8a8a8</color>
 
     <color name="colorSearchGray">#efefef</color>
