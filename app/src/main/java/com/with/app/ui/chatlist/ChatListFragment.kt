@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_chat_list.*
 
 class ChatListFragment : Fragment() {
 
-    private var myIdx = 1
+    private var myIdx = 11
 
     private var value : ChatUserVO = ChatUserVO()
 
