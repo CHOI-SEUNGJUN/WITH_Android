@@ -7,18 +7,20 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.with.app.R
+import com.with.app.data.remote.ResponseCountryListArrayData
 
 class RegionListViewHolder(view : View) : RecyclerView.ViewHolder(view) {
     val img_region_profile : ImageView = view.findViewById(R.id.img_signup_profile)
     val tv_region_name : TextView = view.findViewById(R.id.tv_region_name)
 
-    fun bind(region : RegionListItem) {
-        tv_region_name.text = region.name
+    fun bind(region : ResponseCountryListArrayData) {
+        tv_region_name.text = region.regionName
 
-//        Glide.with(itemView)
-//            .load(region.profile_url)
-//            .into(img_region_profile)
+        Glide.with(itemView)
+            .load(region.regionImg)
+            .into(img_region_profile)
 
         //buletin 클릭 이벤트
         itemView.setOnTouchListener(object : View.OnTouchListener {

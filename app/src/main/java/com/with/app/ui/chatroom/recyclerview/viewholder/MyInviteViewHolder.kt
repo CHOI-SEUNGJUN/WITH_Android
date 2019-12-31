@@ -6,6 +6,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.with.app.R
 import com.with.app.data.ChatVO
+import com.with.app.data.isInviteApply
+import com.with.app.data.isInviteComplete
 import com.with.app.util.toSpanned
 import java.text.SimpleDateFormat
 
@@ -16,9 +18,9 @@ class MyInviteViewHolder(view : View) : RecyclerView.ViewHolder(view) {
     val date : TextView = view.findViewById(R.id.tv_date)
 
 
-    fun bind(data : ChatVO, next : ChatVO, last : Boolean) {
+    fun bind(data: ChatVO, next: ChatVO, last: Boolean) {
         msg.text = data.msg?.toSpanned()
-        date.text = data.date?.substring(14)
+        date.text = data.date?.substring(data.date?.lastIndexOf("일")!! + 2)
 
         if (!last) {
             if ((next.type == 0 || next.type == 2)) {

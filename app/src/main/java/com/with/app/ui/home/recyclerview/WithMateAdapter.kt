@@ -6,9 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.with.app.R
+import com.with.app.data.remote.ResponseWithMateArrayData
 
 class WithMateAdapter (private val context : Context) : RecyclerView.Adapter<WithMateViewHolder>() {
-    var mate = listOf<WithMateItem>()
+    var mate = listOf<ResponseWithMateArrayData>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WithMateViewHolder {
         val view : View = LayoutInflater.from(context).inflate(R.layout.item_mate, parent, false)
