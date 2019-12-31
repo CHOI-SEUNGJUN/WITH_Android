@@ -28,6 +28,6 @@ class DateViewHolder(view : View) : RecyclerView.ViewHolder(view) {
             6 -> day = "금요일"
             7 -> day = "토요일"
         }
-        date.text = "${data.date?.substring(0,13)} $day"
+        date.text = "${data.date?.substring(0,data.date?.lastIndexOf("일")!! + 1)} $day"
     }
 }

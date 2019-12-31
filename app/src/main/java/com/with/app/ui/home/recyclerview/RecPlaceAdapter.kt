@@ -5,9 +5,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.with.app.R
+import com.with.app.data.remote.ResponseRecommendPlaceArrayData
 
 class RecPlaceAdapter (private val context : Context) : RecyclerView.Adapter<RecPlaceViewHolder>() {
-    var recPlace = listOf<RecPlaceItem>()
+    var recPlace = listOf<ResponseRecommendPlaceArrayData>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecPlaceViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_recommend_place, parent, false)

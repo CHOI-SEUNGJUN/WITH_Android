@@ -6,9 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.with.app.R
+import com.with.app.data.remote.ResponseCountryListArrayData
 
 class RegionListAdapter (private val context : Context) : RecyclerView.Adapter<RegionListViewHolder>() {
-    var region = listOf<RegionListItem>()
+    var region = listOf<ResponseCountryListArrayData>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RegionListViewHolder {
         val view : View = LayoutInflater.from(context).inflate(R.layout.item_region_list, parent, false)

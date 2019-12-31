@@ -1,7 +1,7 @@
 package com.with.app.ui.home
 
-
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,15 +12,17 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 
 import com.with.app.R
+import com.with.app.manage.RequestManager
 import com.with.app.ui.home.recyclerview.*
 import com.with.app.ui.postlist.PostListFragment
+import com.with.app.util.safeEnqueue
 import kotlinx.android.synthetic.main.fragment_home.*
+import org.koin.android.ext.android.inject
 
-
-/**
- * A simple [Fragment] subclass.
- */
 class HomeFragment : Fragment() {
+
+    private val requestManager: RequestManager by inject()
+
     private lateinit var withMateAdapter : WithMateAdapter
     private lateinit var recPlaceAdapter : RecPlaceAdapter
     private lateinit var recBulletinAdapter : RecentBulletinAdapter
@@ -67,34 +69,14 @@ class HomeFragment : Fragment() {
 
         rv_with_mate.layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.HORIZONTAL, false)
 
-        withMateAdapter.mate = listOf(
-            WithMateItem(
-                name = "김은별"
-                //profile_url =  ""
-            ),
-            WithMateItem(
-                name = "김은별"
-            ),
-            WithMateItem(
-                name = "김은별"
-            ),
-            WithMateItem(
-                name = "김은별"
-            ),
-            WithMateItem(
-                name = "김은별"
-            ),
-            WithMateItem(
-                name = "김은별"
-            ),
-            WithMateItem(
-                name = "김은별"
-            ),
-            WithMateItem(
-                name = "김은별"
-            )
-        )
-        withMateAdapter.notifyDataSetChanged()
+        /*requestManager.requestWithMate(requestManager.authManager.token)
+            .safeEnqueue (
+                onSuccess = {
+                    withMateAdapter.mate = it.data
+                    withMateAdapter.notifyDataSetChanged()
+                }
+            )*/
+
     }
 
     private fun makeRecPlace() {
@@ -104,37 +86,20 @@ class HomeFragment : Fragment() {
 
         rv_recommend_place.layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.HORIZONTAL, false)
 
-        recPlaceAdapter.recPlace = listOf(
-            RecPlaceItem(
-                place = "FRANCE"
-                //profile_url =  ""
-            ),
-            RecPlaceItem(
-                place = "FRANCE"
-                //profile_url =  ""
-            ),
-            RecPlaceItem(
-                place = "FRANCE"
-                //profile_url =  ""
-            ),
-            RecPlaceItem(
-                place = "FRANCE"
-                //profile_url =  ""
-            ),
-            RecPlaceItem(
-                place = "FRANCE"
-                //profile_url =  ""
-            ),
-            RecPlaceItem(
-                place = "FRANCE"
-                //profile_url =  ""
-            ),
-            RecPlaceItem(
-                place = "PARIS"
-                //profile_url =  ""
+        requestManager.requestRecommendPlace("000000")
+            .safeEnqueue(
+                onSuccess = {
+                    Log.e("OK?", "OK")
+                    recPlaceAdapter.recPlace = it.data
+                    recPlaceAdapter.notifyDataSetChanged()
+                },
+                onError = {
+                    Log.e("error", it.toString())
+                },
+                onFailure = {
+                    Log.e("failure", it.message())
+                }
             )
-        )
-        recPlaceAdapter.notifyDataSetChanged()
     }
 
     private fun makeRecentBulletin() {
@@ -144,45 +109,13 @@ class HomeFragment : Fragment() {
 
         rv_recent_bulletin.layoutManager = GridLayoutManager(context!!, 2)
 
-        recBulletinAdapter.bulletin = listOf(
-            RecentBulletinItem(
-                name = "김은별",
-                place = "남아프리카공화국",
-                desc = "메리크리스마스><"
-                //profile_url =  ""
-            ),
-            RecentBulletinItem(
-                name = "김은별",
-                place = "남아프리카공화국",
-                desc = "메리크리스마스 메리크리스마스 메리크리스마스"
-                //profile_url =  ""
-            ),
-            RecentBulletinItem(
-                name = "김은별",
-                place = "남아프리카공화국",
-                desc = "메리크리스마스><"
-                //profile_url =  ""
-            ),
-            RecentBulletinItem(
-                name = "김은별",
-                place = "남아프리카공화국",
-                desc = "메리크리스마스><"
-                //profile_url =  ""
-            ),
-            RecentBulletinItem(
-                name = "김은별",
-                place = "남아프리카공화국",
-                desc = "메리크리스마스><"
-                //profile_url =  ""
-            ),
-            RecentBulletinItem(
-                name = "김은별",
-                place = "남아프리카공화국",
-                desc = "메리크리스마스><"
-                //profile_url =  ""
+        requestManager.requestLatelyBoard("102+103+104+105+107+112")
+            .safeEnqueue(
+                onSuccess = {
+                    recBulletinAdapter.bulletin = it.data
+                    recBulletinAdapter.notifyDataSetChanged()
+                }
             )
-        )
-        recBulletinAdapter.notifyDataSetChanged()
     }
 
 }

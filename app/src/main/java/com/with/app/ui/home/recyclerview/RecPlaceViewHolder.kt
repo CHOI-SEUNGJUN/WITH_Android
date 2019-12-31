@@ -5,13 +5,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.with.app.R
+import com.with.app.data.remote.ResponseRecommendPlaceArrayData
 
 class RecPlaceViewHolder(view : View) : RecyclerView.ViewHolder(view) {
     val img_recommend_place : ImageView = view.findViewById(R.id.img_recommend_place)
     val tv_recommend_place : TextView = view.findViewById(R.id.tv_recommend_place)
 
-    fun bind(recPlace : RecPlaceItem) {
-        tv_recommend_place.text = recPlace.place
+    fun bind(recPlace : ResponseRecommendPlaceArrayData) {
+        tv_recommend_place.text = recPlace.regionNameEng
 
         img_recommend_place.clipToOutline = true
 
