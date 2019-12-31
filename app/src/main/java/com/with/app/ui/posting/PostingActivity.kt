@@ -6,10 +6,9 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.CompoundButton
 import com.with.app.R
 import com.with.app.ui.detailpost.DetailPostActivity
-import com.with.app.ui.postlist.ChangeRegionActivity
+import com.with.app.ui.region.ChangeRegionActivity
 import com.with.app.util.toast
 import kotlinx.android.synthetic.main.activity_posting.*
 import kotlinx.android.synthetic.main.date_picker.view.*

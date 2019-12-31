@@ -4,6 +4,7 @@ import android.app.Application
 import com.with.app.manage.authModule
 import com.with.app.manage.requestModule
 import com.with.app.manage.prefModule
+import com.with.app.manage.regionModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -15,7 +16,8 @@ class WithApplication : Application() {
             modules(listOf(
                 authModule,
                 requestModule,
-                prefModule
+                prefModule,
+                regionModule
             ))
         }
     }

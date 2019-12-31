@@ -7,8 +7,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.with.app.R
 import com.with.app.data.remote.ResponseCountryListArrayData
+import com.with.app.manage.RegionManager
 
-class RegionListAdapter (private val context : Context) : RecyclerView.Adapter<RegionListViewHolder>() {
+class RegionListAdapter (private val context : Context, private val regionManager: RegionManager) : RecyclerView.Adapter<RegionListViewHolder>() {
     var region = listOf<ResponseCountryListArrayData>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RegionListViewHolder {
@@ -22,7 +23,7 @@ class RegionListAdapter (private val context : Context) : RecyclerView.Adapter<R
 
     override fun onBindViewHolder(holder: RegionListViewHolder, position: Int) {
         holder.setIsRecyclable(false)
-        holder.bind(region[position])
+        holder.bind(region[position], context, regionManager)
     }
 
 }

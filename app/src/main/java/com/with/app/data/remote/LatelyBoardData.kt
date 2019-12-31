@@ -7,8 +7,9 @@ data class ResponseLatelyBoardData(
 )
 
 data class ResponseLatelyBoardArrayData(
+    val boardIdx : Int,
     val name : String,
     val userImg : String,
-    val regionCode : String
-    // val title : String
+    val regionName : String,
+    val title : String
 )

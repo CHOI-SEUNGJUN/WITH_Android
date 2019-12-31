@@ -21,6 +21,7 @@ import com.with.app.ui.posting.PostingActivity
 import com.with.app.ui.postlist.recylcerview.PostListAdapter
 import com.with.app.manage.PrefManager
 import com.with.app.ui.recent.RecentSearchesActivity
+import com.with.app.ui.region.ChangeRegionActivity
 import com.with.app.util.toast
 import kotlinx.android.synthetic.main.date_picker.view.*
 import kotlinx.android.synthetic.main.fragment_post_list.*

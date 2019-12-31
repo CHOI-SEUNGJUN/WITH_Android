@@ -1,11 +1,10 @@
-package com.with.app.ui.postlist
+package com.with.app.ui.region
 
 
-import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.with.app.R
+import com.with.app.ui.region.regionfragment.*
 
 class FragmentRegionPagerAdapter (fm : FragmentManager) : FragmentStatePagerAdapter(fm) {
 

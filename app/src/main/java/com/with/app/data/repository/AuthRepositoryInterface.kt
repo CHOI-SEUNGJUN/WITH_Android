@@ -57,6 +57,12 @@ interface AuthRepositoryInterface {
     ) : Call<ResponseLatelyBoardData>
 
     /**
+     * HOME - 홈 배경 이미지 조회
+     */
+    @GET("/home/bgImg")
+    fun getBgImg() : Call<ResponseHomeBgData>
+
+    /**
      * 국가 리스트 출력
      */
     @GET("/home/regions/{regionCode}")

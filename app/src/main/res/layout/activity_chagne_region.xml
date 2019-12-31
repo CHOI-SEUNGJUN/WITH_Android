@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.postlist.ChangeRegionActivity">
+    tools:context=".ui.region.ChangeRegionActivity">
 
     <TextView
         android:id="@+id/tv_region_intro"
@@ -35,7 +35,7 @@
         app:tabPaddingEnd="0dp"
         app:tabPaddingStart="0dp"></com.google.android.material.tabs.TabLayout>
 
-    <com.with.app.ui.postlist.SwipeLockableViewPager
+    <com.with.app.ui.region.SwipeLockableViewPager
         android:id="@+id/vp_region"
         android:layout_width="0dp"
         android:layout_height="0dp"
