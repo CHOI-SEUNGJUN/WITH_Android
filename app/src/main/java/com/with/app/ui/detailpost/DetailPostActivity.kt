@@ -32,7 +32,7 @@ class DetailPostActivity : AppCompatActivity(){
             intent.putExtra("regionCode",edt_region.text)
             intent.putExtra("content",edt_content.text)
             intent.putExtra("date",edt_date.text)
-            intent.putExtra("filter",1)//동성필터 여부 받아오기
+            intent.putExtra("filter",-1)//동성필터 여부 받아오기
             intent.putExtra("mode",1)
             startActivityForResult(intent,-1)
         }

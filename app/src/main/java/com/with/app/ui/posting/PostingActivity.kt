@@ -23,7 +23,8 @@ class PostingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_posting)
 
-        switch_filter.setOnCheckedChangeListener { compoundButton: CompoundButton, b: Boolean ->
+
+/*        switch_filter.setOnCheckedChangeListener { compoundButton: CompoundButton, b: Boolean ->
             if (isSwitchChecked == -1) {
                 isSwitchChecked = 1
                 switch_filter.isChecked = false
@@ -31,7 +32,7 @@ class PostingActivity : AppCompatActivity() {
                 isSwitchChecked = 1
                 switch_filter.isChecked = true
             }
-        }
+        }*/
 
         //게시글 수정
         if(intent.getIntExtra("mode",0)==1) {
@@ -43,7 +44,11 @@ class PostingActivity : AppCompatActivity() {
             edt_content.setText(intent.getStringExtra("content"))
             edt_date.setText(intent.getStringExtra("date"))
             edt_date.setTextColor(Color.BLACK)
-            isSwitchChecked = intent.getIntExtra("filter", 0)//동성필터 여부 받아오기
+            isSwitchChecked = intent.getIntExtra("filter", -1)//동성필터 여부 받아오기
+            if(isSwitchChecked == 1){
+                switch_filter.isChecked = false
+                switch_filter.toggle()
+            }
 
             btn_delete.visibility = View.VISIBLE
             txt_category.text = "게시글 수정"
