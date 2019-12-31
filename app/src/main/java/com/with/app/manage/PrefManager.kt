@@ -28,6 +28,7 @@ class PrefManager(context : Context) {
             }
         }
 
+
     companion object {
         const val DATE_PREFERENCES = "date"
         const val START_DATE = "start"

@@ -23,8 +23,8 @@ class SignInActivity : AppCompatActivity() {
         btn_login.setOnClickListener {
             requestManager.requestSignIn(
                 RequestSignInData(
-                    edt_id.text.toString(),
-                    edt_pw.text.toString()
+                    edt_signin_email.text.toString(),
+                    edt_signin_password.text.toString()
                 )
             )
                 .safeEnqueue(
@@ -35,6 +35,7 @@ class SignInActivity : AppCompatActivity() {
                     finish()
                 },
                     onFailure = {
+                        //TODO : 아이디 오류인지 비밀번호 오류인지 구분 => 경고메세지 띄워주기
                         toast("로그인에 실패하였습니다.")
                     },
                     onError = {
@@ -43,7 +44,7 @@ class SignInActivity : AppCompatActivity() {
                 )
         }
 
-        btn_signup.setOnClickListener {
+        btn_signin_signup.setOnClickListener {
             startActivity(Intent(this, SignUpActivity::class.java))
         }
     }
