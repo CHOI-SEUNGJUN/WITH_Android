@@ -15,6 +15,9 @@
         android:background="@drawable/corner_sub_border_6dp"
         android:hint="이메일 주소를 입력해주세요"
         android:paddingLeft="16dp"
+        android:singleLine="true"
+        android:lines="1"
+        android:nextFocusDown="@id/edt_signin_password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -39,6 +42,9 @@
         android:background="@drawable/corner_sub_border_6dp"
         android:hint="비밀번호를 입력해주세요"
         android:paddingLeft="16dp"
+        android:singleLine="true"
+        android:lines="1"
+        android:nextFocusDown="@id/btn_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/tv_signin_email_warning" />

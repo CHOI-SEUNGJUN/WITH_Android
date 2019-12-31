@@ -17,8 +17,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -101,9 +101,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:clipToPadding="false"
                     android:paddingStart="5dp"
                     android:paddingEnd="20dp"
-                    android:clipToPadding="false"
+                    android:visibility="visible"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_with_mate" />
 
@@ -125,9 +126,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="16dp"
+                    android:clipToPadding="false"
                     android:paddingStart="5dp"
                     android:paddingEnd="20dp"
-                    android:clipToPadding="false"
+                    android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_recommend_place" />
@@ -153,17 +155,33 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="13dp"
                     android:layout_marginBottom="62dp"
-
                     app:layout_constraintBottom_toTopOf="@+id/vp_banner"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_recent_bulletin" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_recent_bulletin"
+                    app:layout_constraintVertical_bias="1.0" />
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/img_recent_bulletin_none"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="161dp"-->
+<!--                    android:layout_marginStart="20dp"-->
+<!--                    android:layout_marginTop="16dp"-->
+<!--                    android:layout_marginEnd="20dp"-->
+<!--                    android:src="@drawable/corner_sub_6dp"-->
+<!--                    android:visibility="gone"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintHorizontal_bias="1.0"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/tv_recent_bulletin" />-->
 
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/vp_banner"
                     android:layout_width="0dp"
                     android:layout_height="102dp"
                     android:layout_marginStart="20dp"
+                    android:layout_marginTop="60dp"
                     android:layout_marginEnd="15dp"
                     android:alwaysDrawnWithCache="false"
                     android:backgroundTint="#FFFFFF"
@@ -175,7 +193,8 @@
                     android:splitMotionEvents="true"
                     app:layout_constraintBottom_toTopOf="@+id/tab_layout"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                     />
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tab_layout"
@@ -189,7 +208,6 @@
                     app:tabBackground="@drawable/tab_selector"
                     app:tabGravity="center"
                     app:tabIndicatorHeight="0dp" />
-
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
