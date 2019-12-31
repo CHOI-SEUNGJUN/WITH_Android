@@ -1,4 +1,4 @@
-package com.with.app.ui.postlist
+package com.with.app.ui.region.regionfragment
 
 
 import android.os.Bundle
@@ -9,16 +9,18 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.with.app.R
+import com.with.app.manage.RequestManager
 import com.with.app.ui.postlist.recyclerview.RegionListAdapter
-import com.with.app.ui.postlist.recyclerview.RegionListItem
-import kotlinx.android.synthetic.main.fragment_region_asia.*
 import kotlinx.android.synthetic.main.fragment_region_europe.*
-import kotlinx.android.synthetic.main.fragment_region_europe.rv_region_list
+import org.koin.android.ext.android.inject
 
 /**
  * A simple [Fragment] subclass.
  */
-class RegionAsiaFragment : Fragment() {
+class RegionSouthAmericaFragment : Fragment() {
+
+    private val requestManager : RequestManager by inject()
+
     private lateinit var regionListAdapter : RegionListAdapter
 
     override fun onCreateView(
@@ -26,36 +28,22 @@ class RegionAsiaFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_region_asia, container, false)
+        return inflater.inflate(R.layout.fragment_region_south_america, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // defaultAllRegionList()
-
-      /*  // 전체 버튼 눌렀을 때
-        btn_asia_all.setOnClickListener{
-            makeRegionList(1)
-        }
-
-        // 서유럽 버튼 눌렀을 때
-        btn_asia_west_south.setOnClickListener {
-            makeRegionList(2)
-        }*/
-
-        // 동유럽
-
         makeRegionList()
 
     }
 
-
     companion object {
         private const val num = "num"
         @JvmStatic
-        fun newInstance(Number: Int): RegionAsiaFragment {
-            return RegionAsiaFragment().apply {
+        fun newInstance(Number: Int): RegionSouthAmericaFragment {
+            return RegionSouthAmericaFragment()
+                .apply {
                 arguments = Bundle().apply {
                     putInt(num, Number)
                 }
@@ -63,18 +51,8 @@ class RegionAsiaFragment : Fragment() {
         }
     }
 
-    // 처음에 디폴트로 실행되는 전체 리스트
-    private fun defaultAllRegionList(){
-
-        // 아시아 - all 리스트 받아오기(통신)
-    }
-
-
-    // 라디오 버튼 눌렀을 때 실행되는 리스트
     private fun makeRegionList() {
-
-
-        regionListAdapter = RegionListAdapter(context!!)
+        regionListAdapter = RegionListAdapter(context!!, requestManager.regionManager)
 
         rv_region_list.adapter = regionListAdapter
 
@@ -83,5 +61,6 @@ class RegionAsiaFragment : Fragment() {
         // regionListAdapter.region
         regionListAdapter.notifyDataSetChanged()
     }
+
 
 }

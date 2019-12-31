@@ -1,4 +1,4 @@
-package com.with.app.ui.postlist
+package com.with.app.ui.region
 
 import android.graphics.Color
 import android.graphics.Typeface
@@ -6,21 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.StyleSpan
-import android.text.style.UnderlineSpan
-import android.view.MenuItem
-import android.view.MotionEvent
 import android.view.View
-import android.widget.TextView
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.isGone
-import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.viewpager.widget.PagerAdapter
 import com.google.android.material.tabs.TabLayout
 import com.with.app.R
-import com.with.app.ui.chatlist.evaluation.EvaluateActivity
+import com.with.app.ui.region.FragmentRegionPagerAdapter
+import com.with.app.util.toSpanned
 import kotlinx.android.synthetic.main.activity_chagne_region.*
 import kotlinx.android.synthetic.main.fragment_region_tabbar.*
 
@@ -29,16 +20,17 @@ class ChangeRegionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chagne_region)
-        val text = SpannableString("떠나고 싶은 곳을\n선택해주세요")
-        text.setSpan(StyleSpan(Typeface.BOLD), 0, 8, 0)
-        tv_region_intro.setText(text)
+        val spanText = "<b>떠나고 싶은 곳</b>을<br>선택해주세요".toSpanned()
+        tv_region_intro.text = spanText
 
         configureTopNavigation()
     }
 
 
     private fun configureTopNavigation() {
-        val adapter = FragmentRegionPagerAdapter(supportFragmentManager)
+        val adapter = FragmentRegionPagerAdapter(
+            supportFragmentManager
+        )
         vp_region.adapter = adapter
 
         tl_region_tabbar.setupWithViewPager(vp_region)

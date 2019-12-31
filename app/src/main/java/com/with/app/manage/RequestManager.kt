@@ -11,7 +11,7 @@ import okhttp3.RequestBody
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-class RequestManager(val context: Context, val authManager: AuthManager) {
+class RequestManager(val context: Context, val authManager: AuthManager, val regionManager: RegionManager) {
 
     private companion object {
         const val BASE_URL = "http://18.222.189.150:3000"
@@ -28,11 +28,13 @@ class RequestManager(val context: Context, val authManager: AuthManager) {
                       birth: RequestBody, gender: RequestBody, img: MultipartBody.Part?)
             = retrofit.postSignUp(userId, password, name, birth, gender, img)
 
-    fun requestWithMate(token: String) = retrofit.getWithMate(token)
+    fun requestWithMate() = retrofit.getWithMate(authManager.token)
 
     fun requestRecommendPlace(regionCode : String) = retrofit.getRecommendPlace(regionCode)
 
     fun requestLatelyBoard(boardIdx : String) = retrofit.getLatelyBoard(boardIdx)
+
+    fun requestBgImg() = retrofit.getBgImg()
 
     fun requestCountryList(regionCode: String) = retrofit.getCountryList(regionCode)
 
@@ -42,23 +44,23 @@ class RequestManager(val context: Context, val authManager: AuthManager) {
 
     fun requestDetailBoard(boardIdx: Int) = retrofit.getDetailBoard(boardIdx)
 
-    fun requestBoardWrite(data: RequestBoardData, token: String)
-            = retrofit.postBoardWrite(data, token)
+    fun requestBoardWrite(data: RequestBoardData)
+            = retrofit.postBoardWrite(data, authManager.token)
 
-    fun requestBoardEdit(data: RequestBoardData, token: String)
-            = retrofit.putBoardEdit(data, token)
+    fun requestBoardEdit(data: RequestBoardData)
+            = retrofit.putBoardEdit(data, authManager.token)
 
-    fun requestChatOpen(data: RequestChatOpenData, token: String)
-            = retrofit.postChatOpen(data, token)
+    fun requestChatOpen(data: RequestChatOpenData)
+            = retrofit.postChatOpen(data, authManager.token)
 
-    fun requestChatList(token: String) = retrofit.getChatList(token)
+    fun requestChatList() = retrofit.getChatList(authManager.token)
 
-    fun requestWithInvite(data: RequestWithInviteData, token: String)
-            = retrofit.putWithInvite(data, token)
+    fun requestWithInvite(data: RequestWithInviteData)
+            = retrofit.putWithInvite(data, authManager.token)
 
 
 }
 
 val requestModule = module {
-    single { RequestManager(get(),get()) }
+    single { RequestManager(get(), get(), get()) }
 }

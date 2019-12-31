@@ -1,5 +1,7 @@
 package com.with.app.ui.home
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,13 +10,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewpager.widget.ViewPager
-import com.google.android.material.tabs.TabLayout
-
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.with.app.R
 import com.with.app.manage.RequestManager
 import com.with.app.ui.home.recyclerview.*
 import com.with.app.ui.postlist.PostListFragment
+import com.with.app.ui.region.ChangeRegionActivity
 import com.with.app.util.safeEnqueue
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.ext.android.inject
@@ -27,6 +29,11 @@ class HomeFragment : Fragment() {
     private lateinit var recPlaceAdapter : RecPlaceAdapter
     private lateinit var recBulletinAdapter : RecentBulletinAdapter
 
+    private val requestOptions = RequestOptions()
+        .placeholder(R.drawable.home_img)
+        .fallback(R.drawable.home_img)
+        .error(R.drawable.home_img)
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState : Bundle?) : View? {
         return inflater.inflate(R.layout.fragment_home, container, false)
@@ -37,6 +44,13 @@ class HomeFragment : Fragment() {
         makeWithMateList()
         makeRecPlace()
         makeRecentBulletin()
+        getBgImg()
+
+        val bannerList = arrayListOf(
+            Banner("img1"),
+            Banner("img3"),
+            Banner("img2")
+        )
 
         val adapter = BannerPagerAdapter(bannerList)
         vp_banner.adapter = adapter
@@ -44,6 +58,23 @@ class HomeFragment : Fragment() {
         tab_layout.setupWithViewPager(vp_banner, true)
 
         btn_mate.setOnClickListener {
+            if (requestManager.regionManager.code.isEmpty()) {
+                val intent = Intent(context, ChangeRegionActivity::class.java)
+                startActivityForResult(intent, REGIONCHANGE_REQCODE)
+            } else {
+                val fragment_post_list = PostListFragment()
+                activity?.supportFragmentManager
+                    ?.beginTransaction()
+                    ?.addToBackStack(null)
+                    ?.replace(R.id.main_container, fragment_post_list)
+                    ?.commit()
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REGIONCHANGE_REQCODE && resultCode == Activity.RESULT_OK) {
             val fragment_post_list = PostListFragment()
             activity?.supportFragmentManager
                 ?.beginTransaction()
@@ -51,14 +82,19 @@ class HomeFragment : Fragment() {
                 ?.replace(R.id.main_container, fragment_post_list)
                 ?.commit()
         }
-
     }
 
-    companion object {
-        val bannerList = arrayListOf(
-            Banner("img1"),
-            Banner("img3"),
-            Banner("img2")
+    private fun getBgImg() {
+        requestManager.requestBgImg()
+            .safeEnqueue (
+                onSuccess = {
+                    it.let {
+                        Glide.with(context!!)
+                            .load(it.data.regionImgH)
+                            .apply(requestOptions)
+                            .into(img_main_background)
+                    }
+                }
         )
     }
 
@@ -68,14 +104,18 @@ class HomeFragment : Fragment() {
         rv_with_mate.adapter = withMateAdapter
 
         rv_with_mate.layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.HORIZONTAL, false)
-
-        /*requestManager.requestWithMate(requestManager.authManager.token)
+        requestManager.requestWithMate()
             .safeEnqueue (
                 onSuccess = {
-                    withMateAdapter.mate = it.data
-                    withMateAdapter.notifyDataSetChanged()
+                    if (it.data.isEmpty()) {
+                        tv_with_mate.visibility = View.GONE
+                        rv_with_mate.visibility = View.GONE
+                    } else {
+                        withMateAdapter.mate = it.data
+                        withMateAdapter.notifyDataSetChanged()
+                    }
                 }
-            )*/
+            )
 
     }
 
@@ -89,15 +129,8 @@ class HomeFragment : Fragment() {
         requestManager.requestRecommendPlace("000000")
             .safeEnqueue(
                 onSuccess = {
-                    Log.e("OK?", "OK")
                     recPlaceAdapter.recPlace = it.data
                     recPlaceAdapter.notifyDataSetChanged()
-                },
-                onError = {
-                    Log.e("error", it.toString())
-                },
-                onFailure = {
-                    Log.e("failure", it.message())
                 }
             )
     }
@@ -116,6 +149,10 @@ class HomeFragment : Fragment() {
                     recBulletinAdapter.notifyDataSetChanged()
                 }
             )
+    }
+
+    companion object {
+        const val REGIONCHANGE_REQCODE = 666
     }
 
 }

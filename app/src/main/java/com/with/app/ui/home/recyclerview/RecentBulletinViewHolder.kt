@@ -16,8 +16,8 @@ class RecentBulletinViewHolder(view : View) : RecyclerView.ViewHolder(view) {
 
     fun bind(bulletin : ResponseLatelyBoardArrayData) {
         tv_bulletin_name.text = bulletin.name
-        tv_bulletin_desc.text = bulletin.name
-        tv_bulletin_place.text = bulletin.regionCode
+        tv_bulletin_desc.text = bulletin.title
+        tv_bulletin_place.text = bulletin.regionName
 
         Glide.with(itemView)
             .load(bulletin.userImg)

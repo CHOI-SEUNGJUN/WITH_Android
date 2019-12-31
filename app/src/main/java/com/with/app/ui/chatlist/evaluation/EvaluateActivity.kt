@@ -6,13 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
-import android.widget.Toast
-import androidx.core.view.isVisible
 import com.with.app.R
-import com.with.app.ui.postlist.ChangeRegionActivity
-import com.with.app.util.toast
+import com.with.app.ui.region.ChangeRegionActivity
 import kotlinx.android.synthetic.main.activity_evaluate.*
-import kotlinx.android.synthetic.main.item_post_bulletin.*
 
 class EvaluateActivity : AppCompatActivity() {
 

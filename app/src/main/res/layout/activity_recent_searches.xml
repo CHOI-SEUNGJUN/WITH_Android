@@ -29,7 +29,7 @@
             android:singleLine="true"
             android:paddingLeft="13dp"
             android:paddingRight="16dp"
-            android:textColor="@color/colorLightGray"
+            android:textColor="@android:color/black"
             android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

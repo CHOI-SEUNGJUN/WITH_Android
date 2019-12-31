@@ -9,5 +9,5 @@ data class ResponseCountryListData(
 data class ResponseCountryListArrayData(
     val regionCode : String,
     val regionName : String,
-    val regionImg : String
+    val regionImgS : String
 )

@@ -1,4 +1,4 @@
-package com.with.app.ui.postlist
+package com.with.app.ui.region
 
 import android.content.Context
 import android.util.AttributeSet
