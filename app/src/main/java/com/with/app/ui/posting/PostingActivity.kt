@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.CompoundButton
 import com.with.app.R
 import com.with.app.ui.detailpost.DetailPostActivity
+import com.with.app.ui.postlist.ChangeRegionActivity
 import com.with.app.util.toast
 import kotlinx.android.synthetic.main.activity_posting.*
 import kotlinx.android.synthetic.main.date_picker.view.*
@@ -55,6 +56,11 @@ class PostingActivity : AppCompatActivity() {
 
         else {//게시글 작성
             btn_save.setOnClickListener { }//서버에게 저장 요청
+        }
+
+        edt_region.setOnClickListener {
+            val intent = Intent(this, ChangeRegionActivity::class.java)
+            startActivity(intent)
         }
 
         edt_date.setOnClickListener{

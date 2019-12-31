@@ -18,6 +18,7 @@ import com.with.app.ui.chatlist.evaluation.EvaluateActivity
 import com.with.app.ui.posting.PostingActivity
 import com.with.app.ui.postlist.recylcerview.PostListAdapter
 import com.with.app.manage.PrefManager
+import com.with.app.ui.postlist.recent.RecentActivity
 import com.with.app.ui.signup.SignUpActivity
 import com.with.app.util.toast
 import kotlinx.android.synthetic.main.date_picker.view.*
@@ -49,10 +50,16 @@ class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
             startActivity(intent)
         }
 
-        val splitStart = prefManager.startDate.splitDate()
-        val splitEnd = prefManager.endDate.splitDate()
-
-        view.txt_datePicker.text = "${splitStart.year%100}.${splitStart.month}.${splitStart.day} | ${splitEnd.year%100}.${splitEnd.month}.${splitEnd.day}"
+        if (prefManager.startDate != prefManager.endDate) {
+            val splitStart = prefManager.startDate.splitDate()
+            val splitEnd = prefManager.endDate.splitDate()
+            view.txt_datePicker.text = "${splitStart.year%100}.${splitStart.month}.${splitStart.day} ~ ${splitEnd.year%100}.${splitEnd.month}.${splitEnd.day}"
+        } else if (prefManager.startDate == "0") {
+            view.txt_datePicker.text = "날짜"
+        } else {
+            val splitStart = prefManager.startDate.splitDate()
+            view.txt_datePicker.text = "${splitStart.year%100}.${splitStart.month}.${splitStart.day}"
+        }
 
         return view
     }
@@ -66,6 +73,11 @@ class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
             //지역선택에서 값 받아서 txt_country 설정해야함
         }
 
+        edt_search.setOnClickListener {
+            val intent = Intent(activity, RecentActivity::class.java)
+            startActivity(intent)
+        }
+
         //datePicker 시작
         view.txt_datePicker.setOnClickListener {
             val dialogView = layoutInflater.inflate(R.layout.date_picker, null)
@@ -76,10 +88,22 @@ class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
 
             dialogView.apply {
                 // split한 데이터를 datepicker에 설정
-                start_datepicker.setDate(prefManager.startDate.splitDate())
-                end_datepicker.setDate(prefManager.endDate.splitDate())
+                when {
+                    "날짜" == this@PostListFragment.txt_datePicker.text -> {
+                    }
+                    else -> {
+                        start_datepicker.setDate(prefManager.startDate.splitDate())
+                        end_datepicker.setDate(prefManager.endDate.splitDate())
+                    }
+                }
 
                 btn_close.setOnClickListener {
+                    dialog.cancel()
+                }
+                btn_select_all.setOnClickListener{
+                    //날짜 전체 선택
+                    this@PostListFragment.txt_datePicker.text = "${start_datepicker.saveLoad(3)}"
+                    end_datepicker.saveLoad(3)
                     dialog.cancel()
                 }
                 btn_save.setOnClickListener{
@@ -91,10 +115,16 @@ class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
                         context.toast("마감일이 시작일보다 늦어야합니다.")
                         return@setOnClickListener
                     }
+                    else if (diffs == 0) {
+                        this@PostListFragment.txt_datePicker.text = "${start_datepicker.saveLoad(1)}"
+                        end_datepicker.saveLoad(2)
+                    }
+                    else {
+                        this@PostListFragment.txt_datePicker.text = "${start_datepicker.saveLoad(1)} ~ ${end_datepicker.saveLoad(2)}"
+                    }
                     // SAVE와 동시에 LOAD시킴
                     prefManager.startDate = "${start_datepicker.year}.${start_datepicker.month+1}.${start_datepicker.dayOfMonth}"
                     prefManager.endDate = "${end_datepicker.year}.${end_datepicker.month+1}.${end_datepicker.dayOfMonth}"
-                    this@PostListFragment.txt_datePicker.text = "${start_datepicker.saveLoad(1)} | ${end_datepicker.saveLoad(2)}"
                     dialog.cancel()
                 }
             }
@@ -104,20 +134,21 @@ class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
 
 
     override fun onRefresh() {
+        //새로고침 구현
         //mSwipeRefreshLayout.setRefreshing(false);
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
+/*    override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
         edt_search.setOnClickListener {
-            val intent = Intent(activity, SignUpActivity::class.java)
+            val intent = Intent(activity, RecentActivity::class.java)
 
             startActivity(intent)
         }
         swipe.setOnRefreshListener(this)
 
-    }
+    }*/
 
     private fun GetPostListData(v : View) {
 
@@ -184,6 +215,11 @@ class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
             2 -> {
                 prefManager.endDate = "${this.year}.${this.month + 1}.${this.dayOfMonth}"
                 return "${this.year % 100}.${this.month + 1}.${this.dayOfMonth}"
+            }
+            3 -> {
+                prefManager.startDate = "0"
+                prefManager.endDate = "0"
+                return "날짜"
             }
             else ->  ""
         }

@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.signup.SignUpActivity"></activity>
+        <activity android:name=".ui.postlist.recent.RecentActivity"></activity>
+        <activity android:name=".ui.signup.SignUpActivity" />
         <activity android:name=".ui.chatlist.evaluation.EvaluateActivity" />
         <activity android:name=".ui.signin.SignInActivity">
             <intent-filter>
@@ -30,9 +31,7 @@
         <activity
             android:name=".ui.chatroom.ChatRoomActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".ui.base.MainActivity">
-
-        </activity>
+        <activity android:name=".ui.base.MainActivity"></activity>
     </application>
 
 </manifest>
