@@ -16,7 +16,7 @@ class ChatMyViewHolder(view : View) : RecyclerView.ViewHolder(view) {
     @SuppressLint("SimpleDateFormat")
     fun bind(data : ChatVO, next : ChatVO, last : Boolean) {
         msg.text = data.msg
-        date.text = data.date?.substring(14)
+        date.text = data.date?.substring(data.date?.lastIndexOf("일")!! + 2)
 
         if (!last) {
             if ((next.type == 0 || next.type == 2)) {

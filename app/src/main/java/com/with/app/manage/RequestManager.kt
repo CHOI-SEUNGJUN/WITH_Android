@@ -1,7 +1,10 @@
 package com.with.app.manage
 
 import android.content.Context
+import com.with.app.data.remote.RequestBoardData
+import com.with.app.data.remote.RequestChatOpenData
 import com.with.app.data.remote.RequestSignInData
+import com.with.app.data.remote.RequestWithInviteData
 import com.with.app.data.repository.AuthRepositoryInterface
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -21,7 +24,38 @@ class RequestManager(val context: Context, val authManager: AuthManager) {
 
     fun requestSignIn(data: RequestSignInData) = retrofit.postSignIn(data)
 
-    fun requestSignUp(a: RequestBody, b: RequestBody, c: RequestBody, d: RequestBody, e: RequestBody, f: MultipartBody.Part?) = retrofit.postSignUp(a,b,c,d,e,f)
+    fun requestSignUp(userId: RequestBody, password: RequestBody, name: RequestBody,
+                      birth: RequestBody, gender: RequestBody, img: MultipartBody.Part?)
+            = retrofit.postSignUp(userId, password, name, birth, gender, img)
+
+    fun requestWithMate(token: String) = retrofit.getWithMate(token)
+
+    fun requestRecommendPlace(regionCode : String) = retrofit.getRecommendPlace(regionCode)
+
+    fun requestLatelyBoard(boardIdx : String) = retrofit.getLatelyBoard(boardIdx)
+
+    fun requestCountryList(regionCode: String) = retrofit.getCountryList(regionCode)
+
+    fun requestSearchBoard(regionCode: String, startDate: String, endDate: String,
+                           keyword: String, filter: Int)
+            = retrofit.getSearchBoard(regionCode, startDate, endDate, keyword, filter)
+
+    fun requestDetailBoard(boardIdx: Int) = retrofit.getDetailBoard(boardIdx)
+
+    fun requestBoardWrite(data: RequestBoardData, token: String)
+            = retrofit.postBoardWrite(data, token)
+
+    fun requestBoardEdit(data: RequestBoardData, token: String)
+            = retrofit.putBoardEdit(data, token)
+
+    fun requestChatOpen(data: RequestChatOpenData, token: String)
+            = retrofit.postChatOpen(data, token)
+
+    fun requestChatList(token: String) = retrofit.getChatList(token)
+
+    fun requestWithInvite(data: RequestWithInviteData, token: String)
+            = retrofit.putWithInvite(data, token)
+
 
 }
 

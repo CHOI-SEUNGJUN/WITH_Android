@@ -37,15 +37,15 @@ class ChatRoomActivity : AppCompatActivity() {
     private var unSeenCount : Int = 0
 
     // AuthManager에서 받아와야함
-    private var myIdx = 1
+    private var myIdx = 11
     // 서버에서 받아와야함
     private var boardIdx : Int = 0
-    private var otherIdx = 7
+    private var otherIdx = 12
     private var otherName = "김남수"
     private var otherProfile = " "
     // 채팅하기 눌렀을때 불러와야함
-    private var posterIdx = 1
-    private var senderIdx = 7
+    private var posterIdx = 11
+    private var senderIdx = 12
 
     private var meetDate = ""
 

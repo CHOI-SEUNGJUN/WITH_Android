@@ -1,11 +1,10 @@
 package com.with.app.ui.chatroom.recyclerview
 
 import android.content.Context
-import android.text.Html
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -94,13 +93,13 @@ class ChatRoomAdapter(private val context: Context, private val passData: Adapte
             chatVO.type = MY_INVITE
             var temp = chatVO.msg
             temp = temp?.replace("동행 성사 메시지입니다.-", "")
-            chatVO.msg = "<font color=\"#311a80\"><b>${temp}<br>${otherName}</font></b>님이<br>동행을 수락하셨습니다."
+            chatVO.msg = "<font color=\"#311a80\"><b>${temp}<br>${otherName}</font></b>님의<br>동행을 수락하셨습니다."
         }
         if (chatVO.isInviteComplete() && chatVO.isOtherName(myId)) {
             chatVO.type = OTHER_COMPLETE
             var temp = chatVO.msg
             temp = temp?.replace("동행 성사 메시지입니다.-", "")
-            chatVO.msg = "<font color=\"#311a80\"><b>${temp}<br>${otherName}</font></b>님의<br>동행을 수락하셨습니다."
+            chatVO.msg = "<font color=\"#311a80\"><b>${temp}<br>${otherName}</font></b>님이<br>동행을 수락하셨습니다."
         }
 
         if (data.isEmpty()) {
@@ -216,8 +215,12 @@ class ChatRoomAdapter(private val context: Context, private val passData: Adapte
                         }
                     }
                 }
+                holder.msg.text = data[position].msg?.toSpanned()
+                var temp = data[position].msg
+                temp = temp?.replace("<font color=\"#311a80\"><b>", "")
+                val tempIndex : Int = temp?.lastIndexOf("일")!!
+                temp = temp.substring(0, tempIndex+1)
 
-                holder.msg.text = data[position].msg
                 holder.date.text = data[position].date?.substring(13)
 
                 val references : DatabaseReference = FirebaseDatabase.getInstance().reference
@@ -235,7 +238,7 @@ class ChatRoomAdapter(private val context: Context, private val passData: Adapte
                     val now = Calendar.getInstance().time
                     val pattern = SimpleDateFormat("yyyy년 MM월 dd일 HH:mm")
                     val nowDate = pattern.format(now)
-                    val vo = ChatVO(MY_INVITE, "동행 성사 메시지입니다.", passData.myIdx, nowDate)
+                    val vo = ChatVO(MY_INVITE, "동행 성사 메시지입니다.-${temp}", passData.myIdx, nowDate)
 
                     value.lastMessage = "동행 성사 메시지입니다."
                     value.lastTime = nowDate

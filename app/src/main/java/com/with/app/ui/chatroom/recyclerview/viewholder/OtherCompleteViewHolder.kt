@@ -17,7 +17,7 @@ class OtherCompleteViewHolder(view : View) : RecyclerView.ViewHolder(view) {
 
     fun bind(data : ChatVO, next : ChatVO, last : Boolean) {
         msg.text = data.msg?.toSpanned()
-        date.text = data.date?.substring(14)
+        date.text = data.date?.substring(data.date?.lastIndexOf("일")!! + 2)
 
         if (!last) {
             if ((next.type == 1 || next.type == 3 || next.type == 4)) {
