@@ -42,7 +42,7 @@ class RegionListViewHolder(view : View) : RecyclerView.ViewHolder(view) {
                     itemView.setBackgroundColor(Color.parseColor("#FFFFFFFF"))
                 }
                 MotionEvent.ACTION_DOWN -> {
-                    itemView.setBackgroundColor(Color.parseColor("#4DFD9F08"))
+                    itemView.setBackgroundColor(Color.parseColor("#F0EBFF"))
                 }
 
                 MotionEvent.ACTION_MOVE -> {
