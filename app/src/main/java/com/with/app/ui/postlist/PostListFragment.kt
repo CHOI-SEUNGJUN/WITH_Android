@@ -1,25 +1,26 @@
 package com.with.app.ui.postlist
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.with.app.R
 import com.with.app.data.PickerDTO
 import com.with.app.data.PostItem
-import com.with.app.ui.chatlist.evaluation.EvaluateActivity
 import com.with.app.ui.posting.PostingActivity
 import com.with.app.ui.postlist.recylcerview.PostListAdapter
 import com.with.app.manage.PrefManager
-import com.with.app.ui.postlist.recent.RecentActivity
-import com.with.app.ui.signup.SignUpActivity
+import com.with.app.ui.recent.RecentSearchesActivity
 import com.with.app.util.toast
 import kotlinx.android.synthetic.main.date_picker.view.*
 import kotlinx.android.synthetic.main.fragment_post_list.*
@@ -36,6 +37,7 @@ class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
     private var endDate : String = prefManager.endDate
     private lateinit var rvPostList : RecyclerView
     private lateinit var postListAdapter : PostListAdapter
+    private lateinit var edt_search : TextView
 
 
     override fun onCreateView(
@@ -49,6 +51,8 @@ class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
             val intent = Intent(context, PostingActivity::class.java)
             startActivity(intent)
         }
+
+        edt_search = view.findViewById(R.id.edt_search)
 
         if (prefManager.startDate != prefManager.endDate) {
             val splitStart = prefManager.startDate.splitDate()
@@ -67,19 +71,19 @@ class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.txt_country.setOnClickListener {
+        txt_country.setOnClickListener {
             val intent = Intent(context, ChangeRegionActivity::class.java)
             startActivity(intent)
             //지역선택에서 값 받아서 txt_country 설정해야함
         }
 
         edt_search.setOnClickListener {
-            val intent = Intent(activity, RecentActivity::class.java)
-            startActivity(intent)
+            val intent = Intent(activity, RecentSearchesActivity::class.java)
+            startActivityForResult(intent, REQUESTCODE)
         }
 
         //datePicker 시작
-        view.txt_datePicker.setOnClickListener {
+        txt_datePicker.setOnClickListener {
             val dialogView = layoutInflater.inflate(R.layout.date_picker, null)
 
             val dialog = AlertDialog.Builder(context)
@@ -131,7 +135,14 @@ class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
         }
     }
 
-
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUESTCODE && resultCode == Activity.RESULT_OK) {
+            Log.e("OK?", "OK")
+            Log.e("OK?", data?.getStringExtra("keyword"))
+            edt_search.text = data?.getStringExtra("keyword")
+        }
+    }
 
     override fun onRefresh() {
         //새로고침 구현
@@ -233,6 +244,10 @@ class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
 
     private fun DatePicker.setDate(data : PickerDTO) {
         this.updateDate(data.year, data.month-1, data.day)
+    }
+
+    companion object {
+        private const val REQUESTCODE = 0
     }
 
 }

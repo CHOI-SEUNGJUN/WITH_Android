@@ -1,5 +1,6 @@
 package com.with.app.ui.base
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -44,6 +45,9 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
         }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+    }
 
     private var lastTimeBackPressed:Long=-1500
     // 이전 버튼 두 번 눌러서 종료하기

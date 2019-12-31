@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.postlist.recent.RecentActivity"></activity>
+        <activity android:name="com.with.app.ui.recent.RecentSearchesActivity"></activity>
         <activity android:name=".ui.signup.SignUpActivity" />
         <activity android:name=".ui.chatlist.evaluation.EvaluateActivity" />
         <activity android:name=".ui.signin.SignInActivity">
