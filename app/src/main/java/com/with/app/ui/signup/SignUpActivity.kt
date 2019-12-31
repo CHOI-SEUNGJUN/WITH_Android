@@ -315,7 +315,7 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        // TODO : alert Dialog 띄우기
+        showSettingPopup()
     }
 
     fun changeImage() {
@@ -326,37 +326,6 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun showSettingPopup() {
-////        val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-////        val view = inflater.inflate(R.layout.activity_sign_up, null)
-//        val alertDialog = AlertDialog.Builder(this)
-//            .setTitle("회원가입을 종료하시겠습니까?")
-//            .setMessage("지금까지 입력한 정보들은 저장되지 않습니다.")
-//            .setPositiveButton("예") {
-//                dialog, which -> finish()
-//            }
-//            .setNeutralButton("취소") {
-//                dialog, which ->  dialog.cancel()
-//            }
-//            .create()
-//        //alertDialog.setView(view)
-//        alertDialog.show()
-//        MaterialDialog(this).show {
-//            title(text = "회원가입을 종료하시겠습니까?")
-//            message(text = "지금까지 입력한 정보들은 저장되지\n않습니다.")
-//            positiveButton(text = "아니오") {dialog -> dismiss()}
-//            negativeButton (text = "예") {dialog -> finish()}
-//        }
-//       val materialDialog = MaterialDialog(this).show {
-//            customView(R.layout.dialog_sign_up)
-//        }
-//        val customView = materialDialog.getCustomView()
-//
-//        btn_ok.setOnClickListener {
-//            finish()
-//        }
-//        btn_cancle.setOnClickListener {
-//            materialDialog.dismiss()
-//        }
         MaterialDialog(this).show {
             customView(R.layout.dialog_sign_up)
             btn_ok.setOnClickListener {
