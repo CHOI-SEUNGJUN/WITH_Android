@@ -53,53 +53,7 @@ class RegionAfricaFragment : Fragment() {
 
         rv_region_list.layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
 
-        regionListAdapter.region = listOf(
-            RegionListItem(
-                name = "프랑스"
-                //profile_url =  ""
-            ),
-            RegionListItem(
-                name = "프랑스"
-                //profile_url =  ""
-            ), RegionListItem(
-                name = "프랑스"
-                //profile_url =  ""
-            ),
-            RegionListItem(
-                name = "프랑스"
-                //profile_url =  ""
-            ),
-            RegionListItem(
-                name = "프랑스"
-                //profile_url =  ""
-            ),
-            RegionListItem(
-                name = "프랑스"
-                //profile_url =  ""
-            ), RegionListItem(
-                name = "프랑스"
-                //profile_url =  ""
-            ),
-            RegionListItem(
-                name = "프랑스"
-                //profile_url =  ""
-            ),
-            RegionListItem(
-                name = "프랑스"
-                //profile_url =  ""
-            ),
-            RegionListItem(
-                name = "프랑스"
-                //profile_url =  ""
-            ), RegionListItem(
-                name = "프랑스"
-                //profile_url =  ""
-            ),
-            RegionListItem(
-                name = "프랑스"
-                //profile_url =  ""
-            )
-        )
+        // regionListAdapter.region
         regionListAdapter.notifyDataSetChanged()
     }
 
