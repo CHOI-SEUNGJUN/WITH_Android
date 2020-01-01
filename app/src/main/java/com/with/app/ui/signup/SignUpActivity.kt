@@ -41,7 +41,7 @@ class SignUpActivity : AppCompatActivity() {
     var imageUri: Uri? = null
     private var profileImg: MultipartBody.Part? = null
 
-    private var validate = false
+    private var validate = true
     private var b_id = false
     private var b_pw = false
     private var b_pwck = false
@@ -237,14 +237,15 @@ class SignUpActivity : AppCompatActivity() {
             }
 
             requestManager.requestSignUp(
-                RequestBody.create(MediaType.parse("text.plain"), "1"),
-                RequestBody.create(MediaType.parse("text.plain"), "1"),
+                RequestBody.create(MediaType.parse("text.plain"), "1234564abc"),
+                RequestBody.create(MediaType.parse("text.plain"), "12345"),
                 RequestBody.create(MediaType.parse("text.plain"), "안드로이드테스트계정임지우지마셈"),
                 RequestBody.create(MediaType.parse("text.plain"), "1995-01-01"),
                 RequestBody.create(MediaType.parse("text.plain"), "-1"),
                 profileImg
             ).safeEnqueue(
                 onSuccess = {
+                    it.success
                     finish()
                 },
                 onError = {

@@ -2,11 +2,13 @@ package com.with.app.data.remote
 
 data class ResponseChatListData(
     val success : Boolean,
-    val message : String,
+    val message : String?,
     val data : List<ResponseChatListArrayData>
 )
 
 data class ResponseChatListArrayData(
+    val boardIdx : Int,
+    val roomId : String,
     val userImg : String,
     val name : String,
     val regionName : String,

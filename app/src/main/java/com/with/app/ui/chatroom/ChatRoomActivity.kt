@@ -2,6 +2,9 @@ package com.with.app.ui.chatroom
 
 import android.os.Bundle
 import android.app.AlertDialog
+import android.content.Intent
+import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -14,6 +17,7 @@ import com.with.app.manage.RequestManager
 import com.with.app.ui.chatroom.recyclerview.ChatRoomAdapter
 import com.with.app.ui.chatroom.recyclerview.ChatRoomAdapter.Companion.MY_CHAT
 import com.with.app.ui.chatroom.recyclerview.ChatRoomAdapter.Companion.MY_INVITE
+import com.with.app.ui.detailpost.DetailPostActivity
 import com.with.app.ui.detailpost.DetailPostActivity.Companion.POSTINGTOCHAT
 import com.with.app.util.addListener
 import com.with.app.util.addSingleListener
@@ -41,16 +45,17 @@ class ChatRoomActivity : AppCompatActivity() {
     private var myIdx = requestManager.authManager.idx
     // 서버에서 받아와야함
     private var boardIdx: Int = 0
-    private var otherIdx = 14
-    private var otherName = "김남수"
-    private var otherProfile = " "
+    private var otherIdx = 0
+    private var otherName = ""
+    private var otherProfile = ""
     // 채팅하기 눌렀을때 불러와야함
     private var posterIdx = 0
     private var senderIdx = 0
 
     private var meetDate = ""
-
     private var chatRoomId = ""
+
+    private var inviteFlag = 0
 
     private lateinit var reference: DatabaseReference
     private lateinit var chatReference: DatabaseReference
@@ -104,12 +109,20 @@ class ChatRoomActivity : AppCompatActivity() {
 
         posterIdx = intent.getIntExtra("writeUserIdx", 0)
         senderIdx = intent.getIntExtra("senderUserIdx", 0)
-        chatRoomId = "${posterIdx}_${senderIdx}"
+        chatRoomId = "${boardIdx}_${posterIdx}_${senderIdx}"
 
         val mode = intent.getIntExtra("mode", 0)
         otherIdx =
-            if (mode == POSTINGTOCHAT) senderIdx
+            if (mode == POSTINGTOCHAT) posterIdx
             else intent.getIntExtra("userIdx", 0)
+
+        btn_more.setOnClickListener {
+            val intent = Intent(this, DetailPostActivity::class.java)
+            intent.putExtra("boardIdx", boardIdx)
+            startActivity(intent)
+        }
+
+        if (posterIdx != myIdx) btn_invite.visibility = View.GONE
     }
 
     private fun inviteMessage() {
@@ -139,6 +152,8 @@ class ChatRoomActivity : AppCompatActivity() {
                     value.lastTime = nowDate
                     tempValue.lastTime = nowDate
                     value.unSeenCount = 0
+                    value.inviteFlag = 1
+                    tempValue.inviteFlag = 1
 
                     chatReference.push().setValue(chatVO)
                     usersReference.child("$myIdx").child(chatRoomId).setValue(value)
@@ -197,13 +212,24 @@ class ChatRoomActivity : AppCompatActivity() {
         usersReference.child("$otherIdx/$chatRoomId").addListener(
             onChildAdded = { snap, _ ->
                 if (snap.key == "unSeenCount") otherCount = snap.value.toString().toInt()
+                if (snap.key == "inviteFlag") inviteFlag = snap.value.toString().toInt()
+                if (inviteFlag == 1) {
+                    btn_invite.visibility = View.GONE
+                }
             },
             onChildChanged = { snap, _ ->
                 if (snap.key == "unSeenCount") otherCount = snap.value.toString().toInt()
+                if (snap.key == "inviteFlag") inviteFlag = snap.value.toString().toInt()
+                if (inviteFlag == 1) {
+                    btn_invite.visibility = View.GONE
+                }
             })
 
         // 채팅방 입장시 초기화
-        usersReference.child("$myIdx").child(chatRoomId).child("unSeenCount").setValue(0)
+        if (!value.lastMessage.isNullOrBlank()) {
+            usersReference.child("$myIdx").child(chatRoomId).child("unSeenCount").setValue(0)
+        }
+
     }
 
     override fun onPause() {

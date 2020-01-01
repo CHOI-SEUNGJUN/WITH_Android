@@ -1,10 +1,8 @@
 package com.with.app.data
 
+import com.with.app.data.remote.ResponseChatListArrayData
+
 data class ChatListVO(
-    val chatRoomId: String?,
-    val profile: String,
-    val name: String,
-    val title: String,
-    val circle: String,
-    var response: ChatUserVO
+    var ourServer: ResponseChatListArrayData,
+    var fireBase: ChatUserVO
 )

@@ -1,7 +1,6 @@
 package com.with.app.ui.chatlist.recylcerview
 
 import android.content.Intent
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -25,40 +24,57 @@ class ChatListViewHolder(view : View) : RecyclerView.ViewHolder(view) {
     val tv_date : TextView = view.findViewById(R.id.tv_date)
     val tv_chat_remain : TextView = view.findViewById(R.id.tv_chat_remain)
 
-    fun bind(data : ChatListVO) {
-        tv_name.text = data.name
-        tv_title.text = data.title
-        tv_message.text = data.response.lastMessage
+    fun bind(item : ChatListVO) {
+        val ourServer = item.ourServer
+        val fireBase = item.fireBase
+        tv_name.text = ourServer.name
+        tv_title.text = ourServer.title
+        tv_message.text = fireBase.lastMessage
 
 
-        tv_date.text = data.response.lastTime
+        tv_date.text = fireBase.lastTime
         val pattern = SimpleDateFormat("yyyy년 MM월 dd일")
-        pattern.parse(data.response.lastTime!!).let {
+        pattern.parse(fireBase.lastTime!!).let {
             if (it != null) {
                 convertTime = it
                 val nowTime : Date = Calendar.getInstance().time
                 val diffs = (nowTime.time - convertTime.time) / (24 * 60 * 60 * 1000) // minutes 단위
 
-                if (diffs.toInt() == 0) tv_date.text = data.response.lastTime?.substring(14)
-                else tv_date.text = data.response.lastTime?.substring(6,13)
-            } else tv_date.text = data.response.lastTime?.substring(14)
+                if (diffs.toInt() == 0) tv_date.text = fireBase.lastTime?.substring(14)
+                else tv_date.text = fireBase.lastTime?.substring(6,13)
+            } else tv_date.text = fireBase.lastTime?.substring(14)
         }
 
         when {
-            data.response.unSeenCount <= 0 -> {
+            fireBase.unSeenCount <= 0 -> {
                 tv_chat_remain.visibility = View.GONE
             }
-            data.response.unSeenCount > 99 -> {
+            fireBase.unSeenCount > 99 -> {
                 tv_chat_remain.text = "99+"
             }
             else -> {
-                tv_chat_remain.text = data.response.unSeenCount.toString()
+                tv_chat_remain.text = fireBase.unSeenCount.toString()
             }
         }
 
         itemView.setOnClickListener {
-            itemView.context.startActivity(Intent(itemView.context, ChatRoomActivity::class.java))
+            val intent = Intent(itemView.context, ChatRoomActivity::class.java)
+            intent.putExtra("mode", CHATLISTTOCHAT)
+            intent.putExtra("boardIdx", ourServer.boardIdx)
+            intent.putExtra("writeUserIdx", ourServer.roomId.split("_")[1])
+            intent.putExtra("regionName", ourServer.regionName)
+            intent.putExtra("startDate", ourServer.startDate)
+            intent.putExtra("endDate", ourServer.endDate)
+            intent.putExtra("title", ourServer.title)
+            intent.putExtra("userImg", ourServer.userImg)
+            intent.putExtra("name", ourServer.name)
+            intent.putExtra("senderUserIdx", ourServer.roomId.split("_")[2])
+            itemView.context.startActivity(intent)
         }
 
+    }
+
+    companion object {
+        const val CHATLISTTOCHAT = 555
     }
 }
