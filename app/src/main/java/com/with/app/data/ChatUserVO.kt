@@ -4,5 +4,6 @@ data class ChatUserVO (
     var boardIdx : Int = 0,
     var lastMessage : String? = null,
     var lastTime : String? = null,
-    var unSeenCount : Int = -1
+    var unSeenCount : Int = 0,
+    var inviteFlag : Int = 0
     )

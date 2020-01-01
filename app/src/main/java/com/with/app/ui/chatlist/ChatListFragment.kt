@@ -14,15 +14,23 @@ import com.google.firebase.database.FirebaseDatabase
 import com.with.app.R
 import com.with.app.data.ChatListVO
 import com.with.app.data.ChatUserVO
+import com.with.app.data.remote.ResponseChatListArrayData
+import com.with.app.manage.RequestManager
 import com.with.app.ui.chatlist.recylcerview.ChatListAdapter
 import com.with.app.util.addListener
+import com.with.app.util.safeEnqueue
 import kotlinx.android.synthetic.main.fragment_chat_list.*
+import org.koin.android.ext.android.inject
 
 class ChatListFragment : Fragment() {
 
-    private var myIdx = 13
+    private val requestManager : RequestManager by inject()
+
+    private var myIdx = requestManager.authManager.idx
 
     private var value : ChatUserVO = ChatUserVO()
+
+    private var responseData : List<ResponseChatListArrayData> = listOf()
 
     private lateinit var data : MutableList<ChatListVO>
     private lateinit var adapter : ChatListAdapter
@@ -48,7 +56,18 @@ class ChatListFragment : Fragment() {
         usersReference = reference.child("users")
 
         data = mutableListOf()
-        fireBaseChatListener()
+        requestManager.requestChatList()
+            .safeEnqueue(
+                onSuccess = {
+                    if (it.success) {
+                        Log.e("data", it.data.toString())
+                        responseData = it.data
+                        fireBaseChatListener()
+                    }
+                }
+            )
+
+
         adapter = ChatListAdapter(data)
         lm = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         rv_chat_list.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
@@ -61,18 +80,21 @@ class ChatListFragment : Fragment() {
             onChildAdded = {
                     snap, _ ->
                 value = snap.getValue(ChatUserVO::class.java)!!
-                data.add(ChatListVO(snap.key," ","김남수","맥주마실까요?"," ", value))
+                for (item in responseData) {
+                    if (item.roomId == snap.key)
+                        data.add(ChatListVO(item, value))
+                }
                 adapter.notifyDataSetChanged()
             },
             onChildChanged = {
                 snap, _ ->
                 value = snap.getValue(ChatUserVO::class.java)!!
-                data.filter {
-                    it.chatRoomId == snap.key
-                }.forEach{
-                    it.response = value
-                }
                 adapter.notifyDataSetChanged()
+                data.filter {
+                    it.ourServer.roomId == snap.key
+                }.forEach{
+                    it.fireBase = value
+                }
             }
         )
     }
