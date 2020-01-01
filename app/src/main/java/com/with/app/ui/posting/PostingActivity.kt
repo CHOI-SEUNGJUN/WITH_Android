@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.date_picker.view.*
 import org.koin.android.ext.android.inject
 import java.text.SimpleDateFormat
 import android.R
+import com.with.app.manage.PrefManager
 import com.with.app.util.toast
 
 
@@ -30,17 +31,14 @@ class PostingActivity : AppCompatActivity() {
 
     private var isSwitchChecked = -1
     private val requestManager : RequestManager by inject()
+    private val prefManager : PrefManager by inject()
     private var boardIdx = 0
-    private lateinit var dialogView : View
     private var mode = 0
+    private var regionCode = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(com.with.app.R.layout.activity_posting)
-
-        dialogView = layoutInflater.inflate(com.with.app.R.layout.date_picker, null)
-        dialogView.btn_select_all.visibility = View.GONE
-
         //게시글 수정
         if(intent.getIntExtra("mode",0)==1) {
 
@@ -63,23 +61,26 @@ class PostingActivity : AppCompatActivity() {
         }
 
         else {//게시글 작성
+            edt_region.setText(requestManager.regionManager.name)
+            edt_region.setTextColor(Color.BLACK)
+            if(prefManager.startDate != "0") {
+                edt_date.setText(
+                    "${prefManager.startDate.substring(2)} ~ ${prefManager.endDate.substring(2)}"
+                )
+                edt_date.setTextColor(Color.BLACK)
+            }
             btn_delete.visibility = View.GONE
             mode = 1
         }
 
         btn_save.setOnClickListener {
-            var regionCode = requestManager.regionManager.code
+            regionCode = requestManager.regionManager.code
             var title = edt_title.text.toString()
             var content = edt_content.text.toString()
             var startDate = edt_date.text.split(" ~ ")[0]
             var endDate = edt_date.text.split(" ~ ")[1]
             var filter: Int
-            if (switch_filter.isChecked){
-                filter = 1
-            }
-            else{
-                filter = -1
-            }
+            if (switch_filter.isChecked) filter = 1 else filter = -1
             if (mode == 0) {
                 requestManager.requestBoardEdit(boardIdx, RequestBoardData(regionCode, title, content, startDate, endDate, filter))
                     .safeEnqueue(
@@ -99,7 +100,7 @@ class PostingActivity : AppCompatActivity() {
                     .safeEnqueue (
                         onSuccess = {
                             val intent = Intent(this,DetailPostActivity::class.java)
-                            intent.putExtra("boardIdx",boardIdx)
+                            intent.putExtra("boardIdx",it.data[0].boardIdx)
                             startActivity(intent)
                             finish()
                         },
@@ -119,6 +120,8 @@ class PostingActivity : AppCompatActivity() {
         }
 
         edt_date.setOnClickListener{
+            val dialogView = layoutInflater.inflate(com.with.app.R.layout.date_picker, null)
+            dialogView.btn_select_all.visibility = View.GONE
             if (dialogView.start_datepicker.parent != null)
                 (dialogView.start_datepicker.parent as ViewGroup).removeView(start_datepicker)
 

@@ -55,7 +55,7 @@ class DetailPostActivity : AppCompatActivity(){
             .safeEnqueue (
                 onSuccess = {
                     if (it.success) {
-                        val response = it.data[0]
+                        val response = it.data
                         txt_title.text = response.title
                         txt_region.text = response.regionName
                         txt_content.text = response.content
@@ -65,7 +65,7 @@ class DetailPostActivity : AppCompatActivity(){
                         else txt_filter.text = "미적용"
                         userIdx = response.userIdx
                         txt_name.text = response.name
-                        if(it.data[0].gender == 1) txt_age_gender.text = response.birth.toString()+"살 남자"
+                        if(it.data.gender == 1) txt_age_gender.text = response.birth.toString()+"살 남자"
                         else txt_age_gender.text = response.birth.toString()+"살 여자"
                         Glide.with(applicationContext)
                             .load(response.userImg)
