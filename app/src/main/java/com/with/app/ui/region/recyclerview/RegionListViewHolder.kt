@@ -18,7 +18,7 @@ import com.with.app.manage.RegionManager
 
 class RegionListViewHolder(view : View) : RecyclerView.ViewHolder(view) {
 
-    val img_region_profile : ImageView = view.findViewById(R.id.img_signup_profile)
+    val img_region_profile : ImageView = view.findViewById(R.id.img_mypage_profile)
     val tv_region_name : TextView = view.findViewById(R.id.tv_region_name)
 
     fun bind(region : ResponseCountryListArrayData, context: Context, regionManager: RegionManager) {

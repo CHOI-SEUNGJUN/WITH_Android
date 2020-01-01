@@ -151,11 +151,12 @@ class HomeFragment : Fragment() {
         rv_recent_bulletin.adapter = recBulletinAdapter
 
         rv_recent_bulletin.layoutManager = GridLayoutManager(context!!, 2)
+
         var boardIdx = recentViewsHelper.readView()
         if (boardIdx.isEmpty()) {
 
         } else {
-            requestManager.requestLatelyBoard("102+103+104+105+107+112")
+            requestManager.requestLatelyBoard("131+132+133+134+135+136")
                 .safeEnqueue(
                     onSuccess = {
                         recBulletinAdapter.bulletin = it.data
@@ -163,6 +164,7 @@ class HomeFragment : Fragment() {
                     }
                 )
         }
+
     }
 
     companion object {
