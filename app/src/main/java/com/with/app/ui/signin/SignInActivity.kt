@@ -31,7 +31,6 @@ class SignInActivity : AppCompatActivity() {
                 .safeEnqueue(
                     onSuccess = {
                     requestManager.authManager.token = it.data.token
-                        Log.e("token",requestManager.authManager.token)
                     requestManager.authManager.idx = it.data.userIdx
                     startActivity(Intent(this, MainActivity::class.java))
                     finish()

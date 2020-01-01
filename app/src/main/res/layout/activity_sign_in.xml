@@ -44,6 +44,7 @@
         android:paddingLeft="16dp"
         android:singleLine="true"
         android:lines="1"
+        android:inputType="textPassword"
         android:nextFocusDown="@id/btn_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
