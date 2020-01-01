@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.with.app.R
-import com.with.app.data.PostItem
+import com.with.app.data.remote.ResponseSearchBoardArrayData
 
 
 class PostListAdapter (private val context: Context): RecyclerView.Adapter<PostListViewHolder>(){
+    var data = listOf<ResponseSearchBoardArrayData>()
 
-    lateinit var data : List<PostItem>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostListViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_post_bulletin,parent,false)
 

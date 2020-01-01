@@ -4,15 +4,19 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.with.app.R
 import com.with.app.manage.AuthManager
+import com.with.app.manage.RequestManager
 import com.with.app.ui.posting.PostingActivity
+import com.with.app.util.safeEnqueue
 import kotlinx.android.synthetic.main.activity_detail_post.*
 import org.koin.android.ext.android.inject
 
 class DetailPostActivity : AppCompatActivity(){
 
     private val authManager : AuthManager by inject()
+    private val requestManager : RequestManager by inject()
     private var myIdx = authManager.idx
     private var posterIdx = 10
 
@@ -20,6 +24,15 @@ class DetailPostActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_post)
 
+        requestManager.requestDetailBoard(intent.getIntExtra("boardIdx",0))
+            .safeEnqueue (
+                onSuccess = {
+                    //??
+                },
+                onError = {
+                    Log.e("error", it.toString())
+                }
+            )
 
         //게시글쓴 idx값과 접속한 idx값이 같으면
         if (myIdx == posterIdx) {
@@ -32,7 +45,7 @@ class DetailPostActivity : AppCompatActivity(){
             intent.putExtra("regionCode",edt_region.text)
             intent.putExtra("content",edt_content.text)
             intent.putExtra("date",edt_date.text)
-            intent.putExtra("filter",-1)//동성필터 여부 받아오기
+            intent.putExtra("filter",-1)//동성필터 여부 받아온 값 넣기
             intent.putExtra("mode",1)
             startActivityForResult(intent,-1)
         }

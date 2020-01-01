@@ -40,7 +40,7 @@ class RequestManager(val context: Context, val authManager: AuthManager, val reg
 
     fun requestSearchBoard(regionCode: String, startDate: String, endDate: String,
                            keyword: String, filter: Int)
-            = retrofit.getSearchBoard(regionCode, startDate, endDate, keyword, filter)
+            = retrofit.getSearchBoard(regionCode, startDate, endDate, keyword, filter, authManager.token)
 
     fun requestDetailBoard(boardIdx: Int) = retrofit.getDetailBoard(boardIdx)
 
