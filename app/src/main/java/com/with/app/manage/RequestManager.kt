@@ -60,6 +60,9 @@ class RequestManager(val context: Context, val authManager: AuthManager, val reg
 
     fun requestMyPage() = retrofit.getMyPage(authManager.token)
 
+    fun requestPutMyPage(intro: RequestBody, userImg: MultipartBody.Part?, userBgImg: MultipartBody.Part?)
+            = retrofit.putMyPage(intro, userImg, userBgImg, authManager.token)
+
 
 }
 

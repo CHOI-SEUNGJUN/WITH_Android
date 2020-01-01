@@ -47,6 +47,7 @@ class MyPageFragment : Fragment() {
     var data: Uri? = null
     var imageUri: Uri? = null
     private var profileImg: MultipartBody.Part? = null
+    private var backImg: MultipartBody.Part? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -187,7 +188,18 @@ class MyPageFragment : Fragment() {
         }
 
         tv_save.setOnClickListener {
-            returnMypage()
+            requestManager.requestPutMyPage(
+                RequestBody.create(MediaType.parse("text.plain"), edt_mypage_intro.text.toString()),
+                profileImg,
+                backImg
+            ).safeEnqueue(
+                onSuccess = {
+                    Log.v("intro", edt_mypage_intro.text.toString())
+                    it.success
+                    returnMypage()
+
+                }
+            )
         }
     }
 
@@ -205,6 +217,8 @@ class MyPageFragment : Fragment() {
         //btn_setting.visibility = View.GONE
         tv_save.visibility = View.GONE
         tv_text_count.visibility = View.INVISIBLE
+
+
 
     }
 
@@ -270,8 +284,8 @@ class MyPageFragment : Fragment() {
                         val photoBody = RequestBody.create(MediaType.parse("image/jpg"), baos.toByteArray())
                         val img = File(getRealPathFromURI(context!!, imageUri!!))
 
-                        profileImg = MultipartBody.Part.createFormData("img", img.name, photoBody)
-                        Log.v("MyPage Activity", "$profileImg")
+                        backImg = MultipartBody.Part.createFormData("img", img.name, photoBody)
+                        Log.v("MyPage Activity", "$backImg")
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()

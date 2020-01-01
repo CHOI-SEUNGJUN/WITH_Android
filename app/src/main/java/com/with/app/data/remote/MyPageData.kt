@@ -16,3 +16,8 @@ data class ResponseObjectMyPageData (
     val dislikeNum : Int,
     val badge : Int
 )
+
+data class ResponsePutMyPageData (
+    val success : Boolean,
+    val message : String
+)
