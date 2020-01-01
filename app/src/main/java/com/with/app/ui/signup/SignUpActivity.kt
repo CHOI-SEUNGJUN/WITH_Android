@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
@@ -20,9 +21,11 @@ import com.bumptech.glide.Glide
 import com.with.app.R
 import com.with.app.manage.RequestManager
 import com.with.app.util.safeEnqueue
+import com.with.app.util.toSpanned
 import com.with.app.util.toast
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.dialog_sign_up.*
+import kotlinx.android.synthetic.main.dialog_signup_success.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -224,29 +227,33 @@ class SignUpActivity : AppCompatActivity() {
 
             val userID = edt_signup_email.text.toString()
             val password = edt_signup_password.text.toString()
-            val name = edt_birth.text.toString()
+            val name = edt_name.text.toString()
+            val birth = edt_birth.text.toString()
+            var gender = 0
+
             if (rbtn_male.isChecked) {
-                val gender = 1
+                gender = 1
             } else {
-                val gender = -1
+                gender = -1
             }
 
-            if (userID.isEmpty() || password.isEmpty() || name.isEmpty() || !b_id || !b_pw || !b_pwck) {
+            if (userID.isEmpty() || password.isEmpty() || name.isEmpty() || !b_id || !b_pw || !b_pwck || gender == 0) {
                 toast("회원가입 조건에 맞게 모두 채워주세요!")
                 return@setOnClickListener
             }
 
+
             requestManager.requestSignUp(
-                RequestBody.create(MediaType.parse("text.plain"), "1234564abc"),
-                RequestBody.create(MediaType.parse("text.plain"), "12345"),
-                RequestBody.create(MediaType.parse("text.plain"), "안드로이드테스트계정임지우지마셈"),
-                RequestBody.create(MediaType.parse("text.plain"), "1995-01-01"),
-                RequestBody.create(MediaType.parse("text.plain"), "-1"),
+                RequestBody.create(MediaType.parse("text.plain"), userID),
+                RequestBody.create(MediaType.parse("text.plain"), password),
+                RequestBody.create(MediaType.parse("text.plain"), name),
+                RequestBody.create(MediaType.parse("text.plain"), birth),
+                RequestBody.create(MediaType.parse("text.plain"), gender.toString()),
                 profileImg
             ).safeEnqueue(
                 onSuccess = {
                     it.success
-                    finish()
+                    showSuccessPopup()
                 },
                 onError = {
                     toast("네트워크 연결 오류")
@@ -332,6 +339,18 @@ class SignUpActivity : AppCompatActivity() {
                 dismiss()
             }
         }
+    }
+
+    private fun showSuccessPopup() {
+
+
+        MaterialDialog(this).show {
+            customView(R.layout.dialog_signup_success)
+            textView7.text = "<font color=\"311a80\"><b>W!TH</font></b>와 <b>안전</b>하고 <b>간편</b>하게<br>동행을 구해보세요!".toSpanned()
+        }
+        Handler().postDelayed({
+            finish()
+        }, 2000)
     }
 
 }
