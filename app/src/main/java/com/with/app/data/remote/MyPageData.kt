@@ -1,6 +1,12 @@
 package com.with.app.data.remote
 
-data class RequestMyPageData (
+data class ResponseMyPageData(
+    val success : Boolean,
+    val message : String,
+    val data : ResponseObjectMyPageData
+)
+
+data class ResponseObjectMyPageData (
     val name : String,
     val birth : Int,
     val gender : Int,

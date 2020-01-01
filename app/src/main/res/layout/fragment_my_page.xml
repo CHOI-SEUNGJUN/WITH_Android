@@ -90,7 +90,7 @@
 
         <EditText
             android:id="@+id/edt_mypage_intro"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="34dp"
@@ -98,13 +98,14 @@
             android:background="@null"
             android:enabled="false"
             android:lineSpacingExtra="9sp"
+            android:maxLength="17"
             android:text="휴학하고 여행을 할래요 :)"
             android:textAlignment="center"
             android:textColor="@color/colorWhite"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
 
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/img_mypage_background" />
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -352,6 +353,18 @@
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_text_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0/17"
+            android:textColor="@color/colorWhite"
+            android:textSize="10sp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/edt_mypage_intro"
+            app:layout_constraintStart_toStartOf="@+id/edt_mypage_intro"
+            app:layout_constraintTop_toBottomOf="@+id/edt_mypage_intro" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

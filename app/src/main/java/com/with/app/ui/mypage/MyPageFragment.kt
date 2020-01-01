@@ -10,6 +10,8 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,17 +19,18 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import androidx.core.content.ContextCompat.getSystemService
 import com.bumptech.glide.Glide
 
 import com.with.app.R
+import com.with.app.manage.RequestManager
+import com.with.app.util.safeEnqueue
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.date_picker.*
 import kotlinx.android.synthetic.main.fragment_my_page.*
 import kotlinx.android.synthetic.main.fragment_my_page.img_mypage_profile
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import org.koin.android.ext.android.inject
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileNotFoundException
@@ -37,6 +40,7 @@ import java.io.InputStream
  * A simple [Fragment] subclass.
  */
 class MyPageFragment : Fragment() {
+    private val requestManager: RequestManager by inject()
 
     private val PROFILE_SETTING = 100
     private val BACK_SETTING = 101
@@ -54,6 +58,7 @@ class MyPageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        makeMyPageView()
         makeSettingView()
 
 
@@ -64,6 +69,36 @@ class MyPageFragment : Fragment() {
         img_camera2.setOnClickListener {
             changeProfileImage()
         }
+    }
+
+    fun makeMyPageView() {
+        requestManager.requestMyPage()
+            .safeEnqueue (
+                onSuccess = { it ->
+                    Log.v("mypage name", it.data.name)
+                    tv_mypage_name.text = it.data.name
+
+                    Log.v("birth", it.data.birth.toString())
+                    tv_mypage_age.text = it.data.birth.toString()
+
+                    val gender = it.data.gender
+
+                    if(gender == 1) {
+                        tv_mypage_gender.text = "남자"
+                    } else {
+                        tv_mypage_gender.text = "여자"
+                    }
+                    edt_mypage_intro.setText(it.data.intro.toString())
+
+                    Glide.with(this)
+                        .load(it.data.userImg)
+                        .into(img_mypage_profile)
+//                    Glide.with(this)
+//                        .load(it.data.userImg)
+//                        .into(img_mypage_profile) 백그라운드 이미지 추가
+                }
+            )
+
     }
 
     fun changeBackImage() {
@@ -109,6 +144,9 @@ class MyPageFragment : Fragment() {
                     btn_setting.visibility = View.GONE
                     //btn_setting.visibility = View.GONE
                     tv_save.visibility = View.VISIBLE
+                    val input = edt_mypage_intro.text.toString().length
+                    tv_text_count.text = "$input" + "/ 17"
+                    tv_text_count.visibility = View.VISIBLE
                 }
             }
             true
@@ -122,6 +160,19 @@ class MyPageFragment : Fragment() {
             }
         }
 
+        edt_mypage_intro.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val input = edt_mypage_intro.text.toString().length
+                tv_text_count.text = "$input" + "/ 17"
+            }
+        })
         cl_back.setOnClickListener {
 
             view!!.requestFocus()
@@ -153,6 +204,7 @@ class MyPageFragment : Fragment() {
         btn_setting.visibility = View.VISIBLE
         //btn_setting.visibility = View.GONE
         tv_save.visibility = View.GONE
+        tv_text_count.visibility = View.INVISIBLE
 
     }
 

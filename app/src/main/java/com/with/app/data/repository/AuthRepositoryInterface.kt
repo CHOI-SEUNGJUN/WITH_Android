@@ -131,4 +131,12 @@ interface AuthRepositoryInterface {
         @Body data : RequestWithInviteData, @Header("token") token : String
     ) : Call<ResponseWithInviteData>
 
+    /**
+     * 마이페이지 조회
+     */
+    @GET("/mypage")
+    fun getMyPage(
+        @Header("token") token: String
+    ) : Call<ResponseMyPageData>
+
 }
