@@ -33,22 +33,16 @@ class ChatListViewHolder(view : View) : RecyclerView.ViewHolder(view) {
 
         tv_date.text = data.response.lastTime
         val pattern = SimpleDateFormat("yyyy년 MM월 dd일")
-        pattern.parse(data.response.lastTime).let {
+        pattern.parse(data.response.lastTime!!).let {
             if (it != null) {
                 convertTime = it
                 val nowTime : Date = Calendar.getInstance().time
                 val diffs = (nowTime.time - convertTime.time) / (24 * 60 * 60 * 1000) // minutes 단위
 
-                if (diffs.toInt() == 0) {
-                    tv_date.text = data.response.lastTime?.substring(14)
-                } else {
-                    tv_date.text = data.response.lastTime?.substring(6,13)
-                }
-            } else {
-                tv_date.text = data.response.lastTime?.substring(14)
-            }
+                if (diffs.toInt() == 0) tv_date.text = data.response.lastTime?.substring(14)
+                else tv_date.text = data.response.lastTime?.substring(6,13)
+            } else tv_date.text = data.response.lastTime?.substring(14)
         }
-
 
         when {
             data.response.unSeenCount <= 0 -> {

@@ -9,6 +9,18 @@ import android.database.sqlite.SQLiteException
 import android.database.sqlite.SQLiteOpenHelper
 
 class RecentSearchesHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+
+
+    val TABLE_NAME = "search"
+    val COLUMN_ID = "_id"
+    val COLUMN_KEYWORD = "keyword"
+
+    private val SQL_CREATE_ENTRIES =
+        "CREATE TABLE $TABLE_NAME ($COLUMN_ID INTEGER PRIMARY KEY AUTOINCREMENT, $COLUMN_KEYWORD TEXT)"
+
+    private val SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS $TABLE_NAME"
+
+
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(SQL_CREATE_ENTRIES)
     }
@@ -25,12 +37,9 @@ class RecentSearchesHelper(context: Context) : SQLiteOpenHelper(context, DATABAS
     @Throws(SQLiteConstraintException::class)
     fun insertKeyword(keyword: String): Boolean {
         val db = writableDatabase
-
         val values = ContentValues()
         values.put("keyword", keyword)
-
-        val newRowId = db.insert(TABLE_NAME, null, values)
-
+        db.insert(TABLE_NAME, null, values)
         return true
     }
 
@@ -75,14 +84,6 @@ class RecentSearchesHelper(context: Context) : SQLiteOpenHelper(context, DATABAS
     companion object {
         val DATABASE_VERSION = 1
         val DATABASE_NAME = "RecentSearches.db"
-        val TABLE_NAME = "search"
-        val COLUMN_ID = "_id"
-        val COLUMN_KEYWORD = "keyword"
-
-        private val SQL_CREATE_ENTRIES =
-            "CREATE TABLE $TABLE_NAME ($COLUMN_ID INTEGER PRIMARY KEY AUTOINCREMENT, $COLUMN_KEYWORD TEXT)"
-
-        private val SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS $TABLE_NAME"
     }
 
 }

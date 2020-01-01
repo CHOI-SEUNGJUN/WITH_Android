@@ -1,24 +1,21 @@
 package com.with.app.ui.chatroom.recyclerview
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.with.app.R
 import com.with.app.data.*
 import com.with.app.ui.chatroom.recyclerview.viewholder.*
-import com.with.app.util.addSingleListener
-import com.with.app.util.isDiffDay
-import com.with.app.util.parseDate
-import com.with.app.util.toSpanned
+import com.with.app.util.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ChatRoomAdapter(private val context: Context, private val passData: AdapterPassData) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ChatRoomAdapter(private val passData: AdapterPassData) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var myId = passData.myIdx
     private var otherName = passData.otherName
@@ -36,13 +33,11 @@ class ChatRoomAdapter(private val context: Context, private val passData: Adapte
                     val now = current.date.orEmpty().parseDate()
                     val prevDate = prev.date.orEmpty().parseDate()
 
-                    if (now.isDiffDay(prevDate)) {
+                    if (now.isDiffDay(prevDate))
                         trashData.add(current.copy(type = DATE))
-                    }
 
-                    if (current.isOtherName(prev) && current.isOtherChat()) {
+                    if (current.isOtherName(prev) && current.isOtherChat())
                         trashData.add(current.copy(type = OTHER_PROFILE))
-                    }
                 }
                 trashData.add(current)
                 current
@@ -50,7 +45,7 @@ class ChatRoomAdapter(private val context: Context, private val passData: Adapte
             field = trashData
         }
 
-    fun addMessageUiUpdate(current : ChatVO, prev : ChatVO) {
+    private fun addMessageUiUpdate(current : ChatVO, prev : ChatVO) {
         if (current.isChat() && prev.isChat()) {
             val now = current.date.orEmpty().parseDate()
             val prevDate = prev.date.orEmpty().parseDate()
@@ -67,16 +62,9 @@ class ChatRoomAdapter(private val context: Context, private val passData: Adapte
         notifyDataSetChanged()
     }
 
-    fun setMessagesWithNotify(chats: MutableList<ChatVO>) {
-        data = chats
-        notifyDataSetChanged()
-    }
-
     fun addMessageWithNotify(chatVO: ChatVO) {
-        if (chatVO.isMessage() && chatVO.isSameName(myId))
-            chatVO.type = MY_CHAT
-        if (chatVO.isMessage() && chatVO.isOtherName(myId))
-            chatVO.type = OTHER_CHAT
+        if (chatVO.isMessage() && chatVO.isSameName(myId)) chatVO.type = MY_CHAT
+        if (chatVO.isMessage() && chatVO.isOtherName(myId)) chatVO.type = OTHER_CHAT
         if (chatVO.isInviteApply() && chatVO.isSameName(myId)) {
             chatVO.type = MY_INVITE
             var temp = chatVO.msg
@@ -104,14 +92,10 @@ class ChatRoomAdapter(private val context: Context, private val passData: Adapte
 
         if (data.isEmpty()) {
             data.add(chatVO.copy(type = DATE))
-            if(chatVO.isOtherName(myId)) {
-                data.add(chatVO.copy(type = OTHER_PROFILE))
-            }
+            if(chatVO.isOtherName(myId)) data.add(chatVO.copy(type = OTHER_PROFILE))
             data.add(chatVO)
             notifyDataSetChanged()
-        } else {
-            addMessageUiUpdate(chatVO, data.last())
-        }
+        } else addMessageUiUpdate(chatVO, data.last())
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -165,9 +149,7 @@ class ChatRoomAdapter(private val context: Context, private val passData: Adapte
 
                 DateViewHolder(view)
             }
-            else -> {
-                    viewHolder
-                }
+            else -> viewHolder
             }
         }
 
@@ -180,39 +162,29 @@ class ChatRoomAdapter(private val context: Context, private val passData: Adapte
         when (holder) {
             is ChatMyViewHolder -> {
                 holder.setIsRecyclable(false)
-                if (position == data.size-1) {
-                    holder.bind(data[position], data[position], true)
-                } else {
-                    holder.bind(data[position], data[position+1], false)
-                }
+                if (position == data.size-1) holder.bind(data[position], data[position], true)
+                else holder.bind(data[position], data[position+1], false)
             }
             is ChatOtherViewHolder -> {
                 holder.setIsRecyclable(false)
-                if (position == data.size-1) {
-                    holder.bind(data[position], data[position], true)
-                } else {
-                    holder.bind(data[position], data[position+1], false)
-                }
+                if (position == data.size-1) holder.bind(data[position], data[position], true)
+                else holder.bind(data[position], data[position+1], false)
             }
             is MyInviteViewHolder -> {
                 holder.setIsRecyclable(false)
-                if (position == data.size-1) {
-                    holder.bind(data[position], data[position], true)
-                } else {
-                    holder.bind(data[position], data[position+1], false)
-                }            }
+                if (position == data.size-1) holder.bind(data[position], data[position], true)
+                else holder.bind(data[position], data[position+1], false)
+            }
             is OtherInviteViewHolder -> {
                 holder.setIsRecyclable(false)
                 if (position != data.size-1) {
                     if (data[position+1].isOtherChat()) {
                         val pattern = SimpleDateFormat("yyyy년 MM월 dd일 HH:mm")
-                        val now_date = pattern.parse(data[position].date)
-                        val next_date = pattern.parse(data[position+1].date)
-                        val diffs = (next_date.time - now_date.time) / (60 * 1000) // minutes 단위
+                        val nowDate = pattern.parse(data[position].date)
+                        val nextDate = pattern.parse(data[position+1].date)
+                        val diffs = (nextDate.time - nowDate.time) / (60 * 1000) // minutes 단위
 
-                        if (diffs.toString() == "0") {
-                            holder.date.visibility = View.GONE
-                        }
+                        if (diffs.toString() == "0") holder.date.visibility = View.GONE
                     }
                 }
                 holder.msg.text = data[position].msg?.toSpanned()
@@ -226,14 +198,36 @@ class ChatRoomAdapter(private val context: Context, private val passData: Adapte
                 val references : DatabaseReference = FirebaseDatabase.getInstance().reference
                 val chatReference : DatabaseReference = references.child("conversations").child(passData.chatRoomId!!)
                 val usersReference : DatabaseReference = references.child("users")
-                var value : ChatUserVO = ChatUserVO()
+                var value = ChatUserVO()
+                var tempValue = ChatUserVO()
+                var otherCount = 0
 
                 usersReference.child("${passData.otherIdx}/${passData.chatRoomId}").addSingleListener(
-                    onDataChange = {
-                            snap ->
-                        value = snap.getValue(ChatUserVO::class.java)!!
+                    onDataChange = { snap ->
+                        snap.getValue(ChatUserVO::class.java).let {
+                            if (it != null) value = it
+                        }
+                        snap.getValue(ChatUserVO::class.java).let {
+                            if (it != null) tempValue = it
+                        }
                     }
                 )
+
+
+                usersReference.child("${passData.otherIdx}/${passData.chatRoomId}").addListener(
+                    onChildAdded = { snap, _ ->
+                        if (snap.key == "unSeenCount")
+                            otherCount = snap.value.toString().toInt()
+                    },
+                    onChildChanged = { snap, _ ->
+                        if (snap.key == "unSeenCount") otherCount = snap.value.toString().toInt()
+                    })
+
+                usersReference.child("${passData.otherIdx}/${passData.chatRoomId}").addSingleListener(
+                    onDataChange = { snap: DataSnapshot ->
+                        value = snap.getValue(ChatUserVO::class.java)!!
+                    })
+
                 holder.accept.setOnClickListener {
                     val now = Calendar.getInstance().time
                     val pattern = SimpleDateFormat("yyyy년 MM월 dd일 HH:mm")
@@ -241,12 +235,15 @@ class ChatRoomAdapter(private val context: Context, private val passData: Adapte
                     val vo = ChatVO(MY_INVITE, "동행 성사 메시지입니다.-${temp}", passData.myIdx, nowDate)
 
                     value.lastMessage = "동행 성사 메시지입니다."
+                    tempValue.lastMessage = "동행 성사 메시지입니다."
                     value.lastTime = nowDate
+                    tempValue.lastTime = nowDate
+                    value.unSeenCount = 0
 
                     chatReference.push().setValue(vo)
                     usersReference.child("${passData.myIdx}").child("${passData.chatRoomId}").setValue(value)
-                    value.unSeenCount++
-                    usersReference.child("${passData.otherIdx}").child("${passData.chatRoomId}").setValue(value)
+                    tempValue.unSeenCount = otherCount + 1
+                    usersReference.child("${passData.otherIdx}").child("${passData.chatRoomId}").setValue(tempValue)
 
                     inviteCheckPosition = position
                     notifyDataSetChanged()
@@ -261,11 +258,8 @@ class ChatRoomAdapter(private val context: Context, private val passData: Adapte
             }
             is OtherCompleteViewHolder -> {
                 holder.setIsRecyclable(false)
-                if (position == data.size-1) {
-                    holder.bind(data[position], data[position], true)
-                } else {
-                    holder.bind(data[position], data[position+1], false)
-                }
+                if (position == data.size-1) holder.bind(data[position], data[position], true)
+                else holder.bind(data[position], data[position+1], false)
             }
             is OtherProfileViewHolder -> {
                 holder.setIsRecyclable(false)

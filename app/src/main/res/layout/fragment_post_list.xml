@@ -178,7 +178,20 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/textView" >
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <TextView
+            android:id="@+id/txt_blank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="검색결과가 없습니다.\n관련된 다른 검색어로 다시 검색해주세요."
+            android:textAlignment="center"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:textSize="15sp" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
