@@ -1,10 +1,10 @@
 package com.with.app.ui.chatroom
 
 import android.os.Bundle
-import android.util.Log
 import android.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.google.firebase.database.*
 import com.with.app.R
 import com.with.app.data.AdapterPassData
@@ -14,6 +14,7 @@ import com.with.app.manage.RequestManager
 import com.with.app.ui.chatroom.recyclerview.ChatRoomAdapter
 import com.with.app.ui.chatroom.recyclerview.ChatRoomAdapter.Companion.MY_CHAT
 import com.with.app.ui.chatroom.recyclerview.ChatRoomAdapter.Companion.MY_INVITE
+import com.with.app.ui.detailpost.DetailPostActivity.Companion.POSTINGTOCHAT
 import com.with.app.util.addListener
 import com.with.app.util.addSingleListener
 import kotlinx.android.synthetic.main.activity_chat_room.*
@@ -37,19 +38,19 @@ class ChatRoomActivity : AppCompatActivity() {
     private var otherCount: Int = 0
 
     // AuthManager에서 받아와야함
-    private var myIdx = 13
+    private var myIdx = requestManager.authManager.idx
     // 서버에서 받아와야함
     private var boardIdx: Int = 0
     private var otherIdx = 14
     private var otherName = "김남수"
     private var otherProfile = " "
     // 채팅하기 눌렀을때 불러와야함
-    private var posterIdx = 13
-    private var senderIdx = 14
+    private var posterIdx = 0
+    private var senderIdx = 0
 
     private var meetDate = ""
 
-    private val chatRoomId = "${posterIdx}_${senderIdx}"
+    private var chatRoomId = ""
 
     private lateinit var reference: DatabaseReference
     private lateinit var chatReference: DatabaseReference
@@ -62,12 +63,13 @@ class ChatRoomActivity : AppCompatActivity() {
     }
 
     private fun init() {
+        setBasicData()
+
         reference = FirebaseDatabase.getInstance().reference
         chatReference = reference.child("conversations").child(chatRoomId)
         usersReference = reference.child("users")
 
         fireBaseChatListener()
-        setBarData()
         sendMessage()
         inviteMessage()
 
@@ -84,10 +86,30 @@ class ChatRoomActivity : AppCompatActivity() {
         rv_chat.scrollToPosition(rv_chat.adapter!!.itemCount - 1) // 첫 접속시 리싸이클러뷰가 상단에 올라가기 때문.
     }
 
-    private fun setBarData() {
+    private fun setBasicData() {
+        otherName = intent.getStringExtra("name")
         tv_name.text = otherName
+        tv_region.text = intent.getStringExtra("regionName")
+        boardIdx = intent.getIntExtra("boardIdx", 0)
+        tv_title.text = intent.getStringExtra("title")
+        tv_date.text = "${intent.getStringExtra("startDate")} ~ ${intent.getStringExtra("endDate")}"
+
+        otherProfile = intent.getStringExtra("userImg")
+        Glide.with(applicationContext)
+            .load(otherProfile)
+            .into(iv_profile)
+
         value.boardIdx = boardIdx
         tempValue.boardIdx = boardIdx
+
+        posterIdx = intent.getIntExtra("writeUserIdx", 0)
+        senderIdx = intent.getIntExtra("senderUserIdx", 0)
+        chatRoomId = "${posterIdx}_${senderIdx}"
+
+        val mode = intent.getIntExtra("mode", 0)
+        otherIdx =
+            if (mode == POSTINGTOCHAT) senderIdx
+            else intent.getIntExtra("userIdx", 0)
     }
 
     private fun inviteMessage() {
