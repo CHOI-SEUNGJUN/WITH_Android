@@ -3,6 +3,7 @@ package com.with.app.ui.signin
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.with.app.R
 import com.with.app.manage.RequestManager
 import com.with.app.data.remote.RequestSignInData
@@ -30,6 +31,7 @@ class SignInActivity : AppCompatActivity() {
                 .safeEnqueue(
                     onSuccess = {
                     requestManager.authManager.token = it.data.token
+                        Log.e("token",requestManager.authManager.token)
                     requestManager.authManager.idx = it.data.userIdx
                     startActivity(Intent(this, MainActivity::class.java))
                     finish()

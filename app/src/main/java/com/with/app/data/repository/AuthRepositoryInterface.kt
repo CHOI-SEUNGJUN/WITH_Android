@@ -79,7 +79,8 @@ interface AuthRepositoryInterface {
         @Path("startDate") startDate : String,
         @Path("endDate") endDate : String,
         @Path("keyword") keyword : String,
-        @Path("filter") filter : Int
+        @Path("filter") filter : Int,
+        @Header("JWT") token: String
     ) : Call<ResponseSearchBoardData>
 
     /**

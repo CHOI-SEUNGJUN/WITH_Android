@@ -2,6 +2,7 @@ package com.with.app.ui.postlist
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import android.widget.DatePicker
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,10 +22,14 @@ import com.with.app.data.PostItem
 import com.with.app.ui.posting.PostingActivity
 import com.with.app.ui.postlist.recylcerview.PostListAdapter
 import com.with.app.manage.PrefManager
+import com.with.app.manage.RequestManager
+import com.with.app.ui.home.HomeFragment
 import com.with.app.ui.recent.RecentSearchesActivity
 import com.with.app.ui.region.ChangeRegionActivity
+import com.with.app.util.safeEnqueue
 import com.with.app.util.toast
 import kotlinx.android.synthetic.main.date_picker.view.*
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_post_list.*
 import kotlinx.android.synthetic.main.fragment_post_list.view.*
 import org.koin.android.ext.android.inject
@@ -33,6 +39,9 @@ import java.text.SimpleDateFormat
 class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
 
     private val prefManager : PrefManager by inject()
+    private val requestManager : RequestManager by inject()
+    private var filter = -1
+    private var keyword = ""
 
     private var startDate : String = prefManager.startDate
     private var endDate : String = prefManager.endDate
@@ -47,13 +56,14 @@ class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
     ): View? {
         val view = inflater.inflate(R.layout.fragment_post_list, container, false)
 
-        GetPostListData(view)
         view.btn_posting.setOnClickListener {
             val intent = Intent(context, PostingActivity::class.java)
             startActivity(intent)
         }
 
         edt_search = view.findViewById(R.id.edt_search)
+        GetPostListData(view)
+
 
         if (prefManager.startDate != prefManager.endDate) {
             val splitStart = prefManager.startDate.splitDate()
@@ -72,18 +82,35 @@ class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        txt_country.text = requestManager.regionManager.name
+
+        //지역선택
         txt_country.setOnClickListener {
             val intent = Intent(context, ChangeRegionActivity::class.java)
-            startActivity(intent)
+            startActivityForResult(intent, HomeFragment.REGIONCHANGE_REQCODE)
+            getDataWhenClick()
             //지역선택에서 값 받아서 txt_country 설정해야함
         }
 
+        //검색
         edt_search.setOnClickListener {
             val intent = Intent(activity, RecentSearchesActivity::class.java)
             startActivityForResult(intent, REQUESTCODE)
+            getDataWhenClick()
         }
 
-        //datePicker 시작
+        //동성필터
+        view.switch_filter.setOnCheckedChangeListener { buttonView, isChecked ->
+            if(switch_filter.isChecked){
+                filter = 1
+            }
+            else{
+                filter = -1
+            }
+            getDataWhenClick()
+        }
+
+        //datePicker
         txt_datePicker.setOnClickListener {
             val dialogView = layoutInflater.inflate(R.layout.date_picker, null)
 
@@ -131,17 +158,22 @@ class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
                     prefManager.startDate = "${start_datepicker.year}.${start_datepicker.month+1}.${start_datepicker.dayOfMonth}"
                     prefManager.endDate = "${end_datepicker.year}.${end_datepicker.month+1}.${end_datepicker.dayOfMonth}"
                     dialog.cancel()
+                    getDataWhenClick()
+
                 }
             }
         }
+
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUESTCODE && resultCode == Activity.RESULT_OK) {
-            Log.e("OK?", "OK")
-            Log.e("OK?", data?.getStringExtra("keyword"))
             edt_search.text = data?.getStringExtra("keyword")
+        } else if (requestCode == HomeFragment.REGIONCHANGE_REQCODE && resultCode == Activity.RESULT_OK) {
+            txt_country.text = requestManager.regionManager.name
+            // TODO : 서버통신하기
         }
     }
 
@@ -150,20 +182,7 @@ class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
         //mSwipeRefreshLayout.setRefreshing(false);
     }
 
-/*    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        edt_search.setOnClickListener {
-            val intent = Intent(activity, RecentActivity::class.java)
-
-            startActivity(intent)
-        }
-        swipe.setOnRefreshListener(this)
-
-    }*/
-
     private fun GetPostListData(v : View) {
-
         rvPostList = v.findViewById(R.id.rv_postList)
         postListAdapter =
             PostListAdapter(context!!)
@@ -171,51 +190,35 @@ class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
         rvPostList.adapter = postListAdapter
         rvPostList.layoutManager = LinearLayoutManager(context)
 
-        postListAdapter.data = listOf(
-            PostItem(
-                region = "남아프리카공화국",
-                date = "20.02.02 ~ 20.03.08",
-                time = "1분 전",
-                title = "런던에서 같이 레미제라블 보실 분",
-                participant = "5"
-            ),
-            PostItem(
-                region = "남아프리카공화국",
-                date = "20.02.02 ~ 20.03.08",
-                time = "1분 전",
-                title = "런던에서 같이 레미제라블 보실 분",
-                participant = "5"
-            ),
-            PostItem(
-                region = "남아프리카공화국",
-                date = "20.02.02 ~ 20.03.08",
-                time = "1분 전",
-                title = "런던에서 같이 레미제라블 보실 분",
-                participant = "5"
-            ),
-            PostItem(
-                region = "남아프리카공화국",
-                date = "20.02.02 ~ 20.03.08",
-                time = "1분 전",
-                title = "런던에서 같이 레미제라블 보실 분",
-                participant = "5"
-            ),
-            PostItem(
-                region = "남아프리카공화국",
-                date = "20.02.02 ~ 20.03.08",
-                time = "1분 전",
-                title = "런던에서 같이 레미제라블 보실 분",
-                participant = "5"
-            ),
-            PostItem(
-                region = "남아프리카공화국",
-                date = "20.02.02 ~ 20.03.08",
-                time = "1분 전",
-                title = "런던에서 같이 레미제라블 보실 분",
-                participant = "5"
+        getDataWhenClick()
+
+    }
+
+    private fun getDataWhenClick() {
+        val regionCode = requestManager.regionManager.code
+        startDate = "0"
+        endDate = "0"
+        keyword = "0"
+        filter = -1
+        if(edt_search.text.isEmpty()){
+            keyword = "0"
+        }
+        else{
+            keyword = edt_search.text.toString()
+        }
+        requestManager.requestSearchBoard(regionCode,startDate,endDate,keyword,filter)
+            .safeEnqueue (
+                onSuccess = {
+                    if (postListAdapter.data.isNotEmpty()){
+                        postListAdapter.data = listOf()
+                    }
+                    postListAdapter.data = it.data
+                    postListAdapter.notifyDataSetChanged()
+                },
+                onError = {
+                    Log.e("error", it.toString())
+                }
             )
-        )
-        postListAdapter.notifyDataSetChanged()
     }
 
     private fun DatePicker.saveLoad(mode : Int) : String{
