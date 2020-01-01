@@ -12,6 +12,7 @@ import com.with.app.ui.chatlist.ChatListFragment
 import com.with.app.ui.home.HomeFragment
 import com.with.app.ui.mypage.MyPageFragment
 import com.with.app.util.toast
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -43,10 +44,11 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         val bottomNavigationView = findViewById<View>(R.id.bn_bottom_navi) as BottomNavigationView
         bottomNavigationView.setOnNavigationItemSelectedListener(this)
 
-        }
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
     }
 
     private var lastTimeBackPressed:Long=-1500
