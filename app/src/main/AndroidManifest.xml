@@ -31,7 +31,8 @@
         <activity
             android:name=".ui.chatroom.ChatRoomActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".ui.base.MainActivity"></activity>
+        <activity android:name=".ui.base.MainActivity">
+        </activity>
     </application>
 
 </manifest>

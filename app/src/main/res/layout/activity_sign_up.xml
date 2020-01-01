@@ -64,7 +64,7 @@
             app:layout_constraintTop_toBottomOf="@+id/cl_toolbar" />
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/img_signup_profile"
+            android:id="@+id/img_mypage_profile"
             android:layout_width="79dp"
             android:layout_height="79dp"
             android:layout_marginTop="16dp"
@@ -85,7 +85,7 @@
             android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_signup_profile" />
+            app:layout_constraintTop_toBottomOf="@+id/img_mypage_profile" />
 
         <EditText
             android:id="@+id/edt_signup_email"
@@ -356,8 +356,8 @@
             android:id="@+id/img_gallery"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/img_signup_profile"
-            app:layout_constraintEnd_toEndOf="@+id/img_signup_profile"
+            app:layout_constraintBottom_toBottomOf="@+id/img_mypage_profile"
+            app:layout_constraintEnd_toEndOf="@+id/img_mypage_profile"
             app:srcCompat="@drawable/badge" />
 
         <Button

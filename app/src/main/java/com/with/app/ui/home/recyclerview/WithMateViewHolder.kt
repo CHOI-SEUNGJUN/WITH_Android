@@ -9,7 +9,7 @@ import com.with.app.R
 import com.with.app.data.remote.ResponseWithMateArrayData
 
 class WithMateViewHolder(view : View) : RecyclerView.ViewHolder(view) {
-    val img_mate_profile : ImageView = view.findViewById(R.id.img_signup_profile)
+    val img_mate_profile : ImageView = view.findViewById(R.id.img_mypage_profile)
     val tv_mate_name : TextView = view.findViewById(R.id.tv_mate_name)
 
     fun bind(mate : ResponseWithMateArrayData) {

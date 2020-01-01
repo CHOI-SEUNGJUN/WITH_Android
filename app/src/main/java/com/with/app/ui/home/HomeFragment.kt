@@ -142,7 +142,7 @@ class HomeFragment : Fragment() {
 
         rv_recent_bulletin.layoutManager = GridLayoutManager(context!!, 2)
 
-        requestManager.requestLatelyBoard("102+103+104+105+107+112")
+        requestManager.requestLatelyBoard("131+132+133+134+135+136")
             .safeEnqueue(
                 onSuccess = {
                     recBulletinAdapter.bulletin = it.data

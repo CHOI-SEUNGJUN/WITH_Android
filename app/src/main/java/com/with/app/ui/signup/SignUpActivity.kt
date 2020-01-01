@@ -1,7 +1,6 @@
 package com.with.app.ui.signup
 
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.database.Cursor
@@ -14,12 +13,9 @@ import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
-import com.afollestad.materialdialogs.customview.getCustomView
 import com.bumptech.glide.Glide
 import com.with.app.R
 import com.with.app.manage.RequestManager
@@ -59,7 +55,7 @@ class SignUpActivity : AppCompatActivity() {
         textWatcher() // TextWatcher : ID, PW, PW_CK
 
 
-        img_signup_profile.setOnClickListener {
+        img_mypage_profile.setOnClickListener {
             changeImage()
         }
 
@@ -287,7 +283,7 @@ class SignUpActivity : AppCompatActivity() {
                         Glide.with(this)
                             .load(data.data)
                             .centerCrop()
-                            .into(img_signup_profile)
+                            .into(img_mypage_profile)
                         val options = BitmapFactory.Options()
 
                         var input: InputStream? = null
