@@ -36,8 +36,7 @@ import org.koin.android.ext.android.inject
 import java.text.SimpleDateFormat
 
 
-class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
-
+class PostListFragment : Fragment() {
     private val prefManager : PrefManager by inject()
     private val requestManager : RequestManager by inject()
     private var filter = -1
@@ -64,7 +63,6 @@ class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
         edt_search = view.findViewById(R.id.edt_search)
         GetPostListData(view)
 
-
         if (prefManager.startDate != prefManager.endDate) {
             val splitStart = prefManager.startDate.splitDate()
             val splitEnd = prefManager.endDate.splitDate()
@@ -83,6 +81,11 @@ class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
         super.onViewCreated(view, savedInstanceState)
 
         txt_country.text = requestManager.regionManager.name
+
+        swipe.setOnRefreshListener {
+            getDataWhenClick()
+            swipe.isRefreshing = false
+        }
 
         //지역선택
         txt_country.setOnClickListener {
@@ -136,6 +139,7 @@ class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
                     //날짜 전체 선택
                     this@PostListFragment.txt_datePicker.text = "${start_datepicker.saveLoad(3)}"
                     end_datepicker.saveLoad(3)
+                    getDataWhenClick()
                     dialog.cancel()
                 }
                 btn_save.setOnClickListener{
@@ -157,9 +161,8 @@ class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
                     // SAVE와 동시에 LOAD시킴
                     prefManager.startDate = "${start_datepicker.year}.${start_datepicker.month+1}.${start_datepicker.dayOfMonth}"
                     prefManager.endDate = "${end_datepicker.year}.${end_datepicker.month+1}.${end_datepicker.dayOfMonth}"
-                    dialog.cancel()
                     getDataWhenClick()
-
+                    dialog.cancel()
                 }
             }
         }
@@ -171,16 +174,17 @@ class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUESTCODE && resultCode == Activity.RESULT_OK) {
             edt_search.text = data?.getStringExtra("keyword")
+            getDataWhenClick()
         } else if (requestCode == HomeFragment.REGIONCHANGE_REQCODE && resultCode == Activity.RESULT_OK) {
             txt_country.text = requestManager.regionManager.name
             // TODO : 서버통신하기
+            getDataWhenClick()
         }
     }
 
-    override fun onRefresh() {
+/*    override fun onRefresh() {
         //새로고침 구현
-        //mSwipeRefreshLayout.setRefreshing(false);
-    }
+    }*/
 
     private fun GetPostListData(v : View) {
         rvPostList = v.findViewById(R.id.rv_postList)
@@ -196,10 +200,11 @@ class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
 
     private fun getDataWhenClick() {
         val regionCode = requestManager.regionManager.code
-        startDate = "0"
-        endDate = "0"
-        keyword = "0"
-        filter = -1
+        startDate = prefManager.startDate
+        endDate = prefManager.endDate
+        //startDate = "0"
+        //endDate = "0"
+        //keyword = "0"
         if(edt_search.text.isEmpty()){
             keyword = "0"
         }
@@ -209,10 +214,13 @@ class PostListFragment : Fragment() , SwipeRefreshLayout.OnRefreshListener{
         requestManager.requestSearchBoard(regionCode,startDate,endDate,keyword,filter)
             .safeEnqueue (
                 onSuccess = {
-                    if (postListAdapter.data.isNotEmpty()){
+                    if(it.success) {
+                        // TODO : 텍스트뷰 gone시키고 최근게시글 동성필터 부분 비져블
+                        postListAdapter.data = it.data
+                    } else {
                         postListAdapter.data = listOf()
+                        // TODO : 텍스트뷰 띄우고 최근게시글 동성필터 부분 gone시키고
                     }
-                    postListAdapter.data = it.data
                     postListAdapter.notifyDataSetChanged()
                 },
                 onError = {

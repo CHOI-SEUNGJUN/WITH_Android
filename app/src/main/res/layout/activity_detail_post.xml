@@ -56,7 +56,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="34dp"
-            android:text="휴학하고 여행을 할래요:)"
+            android:text=""
+            android:maxLength="30"
             android:textColor="#ffffff"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -68,7 +69,8 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginTop="92dp"
-            android:src="@drawable/img"
+            app:civ_border_width="1dp"
+            app:civ_border_color="#ffffff"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/img_background" />
@@ -78,7 +80,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="김은별"
+            android:text=""
             android:textColor="#ffffff"
             android:textSize="16dp"
             app:layout_constraintEnd_toEndOf="@+id/img_profile"
@@ -89,7 +91,7 @@
             android:id="@+id/txt_age_gender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="24살 여자"
+            android:text=""
             android:textColor="#ffffff"
             android:textSize="12dp"
             android:layout_marginTop="3dp"
@@ -119,7 +121,7 @@
             android:layout_marginStart="16dp"
             android:maxLength="20"
             android:maxLines="1"
-            android:text="런던에서 같이 위키드 보실 분"
+            android:text=""
             android:layout_marginTop="38dp"
             android:textColor="#000000"
             android:textSize="22sp"
@@ -138,16 +140,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_title" />
 
-        <Switch
-            android:id="@+id/switch_filter"
+        <TextView
+            android:id="@+id/txt_filter"
             android:layout_width="wrap_content"
-            android:layout_height="16dp"
-            android:layout_marginTop="7dp"
-            android:thumb="@drawable/switch_thumb_small"
-            android:track="@drawable/switch_track_selector_small"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textSize="15sp"
+            android:text=""
             app:layout_constraintEnd_toEndOf="@+id/textView4"
             app:layout_constraintStart_toStartOf="@+id/textView4"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+            app:layout_constraintTop_toBottomOf="@+id/textView4"/>
+
 
         <TextView
             android:id="@+id/txt3"
@@ -162,14 +165,14 @@
             app:layout_constraintTop_toBottomOf="@+id/txt_title" />
 
         <TextView
-            android:id="@+id/edt_region"
+            android:id="@+id/txt_region"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
             android:maxLength="10"
             android:maxLines="1"
-            android:text="남아프리카공화국"
+            android:text=""
             android:textColor="#000000"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -184,17 +187,17 @@
             android:textColor="@color/colorPrimary"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.45"
+            app:layout_constraintHorizontal_bias="0.44"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_title" />
 
         <TextView
-            android:id="@+id/edt_date"
+            android:id="@+id/txt_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:maxLines="1"
-            android:text="19.02.02 ~ 19.02.02"
+            android:text=""
             android:textColor="#000000"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/txt4"
@@ -207,18 +210,18 @@
             android:layout_margin="20dp"
             android:background="@color/colorCloudyBlue"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edt_region" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_region" />
 
 
         <TextView
-            android:id="@+id/edt_content"
+            android:id="@+id/txt_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="20dp"
             android:lineSpacingExtra="7.5dp"
-            android:text="2월 2일 토요일에 런던 코벤트 가든에서 같이 위키드 뮤지컬 보러 가실 분 계신가요?\n 시간은 대략 오후 4시 생각하고 있고, 1~2명 정도 같이 보면 좋을 것 같아요!\n끝나고 간단하게 저녁 식사하고 헤어지면 좋을 것 같은데 관심있으신 분은 위드로 연락주세요~"
+            android:text=""
             android:textColor="#000000"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -241,7 +244,7 @@
             android:textStyle="bold"
             android:textColor="#ffffff"
             android:textSize="16sp"
-            app:layout_constraintTop_toBottomOf="@id/edt_content"
+            app:layout_constraintTop_toBottomOf="@id/txt_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
@@ -256,23 +259,24 @@
         android:layout_height="match_parent">-->
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp">
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:backgroundTint="@color/colorPrimary"
+            android:layout_gravity="bottom|end"
+            android:foreground="@drawable/chat_fab"
             app:fabCustomSize="60dp"
             android:elevation="20dp"
+            android:layout_margin="20dp"
             app:borderWidth="0dp"/>
 
-        <TextView
+<!--        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:elevation="6dp"
@@ -282,7 +286,7 @@
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_anchor="@id/fab"
-            app:layout_anchorGravity="center" />
+            app:layout_anchorGravity="center" />-->
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
