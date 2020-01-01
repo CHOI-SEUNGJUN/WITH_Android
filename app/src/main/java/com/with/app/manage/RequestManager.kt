@@ -47,8 +47,8 @@ class RequestManager(val context: Context, val authManager: AuthManager, val reg
     fun requestBoardWrite(data: RequestBoardData)
             = retrofit.postBoardWrite(data, authManager.token)
 
-    fun requestBoardEdit(data: RequestBoardData)
-            = retrofit.putBoardEdit(data, authManager.token)
+    fun requestBoardEdit(boardIdx: Int, data: RequestBoardData)
+            = retrofit.putBoardEdit(boardIdx, data, authManager.token)
 
     fun requestChatOpen(data: RequestChatOpenData)
             = retrofit.postChatOpen(data, authManager.token)
