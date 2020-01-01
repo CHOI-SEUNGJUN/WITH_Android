@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="114dp">
+    android:layout_height="104dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_profile"
@@ -11,7 +11,7 @@
         android:layout_height="50dp"
         android:src="@drawable/mate_profile"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -19,8 +19,8 @@
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxLines="1"
         android:layout_marginTop="6dp"
+        android:maxLines="1"
         android:text="김은별"
         android:textColor="@android:color/black"
         android:textSize="12sp"
@@ -35,7 +35,7 @@
         android:maxLines="1"
         android:maxEms="9"
         android:ellipsize="end"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="28dp"
         android:layout_marginStart="20dp"
         android:text="부다페스트 : 맥주마셔요"
         android:textStyle="bold"
@@ -43,16 +43,6 @@
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/img_profile"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/iv_dot"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
-        android:layout_marginStart="10dp"
-        android:src="@drawable/dot_chat"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_title"
-        app:layout_constraintStart_toEndOf="@+id/tv_title"
-        app:layout_constraintTop_toTopOf="@+id/tv_title" />
 
     <TextView
         android:id="@+id/tv_message"
@@ -72,7 +62,7 @@
             android:id="@+id/tv_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="20dp"
             android:maxLines="1"
             android:text="04:25"
@@ -86,7 +76,7 @@
             android:layout_width="24dp"
             android:layout_height="17dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="26dp"
             android:background="@drawable/corner_chatred_9dp"
             android:gravity="center"
             android:maxLines="1"

@@ -107,8 +107,8 @@ class ChatRoomActivity : AppCompatActivity() {
         value.boardIdx = boardIdx
         tempValue.boardIdx = boardIdx
 
-        posterIdx = intent.getIntExtra("writeUserIdx", 0)
-        senderIdx = intent.getIntExtra("senderUserIdx", 0)
+        posterIdx = intent.getStringExtra("writeUserIdx").toInt()
+        senderIdx = intent.getStringExtra("senderUserIdx").toInt()
         chatRoomId = "${boardIdx}_${posterIdx}_${senderIdx}"
 
         val mode = intent.getIntExtra("mode", 0)

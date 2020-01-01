@@ -8,10 +8,12 @@ import android.util.Log
 import android.view.View
 import com.bumptech.glide.Glide
 import com.with.app.R
+import com.with.app.data.remote.RequestChatOpenData
 import com.with.app.manage.RequestManager
 import com.with.app.ui.chatroom.ChatRoomActivity
 import com.with.app.ui.posting.PostingActivity
 import com.with.app.util.safeEnqueue
+import com.with.app.util.toast
 import kotlinx.android.synthetic.main.activity_detail_post.*
 import kotlinx.android.synthetic.main.activity_detail_post.img_profile
 import kotlinx.android.synthetic.main.activity_detail_post.txt_date
@@ -82,18 +84,28 @@ class DetailPostActivity : AppCompatActivity(){
                         }
 
                         fab.setOnClickListener {
-                            val intent = Intent(this, ChatRoomActivity::class.java)
-                            intent.putExtra("mode", POSTINGTOCHAT)
-                            intent.putExtra("boardIdx", response.boardIdx)
-                            intent.putExtra("writeUserIdx", response.userIdx)
-                            intent.putExtra("regionName", response.regionName)
-                            intent.putExtra("startDate", response.startDate)
-                            intent.putExtra("endDate", response.endDate)
-                            intent.putExtra("title", response.title)
-                            intent.putExtra("userImg", response.userImg)
-                            intent.putExtra("name", response.name)
-                            intent.putExtra("senderUserIdx", myIdx)
-                            startActivity(intent)
+                            requestManager.requestChatOpen(
+                                RequestChatOpenData(response.userIdx, response.boardIdx, "${response.boardIdx}_${response.userIdx}_${myIdx}")
+                            ).safeEnqueue(
+                                onSuccess = {
+                                    if (it.success || it.message == "이미 채팅방이 존재합니다") {
+                                        val intent = Intent(this, ChatRoomActivity::class.java)
+                                        intent.putExtra("mode", POSTINGTOCHAT)
+                                        intent.putExtra("boardIdx", response.boardIdx)
+                                        intent.putExtra("writeUserIdx", response.userIdx.toString())
+                                        intent.putExtra("regionName", response.regionName)
+                                        intent.putExtra("startDate", response.startDate)
+                                        intent.putExtra("endDate", response.endDate)
+                                        intent.putExtra("title", response.title)
+                                        intent.putExtra("userImg", response.userImg)
+                                        intent.putExtra("name", response.name)
+                                        intent.putExtra("senderUserIdx", myIdx.toString())
+                                        startActivity(intent)
+                                    } else {
+                                        toast("네트워크 통신 오류")
+                                    }
+                                }
+                            )
                         }
                     }
                 },

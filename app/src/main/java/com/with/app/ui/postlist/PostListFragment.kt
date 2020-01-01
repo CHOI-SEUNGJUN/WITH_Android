@@ -86,7 +86,6 @@ class PostListFragment : Fragment() {
         txt_country.setOnClickListener {
             val intent = Intent(context, ChangeRegionActivity::class.java)
             startActivityForResult(intent, HomeFragment.REGIONCHANGE_REQCODE)
-            getDataWhenClick()
             //지역선택에서 값 받아서 txt_country 설정해야함
         }
 
@@ -99,9 +98,14 @@ class PostListFragment : Fragment() {
 
         //동성필터
         view.switch_filter.setOnCheckedChangeListener { buttonView, isChecked ->
-            if(switch_filter.isChecked) filter = 1
-            else filter = -1
-            getDataWhenClick()
+            if(isChecked) {
+                filter = 1
+                getDataWhenClick()
+            }
+            else {
+                filter = -1
+                getDataWhenClick()
+            }
         }
 
         //datePicker
@@ -193,20 +197,19 @@ class PostListFragment : Fragment() {
         val regionCode = requestManager.regionManager.code
         startDate = prefManager.startDate
         endDate = prefManager.endDate
-        //startDate = "0"
-        //endDate = "0"
-        //keyword = "0"
+
         if(edt_search.text.isEmpty()){
             keyword = "0"
         }
         else{
             keyword = edt_search.text.toString()
         }
+        postListAdapter.data = listOf()
+        postListAdapter.notifyDataSetChanged()
         requestManager.requestSearchBoard(regionCode,startDate,endDate,keyword,filter)
             .safeEnqueue (
                 onSuccess = {
                     if(it.success) {
-                        // TODO : 텍스트뷰 gone시키고 최근게시글 동성필터 부분 비져블
                         txt_blank.visibility = View.GONE
                         textView.visibility = View.VISIBLE
                         textView4.visibility = View.VISIBLE
@@ -214,8 +217,6 @@ class PostListFragment : Fragment() {
                         rv_postList.visibility = View.VISIBLE
                         postListAdapter.data = it.data
                     } else {
-                        postListAdapter.data = listOf()
-                        // TODO : 텍스트뷰 띄우고 최근게시글 동성필터 부분 gone시키고
                         txt_blank.visibility = View.VISIBLE
                         textView.visibility = View.GONE
                         textView4.visibility = View.GONE
@@ -226,6 +227,9 @@ class PostListFragment : Fragment() {
                 },
                 onError = {
                     Log.e("error", it.toString())
+                },
+                onFailure = {
+                    Log.e("failure", it.message())
                 }
             )
     }
