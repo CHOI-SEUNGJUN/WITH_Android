@@ -2,7 +2,6 @@ package com.with.app.ui.postlist
 
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,15 +9,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
 import android.widget.DatePicker
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.with.app.R
 import com.with.app.data.PickerDTO
-import com.with.app.data.PostItem
 import com.with.app.ui.posting.PostingActivity
 import com.with.app.ui.postlist.recylcerview.PostListAdapter
 import com.with.app.manage.PrefManager
@@ -29,7 +25,6 @@ import com.with.app.ui.region.ChangeRegionActivity
 import com.with.app.util.safeEnqueue
 import com.with.app.util.toast
 import kotlinx.android.synthetic.main.date_picker.view.*
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_post_list.*
 import kotlinx.android.synthetic.main.fragment_post_list.view.*
 import org.koin.android.ext.android.inject
@@ -104,12 +99,8 @@ class PostListFragment : Fragment() {
 
         //동성필터
         view.switch_filter.setOnCheckedChangeListener { buttonView, isChecked ->
-            if(switch_filter.isChecked){
-                filter = 1
-            }
-            else{
-                filter = -1
-            }
+            if(switch_filter.isChecked) filter = 1
+            else filter = -1
             getDataWhenClick()
         }
 
@@ -220,6 +211,7 @@ class PostListFragment : Fragment() {
                         textView.visibility = View.VISIBLE
                         textView4.visibility = View.VISIBLE
                         switch_filter.visibility = View.VISIBLE
+                        rv_postList.visibility = View.VISIBLE
                         postListAdapter.data = it.data
                     } else {
                         postListAdapter.data = listOf()
@@ -228,6 +220,7 @@ class PostListFragment : Fragment() {
                         textView.visibility = View.GONE
                         textView4.visibility = View.GONE
                         switch_filter.visibility = View.GONE
+                        rv_postList.visibility = View.GONE
                     }
                     postListAdapter.notifyDataSetChanged()
                 },

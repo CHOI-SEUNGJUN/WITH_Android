@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="17dp"
         android:layout_marginRight="16dp"
+        android:visibility="gone"
         android:text="수정"
         android:textColor="#000000"
         android:textSize="17dp"
@@ -242,6 +243,7 @@
             android:gravity="center"
             android:insetTop="0dp"
             android:insetBottom="0dp"
+            android:visibility="gone"
             android:text="마감하기"
             android:textStyle="bold"
             android:textColor="#ffffff"
@@ -275,6 +277,7 @@
             android:foreground="@drawable/chat_fab"
             app:fabCustomSize="60dp"
             android:elevation="20dp"
+            android:visibility="gone"
             android:layout_margin="20dp"
             app:borderWidth="0dp"/>
 

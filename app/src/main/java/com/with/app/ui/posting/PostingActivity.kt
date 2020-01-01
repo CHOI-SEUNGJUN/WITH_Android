@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import com.with.app.R
+import android.view.ViewGroup
 import com.with.app.data.remote.RequestBoardData
 import com.with.app.manage.RequestManager
 import com.with.app.ui.detailpost.DetailPostActivity
@@ -17,24 +17,37 @@ import com.with.app.ui.region.ChangeRegionActivity
 import com.with.app.util.safeEnqueue
 import com.with.app.util.toast
 import kotlinx.android.synthetic.main.activity_posting.*
+import kotlinx.android.synthetic.main.activity_posting.btn_save
 import kotlinx.android.synthetic.main.activity_posting.switch_filter
+import kotlinx.android.synthetic.main.date_picker.*
 import kotlinx.android.synthetic.main.date_picker.view.*
-import kotlinx.android.synthetic.main.fragment_post_list.*
 import org.koin.android.ext.android.inject
 import java.text.SimpleDateFormat
+import com.google.android.material.datepicker.MaterialDatePicker.Builder.datePicker
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.R
+import android.content.res.ColorStateList
+
 
 class PostingActivity : AppCompatActivity() {
 
     private var isSwitchChecked = -1
     private val requestManager : RequestManager by inject()
     private var boardIdx = 0
+    private lateinit var dialogView : View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_posting)
+        setContentView(com.with.app.R.layout.activity_posting)
+
+        dialogView = layoutInflater.inflate(com.with.app.R.layout.date_picker, null)
 
         //게시글 수정
         if(intent.getIntExtra("mode",0)==1) {
+            dialogView.btn_select_all.visibility = View.GONE
+
             boardIdx = intent.getIntExtra("boardIdx", 0)
             //수정에서 넘어왔을 때 게시글 수정 텍스트 변경, 삭제 버튼
             edt_title.setText(intent.getStringExtra("title"))
@@ -58,17 +71,14 @@ class PostingActivity : AppCompatActivity() {
                 var startDate = edt_date.text.split(" ~ ")[0]
                 var endDate = edt_date.text.split(" ~ ")[1]
                 var filter :Int
-                if(switch_filter.isChecked){
-                    filter = 1
-                }
-                else{
-                    filter = -1
-                }
+                if(switch_filter.isChecked) filter = 1
+                else filter = -1
                 requestManager.requestBoardEdit(boardIdx,RequestBoardData(regionCode,title,content,startDate,endDate,filter))
                     .safeEnqueue (
                         onSuccess = {
-                            val intent = Intent(this,DetailPostActivity::class.java)
-                            //setResult(intent)
+                            val intent = Intent()
+                            intent.putExtra("boardIdx",boardIdx)
+                            setResult(Activity.RESULT_OK,intent)
                         },
                         onError = {
                             Log.e("error", it.toString())
@@ -80,6 +90,8 @@ class PostingActivity : AppCompatActivity() {
 
         else {//게시글 작성
             btn_delete.visibility = View.GONE
+            dialogView.btn_select_all.visibility = View.GONE
+
             btn_save.setOnClickListener {
                 var regionCode = edt_region.text.toString()
                 var title = edt_title.text.toString()
@@ -87,12 +99,8 @@ class PostingActivity : AppCompatActivity() {
                 var startDate = edt_date.text.split(" ~ ")[0]
                 var endDate = edt_date.text.split(" ~ ")[1]
                 var filter :Int
-                if(switch_filter.isChecked){
-                    filter = 1
-                }
-                else{
-                    filter = -1
-                }
+                if(switch_filter.isChecked) filter = 1
+                else filter = -1
                 requestManager.requestBoardWrite(RequestBoardData(regionCode,title,content,startDate,endDate,filter))
                     .safeEnqueue (
                         onSuccess = {
@@ -113,7 +121,11 @@ class PostingActivity : AppCompatActivity() {
         }
 
         edt_date.setOnClickListener{
-            val dialogView = layoutInflater.inflate(R.layout.date_picker, null)
+            if (dialogView.start_datepicker.parent != null)
+                (dialogView.start_datepicker.parent as ViewGroup).removeView(start_datepicker)
+
+            if (dialogView.end_datepicker.parent != null)
+                (dialogView.end_datepicker.parent as ViewGroup).removeView(end_datepicker)
 
             val dialog = AlertDialog.Builder(this)
                 .setView(dialogView)
@@ -144,7 +156,8 @@ class PostingActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == HomeFragment.REGIONCHANGE_REQCODE && resultCode == Activity.RESULT_OK) {
-            txt_country.text = requestManager.regionManager.name
+            edt_region.text = requestManager.regionManager.name
+            edt_region.setTextColor(Color.BLACK)
         }
     }
 }

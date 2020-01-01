@@ -17,7 +17,6 @@ import kotlinx.android.synthetic.main.activity_detail_post.img_profile
 import kotlinx.android.synthetic.main.activity_detail_post.txt_date
 import kotlinx.android.synthetic.main.activity_detail_post.txt_region
 import kotlinx.android.synthetic.main.activity_detail_post.txt_title
-import kotlinx.android.synthetic.main.item_post_bulletin.*
 import org.koin.android.ext.android.inject
 
 class DetailPostActivity : AppCompatActivity(){
@@ -26,12 +25,31 @@ class DetailPostActivity : AppCompatActivity(){
     private var myIdx = requestManager.authManager.idx
     private var userIdx = 0
     private var filter = -1
+    private var boardIdx = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_post)
 
-        requestManager.requestDetailBoard(intent.getIntExtra("boardIdx",0))
+        boardIdx = intent.getIntExtra("boardIdx",0)
+        getData()
+        btn_edit.setOnClickListener {
+            val intent = Intent(this,PostingActivity::class.java)
+            intent.putExtra("title",txt_title.text)
+            intent.putExtra("regionCode",txt_region.text)
+            intent.putExtra("content",txt_content.text)
+            intent.putExtra("date",txt_date.text)
+            intent.putExtra("filter",filter)
+            intent.putExtra("mode",1)
+            intent.putExtra("boardIdx",boardIdx)
+            startActivityForResult(intent, REQUESTCODE)
+        }
+
+        //게시글쓴 idx값과 접속한 idx값이 다르면 채팅버튼 보임, 마감이면 회색처리. 채팅버튼 비활성화
+    }
+
+    private fun getData(){
+        requestManager.requestDetailBoard(boardIdx)
             .safeEnqueue (
                 onSuccess = {
                     if (it.success) {
@@ -83,33 +101,18 @@ class DetailPostActivity : AppCompatActivity(){
                     Log.e("error", it.toString())
                 }
             )
-
-
-
-        btn_edit.setOnClickListener {
-            val intent = Intent(this,PostingActivity::class.java)
-            intent.putExtra("title",txt_title.text)
-            intent.putExtra("regionCode",txt_region.text)
-            intent.putExtra("content",txt_content.text)
-            intent.putExtra("date",txt_date.text)
-            intent.putExtra("filter",filter)//동성필터 여부 받아온 값 넣기
-            intent.putExtra("mode",1)
-            startActivityForResult(intent,-1)
-        }
-
-        //게시글쓴 idx값과 접속한 idx값이 다르면 채팅버튼 보임, 마감이면 회색처리. 채팅버튼 비활성화
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {//수정된 값 다시 받아올때
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == 1){
-            if(resultCode == Activity.RESULT_OK){
-
-            }
+        if(requestCode == REQUESTCODE && resultCode == Activity.RESULT_OK){
+            boardIdx = data?.getIntExtra("boardIdx",0)!!
+            getData()
         }
     }
 
     companion object {
         const val POSTINGTOCHAT = 150
+        const val REQUESTCODE = 0
     }
 }
