@@ -58,6 +58,8 @@ class RequestManager(val context: Context, val authManager: AuthManager, val reg
     fun requestWithInvite(data: RequestWithInviteData)
             = retrofit.putWithInvite(data, authManager.token)
 
+    fun requestMyPage() = retrofit.getMyPage(authManager.token)
+
 
 }
 
