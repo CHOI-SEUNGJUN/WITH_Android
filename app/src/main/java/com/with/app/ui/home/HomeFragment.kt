@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.with.app.R
+import com.with.app.manage.RecentViewsHelper
 import com.with.app.manage.RequestManager
 import com.with.app.ui.home.recyclerview.*
 import com.with.app.ui.postlist.PostListFragment
@@ -24,6 +25,7 @@ import org.koin.android.ext.android.inject
 class HomeFragment : Fragment() {
 
     private val requestManager: RequestManager by inject()
+    private lateinit var recentViewsHelper : RecentViewsHelper
 
     private lateinit var withMateAdapter : WithMateAdapter
     private lateinit var recPlaceAdapter : RecPlaceAdapter
@@ -41,6 +43,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        recentViewsHelper = RecentViewsHelper(context!!)
         makeWithMateList()
         makeRecPlace()
         makeRecentBulletin()
@@ -107,7 +110,8 @@ class HomeFragment : Fragment() {
         requestManager.requestWithMate()
             .safeEnqueue (
                 onSuccess = {
-                    if (it.data.isEmpty()) {
+                    Log.e("data", it.data.toString())
+                    if (it.data.toString().isNullOrEmpty()) {
                         tv_with_mate.visibility = View.GONE
                         rv_with_mate.visibility = View.GONE
                     } else {
@@ -126,7 +130,13 @@ class HomeFragment : Fragment() {
 
         rv_recommend_place.layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.HORIZONTAL, false)
 
-        requestManager.requestRecommendPlace("000000")
+        var regionCode = ""
+        if (requestManager.regionManager.code.isEmpty()) {
+            regionCode = "000000"
+        } else {
+            regionCode = requestManager.regionManager.code
+        }
+        requestManager.requestRecommendPlace(regionCode)
             .safeEnqueue(
                 onSuccess = {
                     recPlaceAdapter.recPlace = it.data
@@ -141,14 +151,18 @@ class HomeFragment : Fragment() {
         rv_recent_bulletin.adapter = recBulletinAdapter
 
         rv_recent_bulletin.layoutManager = GridLayoutManager(context!!, 2)
+        var boardIdx = recentViewsHelper.readView()
+        if (boardIdx.isEmpty()) {
 
-        requestManager.requestLatelyBoard("102+103+104+105+107+112")
-            .safeEnqueue(
-                onSuccess = {
-                    recBulletinAdapter.bulletin = it.data
-                    recBulletinAdapter.notifyDataSetChanged()
-                }
-            )
+        } else {
+            requestManager.requestLatelyBoard("102+103+104+105+107+112")
+                .safeEnqueue(
+                    onSuccess = {
+                        recBulletinAdapter.bulletin = it.data
+                        recBulletinAdapter.notifyDataSetChanged()
+                    }
+                )
+        }
     }
 
     companion object {
