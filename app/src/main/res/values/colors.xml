@@ -24,5 +24,7 @@
 
     <color name="colorSearchGray">#efefef</color>
 
+    <color name="colorPrimaryPink">#f0ebff</color>
+
 
 </resources>

@@ -1,6 +1,8 @@
 package com.with.app.ui.recent.recyclerview
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,6 +29,10 @@ class RecentSearchesAdapter (private val context : Context,
 
     override fun onBindViewHolder(holder: RecentSearchesViewHolder, position: Int) {
         holder.tv_keyword.text = item[position]
+        holder.tv_keyword.setOnClickListener {
+            noDataInterface.conveyKeyword(item[position])
+        }
+
         holder.btn_delete.setOnClickListener {
             dbHelper.deleteKeyword(item[position])
             item.clear()
@@ -42,4 +48,6 @@ class RecentSearchesAdapter (private val context : Context,
 
 interface NoDataInterface {
     fun noData(no : Boolean)
+
+    fun conveyKeyword(item : String)
 }

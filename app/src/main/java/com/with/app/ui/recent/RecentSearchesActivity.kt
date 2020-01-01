@@ -70,4 +70,11 @@ class RecentSearchesActivity : AppCompatActivity(),NoDataInterface {
         tv_noData.visibility = View.VISIBLE
         btn_allDelete.visibility = View.GONE
     }
+
+    override fun conveyKeyword(item: String) {
+        val intent = Intent()
+        intent.putExtra("keyword", item)
+        setResult(Activity.RESULT_OK, intent)
+        finish()
+    }
 }
