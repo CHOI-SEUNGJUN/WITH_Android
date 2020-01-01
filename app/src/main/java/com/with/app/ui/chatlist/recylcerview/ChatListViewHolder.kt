@@ -1,10 +1,12 @@
 package com.with.app.ui.chatlist.recylcerview
 
 import android.content.Intent
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.with.app.R
 import com.with.app.data.ChatListVO
 import com.with.app.ui.chatroom.ChatRoomActivity
@@ -19,7 +21,6 @@ class ChatListViewHolder(view : View) : RecyclerView.ViewHolder(view) {
     val profile : CircleImageView = view.findViewById(R.id.img_profile)
     val tv_name : TextView = view.findViewById(R.id.tv_name)
     val tv_title : TextView = view.findViewById(R.id.tv_title)
-    val iv_dot : ImageView = view.findViewById(R.id.iv_dot)
     val tv_message : TextView = view.findViewById(R.id.tv_message)
     val tv_date : TextView = view.findViewById(R.id.tv_date)
     val tv_chat_remain : TextView = view.findViewById(R.id.tv_chat_remain)
@@ -30,6 +31,10 @@ class ChatListViewHolder(view : View) : RecyclerView.ViewHolder(view) {
         tv_name.text = ourServer.name
         tv_title.text = ourServer.title
         tv_message.text = fireBase.lastMessage
+
+        Glide.with(itemView)
+            .load(ourServer.userImg)
+            .into(profile)
 
 
         tv_date.text = fireBase.lastTime
@@ -62,6 +67,7 @@ class ChatListViewHolder(view : View) : RecyclerView.ViewHolder(view) {
             intent.putExtra("mode", CHATLISTTOCHAT)
             intent.putExtra("boardIdx", ourServer.boardIdx)
             intent.putExtra("writeUserIdx", ourServer.roomId.split("_")[1])
+            Log.e("writeUserIdx", ourServer.roomId.split("_")[1])
             intent.putExtra("regionName", ourServer.regionName)
             intent.putExtra("startDate", ourServer.startDate)
             intent.putExtra("endDate", ourServer.endDate)

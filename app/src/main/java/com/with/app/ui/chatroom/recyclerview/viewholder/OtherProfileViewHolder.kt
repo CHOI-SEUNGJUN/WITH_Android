@@ -3,6 +3,7 @@ package com.with.app.ui.chatroom.recyclerview.viewholder
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.with.app.R
 import de.hdodenhof.circleimageview.CircleImageView
 
@@ -13,5 +14,8 @@ class OtherProfileViewHolder(view : View) : RecyclerView.ViewHolder(view) {
 
     fun bind(mName: String?, mProfile: String?) {
         name.text = mName
+        Glide.with(itemView)
+            .load(mProfile)
+            .into(profile)
     }
 }

@@ -110,7 +110,6 @@ class HomeFragment : Fragment() {
         requestManager.requestWithMate()
             .safeEnqueue (
                 onSuccess = {
-                    Log.e("data", it.data.toString())
                     if (it.data.toString().isNullOrEmpty()) {
                         tv_with_mate.visibility = View.GONE
                         rv_with_mate.visibility = View.GONE
