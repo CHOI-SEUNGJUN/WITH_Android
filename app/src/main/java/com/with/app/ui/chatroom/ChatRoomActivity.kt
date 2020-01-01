@@ -37,15 +37,15 @@ class ChatRoomActivity : AppCompatActivity() {
     private var unSeenCount : Int = 0
 
     // AuthManager에서 받아와야함
-    private var myIdx = 11
+    private var myIdx = 13
     // 서버에서 받아와야함
-    private var boardIdx : Int = 0
-    private var otherIdx = 12
+    private var boardIdx : Long = 0
+    private var otherIdx = 14
     private var otherName = "김남수"
     private var otherProfile = " "
     // 채팅하기 눌렀을때 불러와야함
-    private var posterIdx = 11
-    private var senderIdx = 12
+    private var posterIdx = 13
+    private var senderIdx = 14
 
     private var meetDate = ""
 
@@ -180,17 +180,35 @@ class ChatRoomActivity : AppCompatActivity() {
                 }
             }
         )
+
+
+            usersReference.child("$otherIdx/$chatRoomId").addListener(
+                onChildAdded = {
+                        snap, _ ->
+                    value = snap.getValue(ChatUserVO::class.java)!!
+                },
+                onChildChanged = {
+                        snap, _ ->
+                    value = snap.getValue(ChatUserVO::class.java)!!
+                }
+            )
     }
 
     override fun onPause() {
         super.onPause()
-        tempValue.unSeenCount = 0
-        usersReference.child("$myIdx").child(chatRoomId).setValue(tempValue)
+        val childUpdates = HashMap<String, Any>()
+        childUpdates["/users/$myIdx/$chatRoomId/unSeenCount"] = 0
+        usersReference.updateChildren(childUpdates)
+        //tempValue.unSeenCount = 0
+        //usersReference.child("$myIdx").child(chatRoomId).setValue(tempValue)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        tempValue.unSeenCount = 0
-        usersReference.child("$myIdx").child(chatRoomId).setValue(tempValue)
+        val childUpdates = HashMap<String, Any>()
+        childUpdates["/users/$myIdx/$chatRoomId/unSeenCount"] = 0
+        usersReference.updateChildren(childUpdates)
+        // tempValue.unSeenCount = 0
+        // usersReference.child("$myIdx").child(chatRoomId).setValue(tempValue)
     }
 }

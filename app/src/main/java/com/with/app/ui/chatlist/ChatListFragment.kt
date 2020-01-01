@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_chat_list.*
 
 class ChatListFragment : Fragment() {
 
-    private var myIdx = 11
+    private var myIdx = 13
 
     private var value : ChatUserVO = ChatUserVO()
 
@@ -67,8 +67,6 @@ class ChatListFragment : Fragment() {
             onChildChanged = {
                 snap, _ ->
                 value = snap.getValue(ChatUserVO::class.java)!!
-                for ( item in data ) {
-                }
                 data.filter {
                     it.chatRoomId == snap.key
                 }.forEach{

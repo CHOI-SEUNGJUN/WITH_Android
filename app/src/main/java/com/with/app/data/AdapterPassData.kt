@@ -6,5 +6,5 @@ data class AdapterPassData(
     var otherName: String? = null,
     var otherProfile: String? = null,
     var chatRoomId: String? = null,
-    var boardIdx: Int = 0
+    var boardIdx: Long = 0
 )
