@@ -27,8 +27,8 @@
         android:text="석영"
         android:textColor="#000000"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/img_signup_profile"
+        app:layout_constraintStart_toStartOf="@+id/img_signup_profile"
         app:layout_constraintTop_toBottomOf="@+id/img_signup_profile" />
 
 

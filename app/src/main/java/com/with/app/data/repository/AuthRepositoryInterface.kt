@@ -37,7 +37,7 @@ interface AuthRepositoryInterface {
      */
     @GET("/home/mates")
     fun getWithMate(
-        @Header("JWT") token : String
+        @Header("token") token : String
     ) : Call<ResponseWithMateData>
 
     /**
@@ -80,7 +80,7 @@ interface AuthRepositoryInterface {
         @Path("endDate") endDate : String,
         @Path("keyword") keyword : String,
         @Path("filter") filter : Int,
-        @Header("JWT") token: String
+        @Header("token") token: String
     ) : Call<ResponseSearchBoardData>
 
     /**
@@ -96,7 +96,7 @@ interface AuthRepositoryInterface {
      */
     @POST("/board")
     fun postBoardWrite(
-        @Body data : RequestBoardData, @Header("JWT") token: String
+        @Body data : RequestBoardData, @Header("token") token: String
     ) : Call<ResponseBoardData>
 
     /**
@@ -104,7 +104,7 @@ interface AuthRepositoryInterface {
      */
     @PUT("/board/edit/{boardIdx}")
     fun putBoardEdit(
-        @Body data : RequestBoardData, @Header("JWT") token: String
+        @Body data : RequestBoardData, @Header("token") token: String
     ) : Call<ResponseBoardEditData>
 
     /**
@@ -112,7 +112,7 @@ interface AuthRepositoryInterface {
      */
     @POST("/chat")
     fun postChatOpen(
-        @Body data : RequestChatOpenData, @Header("JWT") token : String
+        @Body data : RequestChatOpenData, @Header("token") token : String
     ) : Call<ResponseChatOpenData>
 
     /**
@@ -120,7 +120,7 @@ interface AuthRepositoryInterface {
      */
     @GET("/chat")
     fun getChatList(
-        @Header("JWT") token: String
+        @Header("token") token: String
     ) : Call<ResponseChatListData>
 
     /**
@@ -128,7 +128,7 @@ interface AuthRepositoryInterface {
      */
     @PUT("/chat")
     fun putWithInvite(
-        @Body data : RequestWithInviteData, @Header("JWT") token : String
+        @Body data : RequestWithInviteData, @Header("token") token : String
     ) : Call<ResponseWithInviteData>
 
 }
