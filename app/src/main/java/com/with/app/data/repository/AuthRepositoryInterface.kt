@@ -139,4 +139,16 @@ interface AuthRepositoryInterface {
         @Header("token") token: String
     ) : Call<ResponseMyPageData>
 
+    /**
+     * 마이페이지 수정
+     */
+    @Multipart
+    @PUT("/mypage")
+    fun putMyPage(
+        @Part ("intro") intro : RequestBody,
+        @Part userImg : MultipartBody.Part?,
+        @Part userBgImg : MultipartBody.Part?,
+        @Header("token") token: String
+    ) : Call<ResponsePutMyPageData>
+
 }
