@@ -188,7 +188,7 @@
             android:layout_height="wrap_content"
             android:text="검색결과가 없습니다.\n관련된 다른 검색어로 다시 검색해주세요."
             android:textAlignment="center"
-            android:gravity="center"
+            android:gravity="top"
             android:textColor="#000000"
             android:textSize="15sp" />
 

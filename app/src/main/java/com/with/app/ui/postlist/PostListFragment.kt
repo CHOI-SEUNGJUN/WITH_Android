@@ -216,10 +216,18 @@ class PostListFragment : Fragment() {
                 onSuccess = {
                     if(it.success) {
                         // TODO : 텍스트뷰 gone시키고 최근게시글 동성필터 부분 비져블
+                        txt_blank.visibility = View.GONE
+                        textView.visibility = View.VISIBLE
+                        textView4.visibility = View.VISIBLE
+                        switch_filter.visibility = View.VISIBLE
                         postListAdapter.data = it.data
                     } else {
                         postListAdapter.data = listOf()
                         // TODO : 텍스트뷰 띄우고 최근게시글 동성필터 부분 gone시키고
+                        txt_blank.visibility = View.VISIBLE
+                        textView.visibility = View.GONE
+                        textView4.visibility = View.GONE
+                        switch_filter.visibility = View.GONE
                     }
                     postListAdapter.notifyDataSetChanged()
                 },

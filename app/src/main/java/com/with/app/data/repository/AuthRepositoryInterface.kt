@@ -104,7 +104,7 @@ interface AuthRepositoryInterface {
      */
     @PUT("/board/edit/{boardIdx}")
     fun putBoardEdit(
-        @Body data : RequestBoardData, @Header("token") token: String
+        @Path("boardIdx") boardIdx: Int, @Body data : RequestBoardData, @Header("token") token: String
     ) : Call<ResponseBoardEditData>
 
     /**
