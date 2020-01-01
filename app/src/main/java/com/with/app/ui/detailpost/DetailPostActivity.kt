@@ -5,20 +5,26 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import com.bumptech.glide.Glide
 import com.with.app.R
-import com.with.app.manage.AuthManager
 import com.with.app.manage.RequestManager
 import com.with.app.ui.posting.PostingActivity
 import com.with.app.util.safeEnqueue
 import kotlinx.android.synthetic.main.activity_detail_post.*
+import kotlinx.android.synthetic.main.activity_detail_post.img_profile
+import kotlinx.android.synthetic.main.activity_detail_post.txt_date
+import kotlinx.android.synthetic.main.activity_detail_post.txt_region
+import kotlinx.android.synthetic.main.activity_detail_post.txt_title
+import kotlinx.android.synthetic.main.item_post_bulletin.*
 import org.koin.android.ext.android.inject
 
 class DetailPostActivity : AppCompatActivity(){
 
-    private val authManager : AuthManager by inject()
     private val requestManager : RequestManager by inject()
-    private var myIdx = authManager.idx
-    private var posterIdx = 10
+    private var myIdx = requestManager.authManager.idx
+    private var userIdx = 10
+    private var filter = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,25 +33,54 @@ class DetailPostActivity : AppCompatActivity(){
         requestManager.requestDetailBoard(intent.getIntExtra("boardIdx",0))
             .safeEnqueue (
                 onSuccess = {
-                    //??
+                    txt_title.text = it.data.title
+                    txt_region.text = it.data.regionName
+                    txt_content.text = it.data.content
+                    txt_date.text = it.data.startDate+" ~ "+it.data.endDate
+                    filter = it.data.filter
+                    if(filter == 1){
+                        txt_filter.text = "적용"
+                    }
+                    else{
+                        txt_filter.text = "미적용"
+                    }
+                    userIdx = it.data.userIdx
+                    txt_name.text = it.data.name
+                    if(it.data.gender == 1){
+                        txt_age_gender.text = it.data.birth.toString()+"살 남자"
+                    }
+                    else{
+                        txt_age_gender.text = it.data.birth.toString()+"살 여자"
+                    }
+                    Glide.with(applicationContext)
+                        .load(it.data.userImg)
+                        .into(img_profile)
+
                 },
                 onError = {
                     Log.e("error", it.toString())
                 }
             )
 
-        //게시글쓴 idx값과 접속한 idx값이 같으면
-        if (myIdx == posterIdx) {
-
+        //게시글쓴 idx값과 접속한 idx값이 같으면 마감버튼, 수정버튼 보임/채팅버튼 사라짐
+        if (myIdx == userIdx) {
+            fab.visibility = View.GONE
+            btn_edit.visibility = View.VISIBLE
+            btn_dealine.visibility = View.VISIBLE
+        }
+        else{
+            fab.visibility = View.GONE
+            btn_edit.visibility = View.GONE
+            btn_dealine.visibility = View.GONE
         }
 
         btn_edit.setOnClickListener {
             val intent = Intent(this,PostingActivity::class.java)
             intent.putExtra("title",txt_title.text)
-            intent.putExtra("regionCode",edt_region.text)
-            intent.putExtra("content",edt_content.text)
-            intent.putExtra("date",edt_date.text)
-            intent.putExtra("filter",-1)//동성필터 여부 받아온 값 넣기
+            intent.putExtra("regionCode",txt_region.text)
+            intent.putExtra("content",txt_content.text)
+            intent.putExtra("date",txt_date.text)
+            intent.putExtra("filter",filter)//동성필터 여부 받아온 값 넣기
             intent.putExtra("mode",1)
             startActivityForResult(intent,-1)
         }
