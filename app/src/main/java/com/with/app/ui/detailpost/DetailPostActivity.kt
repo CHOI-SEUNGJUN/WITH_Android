@@ -68,6 +68,14 @@ class DetailPostActivity : AppCompatActivity(){
                         else txt_filter.text = "미적용"
                         userIdx = response.userIdx
                         txt_name.text = response.name
+
+                        likeNum = response.likeNum
+                        if(likeNum == 0) iv_like_level.setImageResource(R.drawable.like_level0)
+                        else if(likeNum == 1) iv_like_level.setImageResource(R.drawable.like_level1)
+                        else if(likeNum == 2) iv_like_level.setImageResource(R.drawable.like_level2)
+                        else iv_like_level.setImageResource(R.drawable.like_level3)
+
+
                         if(it.data.gender == 1) txt_age_gender.text = response.birth.toString()+"살 남자"
                         else txt_age_gender.text = response.birth.toString()+"살 여자"
                         Glide.with(applicationContext)
