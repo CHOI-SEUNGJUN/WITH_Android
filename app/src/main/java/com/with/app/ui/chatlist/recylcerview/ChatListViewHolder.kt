@@ -47,20 +47,16 @@ class ChatListViewHolder(view : View) : RecyclerView.ViewHolder(view) {
         }
 
         when {
-            fireBase.unSeenCount <= 0 -> {
-                tv_chat_remain.gone()
-            }
-            fireBase.unSeenCount > 99 -> {
-                tv_chat_remain.text = "99+"
-            }
-            else -> {
+            fireBase.unSeenCount <= 0 -> tv_chat_remain.gone()
+            fireBase.unSeenCount > 99 -> tv_chat_remain.text = "99+"
+            else ->
                 tv_chat_remain.text = fireBase.unSeenCount.toString()
-            }
         }
 
         itemView.setOnClickListener {
             val intent = Intent(itemView.context, ChatRoomActivity::class.java)
             intent.putExtra("mode", CHATLISTTOCHAT)
+            intent.putExtra("userIdx", ourServer.userIdx)
             intent.putExtra("boardIdx", ourServer.boardIdx)
             intent.putExtra("writeUserIdx", ourServer.roomId.split("_")[1])
             intent.putExtra("regionName", ourServer.regionName)
@@ -69,6 +65,8 @@ class ChatListViewHolder(view : View) : RecyclerView.ViewHolder(view) {
             intent.putExtra("title", ourServer.title)
             intent.putExtra("userImg", ourServer.userImg)
             intent.putExtra("name", ourServer.name)
+            intent.putExtra("withFlag", ourServer.withFlag)
+            intent.putExtra("writerImg", ourServer.writerImg)
             intent.putExtra("senderUserIdx", ourServer.roomId.split("_")[2])
             itemView.context.startActivity(intent)
         }

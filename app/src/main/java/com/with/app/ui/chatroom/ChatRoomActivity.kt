@@ -1,9 +1,12 @@
 package com.with.app.ui.chatroom
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.res.ColorStateList
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.google.firebase.database.*
 import com.with.app.R
 import com.with.app.data.*
@@ -17,7 +20,6 @@ import com.with.app.extension.*
 import kotlinx.android.synthetic.main.activity_chat_room.*
 import kotlinx.android.synthetic.main.dialog_invite.view.*
 import org.koin.android.ext.android.inject
-
 
 class ChatRoomActivity : AppCompatActivity() {
 
@@ -88,9 +90,8 @@ class ChatRoomActivity : AppCompatActivity() {
         boardIdx = intent.getIntExtra("boardIdx", 0)
         tv_title.text = intent.getStringExtra("title")
         tv_date.text = "${intent.getStringExtra("startDate")} ~ ${intent.getStringExtra("endDate")}"
-        otherProfile = intent.getStringExtra("userImg")
 
-        iv_profile.load(application, otherProfile)
+        otherProfile = intent.getStringExtra("userImg")
 
         setBoardIdx(value, tempValue, boardIdx)
 
@@ -100,8 +101,14 @@ class ChatRoomActivity : AppCompatActivity() {
         chatRoomId = "${boardIdx}_${posterIdx}_${senderIdx}"
 
         val mode = intent.getIntExtra("mode", 0)
-        otherIdx = (if (mode == POSTINGTOCHAT) posterIdx
-            else intent.getIntExtra("userIdx", 0))
+
+        if (mode == POSTINGTOCHAT) {
+            otherIdx = posterIdx
+            iv_profile.load(application, otherProfile)
+        } else {
+            otherIdx = intent.getIntExtra("userIdx", 0)
+            iv_profile.load(application, intent.getStringExtra("writerImg"))
+        }
 
         btn_more.setOnClickListener {
             val intent = Intent(this, DetailPostActivity::class.java)
@@ -109,7 +116,14 @@ class ChatRoomActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        if (posterIdx != myIdx) btn_invite.gone()
+        if (posterIdx != myIdx) {
+            btn_invite.gone()
+        }
+
+        if (withFlag == 1) {
+            btn_invite.setImageResource(R.drawable.send_invitation_unselected_btn)
+            btn_invite.isEnabled = false
+        }
     }
 
     private fun inviteMessage() {
@@ -178,14 +192,18 @@ class ChatRoomActivity : AppCompatActivity() {
             onChildAdded = { snap, _ ->
                 if (snap.key == "unSeenCount") otherCount = snap.value.toString().toInt()
                 if (snap.key == "inviteFlag") inviteFlag = snap.value.toString().toInt()
-                if (inviteFlag == 1)
-                    btn_invite.gone()
+                if (inviteFlag == 1) {
+                    btn_invite.setImageResource(R.drawable.send_invitation_unselected_btn)
+                    btn_invite.isEnabled = false
+                }
             },
             onChildChanged = { snap, _ ->
                 if (snap.key == "unSeenCount") otherCount = snap.value.toString().toInt()
                 if (snap.key == "inviteFlag") inviteFlag = snap.value.toString().toInt()
-                if (inviteFlag == 1)
-                    btn_invite.gone()
+                if (inviteFlag == 1) {
+                    btn_invite.setImageResource(R.drawable.send_invitation_unselected_btn)
+                    btn_invite.isEnabled = false
+                }
             })
 
         // 채팅방 입장시 카운트 초기화

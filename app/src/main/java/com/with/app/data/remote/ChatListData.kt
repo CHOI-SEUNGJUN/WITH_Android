@@ -7,6 +7,7 @@ data class ResponseChatListData(
 )
 
 data class ResponseChatListArrayData(
+    val userIdx : Int,
     val boardIdx : Int,
     val roomId : String,
     val userImg : String,

@@ -22,6 +22,6 @@ class WithMateAdapter (private val context : Context) : RecyclerView.Adapter<Wit
     }
 
     override fun onBindViewHolder(holder: WithMateViewHolder, position: Int) {
-        holder.bind(mate[position], context)
+        holder.bind(mate[position])
     }
 }
