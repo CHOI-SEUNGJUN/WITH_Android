@@ -25,8 +25,18 @@ class AuthManager(context: Context) {
             return preferences.getInt(IDX_KEY, 0)
         }
         set(value) {
-            preferences.edit{
+            preferences.edit {
                 putInt(IDX_KEY, value)
+            }
+        }
+
+    var name: String
+        get() {
+            return preferences.getString(NAME_KEY, null).orEmpty()
+        }
+        set(value) {
+            preferences.edit {
+                putString(NAME_KEY, value)
             }
         }
 
@@ -34,6 +44,7 @@ class AuthManager(context: Context) {
         const val AUTH_PREFERENCES = "auth"
         const val TOKEN_KEY = "token"
         const val IDX_KEY = "idx"
+        const val NAME_KEY = "name"
     }
 }
 

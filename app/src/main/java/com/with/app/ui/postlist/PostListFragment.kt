@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.with.app.R
 import com.with.app.data.PickerDTO
+import com.with.app.extension.gone
 import com.with.app.ui.posting.PostingActivity
 import com.with.app.ui.postlist.recylcerview.PostListAdapter
 import com.with.app.manage.PrefManager
@@ -22,12 +23,9 @@ import com.with.app.manage.RequestManager
 import com.with.app.ui.home.HomeFragment
 import com.with.app.ui.recent.RecentSearchesActivity
 import com.with.app.ui.region.ChangeRegionActivity
-import com.with.app.util.gone
-import com.with.app.util.safeEnqueue
-import com.with.app.util.toast
-import com.with.app.util.visible
 import com.with.app.extension.safeEnqueue
 import com.with.app.extension.toast
+import com.with.app.extension.visible
 import kotlinx.android.synthetic.main.date_picker.view.*
 import kotlinx.android.synthetic.main.fragment_post_list.*
 import kotlinx.android.synthetic.main.fragment_post_list.view.*

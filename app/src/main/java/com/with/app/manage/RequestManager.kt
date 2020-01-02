@@ -63,6 +63,11 @@ class RequestManager(val context: Context, val authManager: AuthManager, val reg
     fun requestPutMyPage(intro: RequestBody, userImg: MultipartBody.Part?, userBgImg: MultipartBody.Part?)
             = retrofit.putMyPage(intro, userImg, userBgImg, authManager.token)
 
+    fun requestPutLike() = retrofit.putLike(authManager.token)
+
+    fun requestPutDisLike() = retrofit.putDisLike(authManager.token)
+
+    fun requestNoEvaluation() = retrofit.putNoEvaluation(authManager.token)
 
 }
 
