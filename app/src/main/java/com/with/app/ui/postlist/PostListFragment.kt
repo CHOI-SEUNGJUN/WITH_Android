@@ -22,6 +22,10 @@ import com.with.app.manage.RequestManager
 import com.with.app.ui.home.HomeFragment
 import com.with.app.ui.recent.RecentSearchesActivity
 import com.with.app.ui.region.ChangeRegionActivity
+import com.with.app.util.gone
+import com.with.app.util.safeEnqueue
+import com.with.app.util.toast
+import com.with.app.util.visible
 import com.with.app.extension.safeEnqueue
 import com.with.app.extension.toast
 import kotlinx.android.synthetic.main.date_picker.view.*
@@ -30,8 +34,8 @@ import kotlinx.android.synthetic.main.fragment_post_list.view.*
 import org.koin.android.ext.android.inject
 import java.text.SimpleDateFormat
 
-
-class PostListFragment : Fragment() {
+class PostListFragment : Fragment()
+{
     private val prefManager : PrefManager by inject()
     private val requestManager : RequestManager by inject()
     private var filter = 0
@@ -212,19 +216,19 @@ class PostListFragment : Fragment() {
         requestManager.requestSearchBoard(regionCode,startDate,endDate,keyword,filter)
             .safeEnqueue (
                 onSuccess = {
-                    if(it.success) {
-                        txt_blank.visibility = View.GONE
-                        textView.visibility = View.VISIBLE
-                        textView4.visibility = View.VISIBLE
-                        switch_filter.visibility = View.VISIBLE
-                        rv_postList.visibility = View.VISIBLE
-                        postListAdapter.data = it.data
+                    if(it.data.isEmpty()) {
+                        txt_blank.visible()
+                        textView.gone()
+                        textView4.gone()
+                        switch_filter.gone()
+                        rv_postList.gone()
                     } else {
-                        txt_blank.visibility = View.VISIBLE
-                        textView.visibility = View.GONE
-                        textView4.visibility = View.GONE
-                        switch_filter.visibility = View.GONE
-                        rv_postList.visibility = View.GONE
+                        txt_blank.gone()
+                        textView.visible()
+                        textView4.visible()
+                        switch_filter.visible()
+                        rv_postList.visible()
+                        postListAdapter.data = it.data
                     }
                     postListAdapter.notifyDataSetChanged()
                 },
