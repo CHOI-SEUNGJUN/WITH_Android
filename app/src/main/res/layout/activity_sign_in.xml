@@ -9,43 +9,46 @@
 
     <EditText
         android:id="@+id/edt_signin_email"
-        android:layout_width="272dp"
-        android:layout_height="59dp"
-        android:layout_marginTop="126dp"
-        android:background="@drawable/corner_sub_border_6dp"
-        android:hint="이메일 주소를 입력해주세요"
-        android:paddingLeft="16dp"
-        android:singleLine="true"
+        android:layout_width="320dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="50dp"
+        android:width="0dp"
+        android:background="@drawable/corner_border_primary_6dp"
+        android:hint="이메일 주소"
         android:lines="1"
         android:nextFocusDown="@id/edt_signin_password"
+        android:paddingLeft="10dp"
+        android:singleLine="true"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_signin_intro" />
 
     <TextView
         android:id="@+id/tv_signin_email_warning"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:text="가입되지 않은 이메일입니다"
         android:textColor="@color/colorWarningRed"
-        android:textSize="12sp"
+        android:textSize="10sp"
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="@+id/edt_signin_email"
         app:layout_constraintTop_toBottomOf="@+id/edt_signin_email" />
 
     <EditText
         android:id="@+id/edt_signin_password"
-        android:layout_width="272dp"
-        android:layout_height="59dp"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/corner_sub_border_6dp"
-        android:hint="비밀번호를 입력해주세요"
-        android:paddingLeft="16dp"
-        android:singleLine="true"
-        android:lines="1"
+        android:layout_width="320dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/corner_border_primary_6dp"
+        android:hint="비밀번호 (영문/숫자 조합 6자~12자 이내)"
         android:inputType="textPassword"
+        android:lines="1"
         android:nextFocusDown="@id/btn_login"
+        android:paddingLeft="10dp"
+        android:singleLine="true"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/tv_signin_email_warning" />
@@ -54,26 +57,31 @@
         android:id="@+id/tv_signin_password_warning"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:text="잘못된 비밀번호입니다"
         android:textColor="@color/colorWarningRed"
-        android:textSize="12sp"
+        android:textSize="10sp"
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="@+id/edt_signin_password"
         app:layout_constraintTop_toBottomOf="@+id/edt_signin_password" />
 
-    <Button
+    <android.widget.Button
         android:id="@+id/btn_login"
-        android:layout_width="272dp"
-        android:layout_height="59dp"
-        android:layout_marginTop="45dp"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="320dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="72dp"
+        android:backgroundTint="#efefef"
         android:insetTop="0dp"
         android:insetBottom="0dp"
-        android:text="로그인"
+        android:background="@drawable/corner_sub_6dp"
+        android:text="로그인하기"
+        android:textColor="#a8a8a8"
         android:textSize="16sp"
         android:textStyle="bold"
         app:iconPadding="0dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_signin_password_warning" />
 
@@ -81,11 +89,35 @@
         android:id="@+id/btn_signin_signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="회원가입"
-        android:textColor="@color/colorUnselectedRegion"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="3dp"
+        android:text="회원가입하기"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_signup_qeustion"
+        app:layout_constraintStart_toEndOf="@+id/tv_signup_qeustion"
+        app:layout_constraintTop_toTopOf="@+id/tv_signup_qeustion" />
+
+    <TextView
+        android:id="@+id/tv_signin_intro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:lineSpacingExtra="6sp"
+        android:text="안녕하세요!\n로그인을 해주세요"
+        android:textColor="@android:color/black"
+        android:textSize="26sp"
+        app:layout_constraintStart_toStartOf="@+id/edt_signin_email"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_signup_qeustion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="55dp"
+        android:text="회원이 아니신가요? |"
+        android:textColor="@color/colorBlack"
+        android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_login" />
+        app:layout_constraintTop_toBottomOf="@+id/edt_signin_password" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

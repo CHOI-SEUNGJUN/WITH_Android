@@ -25,18 +25,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/tv_signup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="회원가입"
-                android:textColor="@color/colorBlack"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <ImageButton
                 android:id="@+id/btn_close"
                 android:layout_width="wrap_content"
@@ -54,38 +42,123 @@
             android:id="@+id/tv_profile_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:lineSpacingExtra="7sp"
             android:text="본인의 얼굴 사진을 등록해주세요"
-            android:textColor="@color/colorUnselectedRegion"
+            android:textColor="@color/colorPrimary"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cl_toolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/img_mypage_profile" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_mypage_profile"
             android:layout_width="79dp"
             android:layout_height="79dp"
-            android:layout_marginTop="16dp"
-            android:src="@drawable/btn_login_profile"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/user_img"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_profile_desc" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_signup_intro" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="47dp"
+            android:lineSpacingExtra="10sp"
+            android:text="이름"
+            android:textColor="@color/colorPrimary"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_profile_desc" />
+
+        <EditText
+            android:id="@+id/edt_name"
+            android:layout_width="320dp"
+            android:layout_height="39dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/corner_sub_border_6dp"
+            android:ems="10"
+            android:singleLine="true"
+            android:lines="1"
+            android:nextFocusDown="@id/edt_birth"
+            android:hint="이름을 입력해주세요 ex) 안현준"
+            android:inputType="textPersonName"
+            android:paddingLeft="10dp"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+
+        <TextView
+            android:id="@+id/tv_name_warning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="이름을 입력해주세요"
+            android:textColor="@color/colorWarningRed"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/edt_name"
+            app:layout_constraintTop_toBottomOf="@+id/edt_name" />
+
+        <TextView
+            android:id="@+id/tv_birth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="25dp"
+            android:lineSpacingExtra="10sp"
+            android:text="생년월일"
+            android:textColor="@color/colorPrimary"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edt_name" />
+
+        <EditText
+            android:id="@+id/edt_birth"
+            android:layout_width="320dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/corner_sub_border_6dp"
+            android:ems="10"
+            android:singleLine="true"
+            android:lines="1"
+            android:nextFocusDown="@id/rbtn_female"
+            android:hint="1998-01-01"
+            android:inputType="textPersonName"
+            android:paddingLeft="10dp"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_birth" />
+
+        <TextView
+            android:id="@+id/tv_birth_warning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="생년월일을 설정해주세요"
+            android:textColor="@color/colorWarningRed"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/edt_birth"
+            app:layout_constraintTop_toBottomOf="@+id/edt_birth" />
 
         <TextView
             android:id="@+id/tv_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="34dp"
+            android:layout_marginTop="25dp"
             android:lineSpacingExtra="10sp"
             android:text="이메일"
             android:textColor="@color/colorPrimary"
             android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_mypage_profile" />
+            app:layout_constraintTop_toBottomOf="@+id/edt_birth" />
 
         <EditText
             android:id="@+id/edt_signup_email"
@@ -123,14 +196,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="25dp"
             android:lineSpacingExtra="10sp"
             android:text="비밀번호"
             android:textColor="@color/colorPrimary"
             android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_email_warning" />
+            app:layout_constraintTop_toBottomOf="@+id/edt_signup_email" />
 
         <EditText
             android:id="@+id/edt_signup_password"
@@ -166,14 +239,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="25dp"
             android:lineSpacingExtra="10sp"
             android:text="비밀번호 확인"
             android:textColor="@color/colorPrimary"
             android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_password_warning" />
+            app:layout_constraintTop_toBottomOf="@+id/edt_signup_password" />
 
         <EditText
             android:id="@+id/edt_pw_check"
@@ -204,105 +277,21 @@
             app:layout_constraintStart_toStartOf="@+id/edt_pw_check"
             app:layout_constraintTop_toBottomOf="@+id/edt_pw_check" />
 
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="30dp"
-            android:lineSpacingExtra="10sp"
-            android:text="이름"
-            android:textColor="@color/colorPrimary"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_pw_check_warning" />
-
-        <EditText
-            android:id="@+id/edt_name"
-            android:layout_width="320dp"
-            android:layout_height="39dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/corner_sub_border_6dp"
-            android:ems="10"
-            android:singleLine="true"
-            android:lines="1"
-            android:nextFocusDown="@id/edt_birth"
-            android:hint="이름을 입력해주세요 ex) 안현준"
-            android:inputType="textPersonName"
-            android:paddingLeft="10dp"
-            android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="@+id/tv_name"
-            app:layout_constraintTop_toBottomOf="@+id/tv_name" />
-
-        <TextView
-            android:id="@+id/tv_name_warning"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="이름을 입력해주세요"
-            android:textColor="@color/colorWarningRed"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@+id/edt_name"
-            app:layout_constraintTop_toBottomOf="@+id/edt_name" />
-
-        <TextView
-            android:id="@+id/tv_birth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:lineSpacingExtra="10sp"
-            android:text="생년월일"
-            android:textColor="@color/colorPrimary"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_name_warning" />
-
-        <EditText
-            android:id="@+id/edt_birth"
-            android:layout_width="320dp"
-            android:layout_height="39dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/corner_sub_border_6dp"
-            android:ems="10"
-            android:singleLine="true"
-            android:lines="1"
-            android:nextFocusDown="@id/rbtn_female"
-            android:hint="1998-01-01"
-            android:inputType="textPersonName"
-            android:paddingLeft="10dp"
-            android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_birth" />
-
-
-        <TextView
-            android:id="@+id/tv_birth_warning"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="생년월일을 설정해주세요"
-            android:textColor="@color/colorWarningRed"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@+id/edt_birth"
-            app:layout_constraintTop_toBottomOf="@+id/edt_birth" />
 
         <TextView
             android:id="@+id/tv_gender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="25dp"
             android:lineSpacingExtra="10sp"
             android:text="성별"
             android:textColor="@color/colorPrimary"
             android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_birth_warning" />
+            app:layout_constraintTop_toBottomOf="@id/edt_pw_check"
+            tools:layout_editor_absoluteY="704dp" />
 
         <TextView
             android:id="@+id/tv_gender_warning"
@@ -358,7 +347,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@+id/img_mypage_profile"
             app:layout_constraintEnd_toEndOf="@+id/img_mypage_profile"
-            app:srcCompat="@drawable/badge" />
+            app:srcCompat="@drawable/image_edit" />
 
         <Button
             android:id="@+id/btn_signup"
@@ -377,6 +366,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/radioGroup" />
+
+        <TextView
+            android:id="@+id/tv_signup_intro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="4dp"
+            android:text="안녕하세요!\n회원가입을 해주세요"
+            android:textColor="@color/colorBlack"
+            android:textSize="26sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_toolbar" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
