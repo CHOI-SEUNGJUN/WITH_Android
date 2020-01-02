@@ -19,8 +19,7 @@ import com.with.app.ui.chatroom.recyclerview.ChatRoomAdapter.Companion.MY_CHAT
 import com.with.app.ui.chatroom.recyclerview.ChatRoomAdapter.Companion.MY_INVITE
 import com.with.app.ui.detailpost.DetailPostActivity
 import com.with.app.ui.detailpost.DetailPostActivity.Companion.POSTINGTOCHAT
-import com.with.app.util.addListener
-import com.with.app.util.addSingleListener
+import com.with.app.util.*
 import kotlinx.android.synthetic.main.activity_chat_room.*
 import kotlinx.android.synthetic.main.dialog_invite.view.*
 import org.koin.android.ext.android.inject
@@ -32,7 +31,6 @@ class ChatRoomActivity : AppCompatActivity() {
 
     private val requestManager: RequestManager by inject()
 
-    private lateinit var lm: LinearLayoutManager
     private lateinit var adapter: ChatRoomAdapter
 
     private var value: ChatUserVO = ChatUserVO()
@@ -79,18 +77,16 @@ class ChatRoomActivity : AppCompatActivity() {
         sendMessage()
         inviteMessage()
 
-        Log.e("otherIdx", otherIdx.toString())
         passData = AdapterPassData(myIdx, otherIdx, otherName, otherProfile, chatRoomId, boardIdx, withFlag)
 
-        lm = LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL, false)
         adapter = ChatRoomAdapter(passData, requestManager)
-        rv_chat.layoutManager = lm
+        rv_chat.setLinearLayoutManager(applicationContext)
         rv_chat.adapter = adapter
         rv_chat.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
-            rv_chat.scrollToPosition(rv_chat.adapter!!.itemCount - 1)
+            rv_chat.adjustScroll()
         } // Keyboard가 레이아웃 가리는 부분을 Recyclerview의 스크롤 위치를 조정시킴
 
-        rv_chat.scrollToPosition(rv_chat.adapter!!.itemCount - 1) // 첫 접속시 리싸이클러뷰가 상단에 올라가기 때문.
+        rv_chat.adjustScroll() // 첫 접속시 리싸이클러뷰가 상단에 올라가기 때문.
     }
 
     private fun setBasicData() {
@@ -102,9 +98,8 @@ class ChatRoomActivity : AppCompatActivity() {
         tv_date.text = "${intent.getStringExtra("startDate")} ~ ${intent.getStringExtra("endDate")}"
 
         otherProfile = intent.getStringExtra("userImg")
-        Glide.with(applicationContext)
-            .load(otherProfile)
-            .into(iv_profile)
+
+        iv_profile.load(application, otherProfile)
 
         value.boardIdx = boardIdx
         tempValue.boardIdx = boardIdx
@@ -127,7 +122,7 @@ class ChatRoomActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        if (posterIdx != myIdx) btn_invite.visibility = View.GONE
+        if (posterIdx != myIdx) btn_invite.gone()
     }
 
     private fun inviteMessage() {
@@ -173,7 +168,7 @@ class ChatRoomActivity : AppCompatActivity() {
 
     private fun sendMessage() {
         btn_send.setOnClickListener {
-            if (edt_chat.text.toString() == "")
+            if (edt_chat.text.toString().isBlank())
                 return@setOnClickListener
 
             val now = Calendar.getInstance().time
@@ -193,7 +188,7 @@ class ChatRoomActivity : AppCompatActivity() {
             usersReference.child("$otherIdx").child(chatRoomId).setValue(tempValue)
 
             edt_chat.setText("")
-            rv_chat.scrollToPosition(rv_chat.adapter!!.itemCount - 1) // 아이템을 추가시켰으니 다시 스크롤 조정
+            rv_chat.adjustScroll() // 아이템을 추가시켰으니 다시 스크롤 조정
         }
     }
 
@@ -201,7 +196,7 @@ class ChatRoomActivity : AppCompatActivity() {
         chatReference.addListener(
             onChildAdded = { snap, _ ->
                 adapter.addMessageWithNotify(snap.getValue(ChatVO::class.java)!!)
-                rv_chat.scrollToPosition(rv_chat.adapter!!.itemCount - 1)
+                rv_chat.adjustScroll()
             })
 
         usersReference.child("$otherIdx/$chatRoomId").addSingleListener(
@@ -218,16 +213,14 @@ class ChatRoomActivity : AppCompatActivity() {
             onChildAdded = { snap, _ ->
                 if (snap.key == "unSeenCount") otherCount = snap.value.toString().toInt()
                 if (snap.key == "inviteFlag") inviteFlag = snap.value.toString().toInt()
-                if (inviteFlag == 1) {
-                    btn_invite.visibility = View.GONE
-                }
+                if (inviteFlag == 1)
+                    btn_invite.gone()
             },
             onChildChanged = { snap, _ ->
                 if (snap.key == "unSeenCount") otherCount = snap.value.toString().toInt()
                 if (snap.key == "inviteFlag") inviteFlag = snap.value.toString().toInt()
-                if (inviteFlag == 1) {
-                    btn_invite.visibility = View.GONE
-                }
+                if (inviteFlag == 1)
+                    btn_invite.gone()
             })
 
         // 채팅방 입장시 초기화
