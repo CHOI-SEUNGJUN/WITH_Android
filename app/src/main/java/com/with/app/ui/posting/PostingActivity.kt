@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.ViewGroup
 import android.widget.DatePicker
 import android.widget.TextView
@@ -100,9 +101,11 @@ class PostingActivity : AppCompatActivity() {
                     )
             }
             else if(mode == 0) {
+                Log.e("test", "$regionCode,$title,$content,$startDate,$endDate,$filter")
                 requestManager.requestBoardWrite(RequestBoardData(regionCode,title,content,startDate,endDate,filter))
                     .safeEnqueue (
                         onSuccess = {
+                            Log.e("success", it.message)
                             val intent = Intent(this,DetailPostActivity::class.java)
                             intent.putExtra("boardIdx",it.data[0].boardIdx)
                             startActivity(intent)

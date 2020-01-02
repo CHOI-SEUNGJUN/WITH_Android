@@ -144,9 +144,7 @@ class PostListFragment : Fragment()
                 }
                 btn_save.setOnClickListener{
                     val tempStart = "${start_datepicker.year}.${start_datepicker.month+1}.${start_datepicker.dayOfMonth}"
-                    Log.v("YGYG1", start_datepicker.year.toString())
                     val tempEnd = "${end_datepicker.year}.${end_datepicker.month+1}.${end_datepicker.dayOfMonth}"
-                    Log.v("YGYG", end_datepicker.year.toString())
 
                     val pattern = SimpleDateFormat("yyyy.MM.dd")
                     val diffs = pattern.parse(tempEnd).compareTo(pattern.parse(tempStart))
@@ -180,7 +178,6 @@ class PostListFragment : Fragment()
             getDataWhenClick()
         } else if (requestCode == HomeFragment.REGIONCHANGE_REQCODE && resultCode == Activity.RESULT_OK) {
             txt_country.text = requestManager.regionManager.name
-            // TODO : 서버통신하기
             getDataWhenClick()
         }
     }
@@ -205,6 +202,13 @@ class PostListFragment : Fragment()
         val regionCode = requestManager.regionManager.code
         startDate = prefManager.startDate
         endDate = prefManager.endDate
+
+        if (startDate != "0") {
+            startDate = startDate.substring(2)
+        }
+        if (endDate != "0") {
+            endDate = endDate.substring(2)
+        }
 
         if(edt_search.text.isEmpty()){
             keyword = "0"
@@ -241,6 +245,12 @@ class PostListFragment : Fragment()
                 },
                 onFailure = {
                     Log.e("failure", it.message())
+                    // TODO : 반환값이 없을 때 failure가 나옴.
+                    txt_blank.visible()
+                    textView.gone()
+                    textView4.gone()
+                    switch_filter.gone()
+                    rv_postList.gone()
                 }
             )
 

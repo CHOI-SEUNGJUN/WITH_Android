@@ -61,19 +61,13 @@ class MyPageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         makeMyPageView()
         makeSettingView()
-
-
-
     }
 
     fun makeMyPageView() {
         requestManager.requestMyPage()
             .safeEnqueue (
                 onSuccess = { it ->
-                    Log.v("mypage name", it.data.name)
                     tv_mypage_name.text = it.data.name
-
-                    Log.v("birth", it.data.birth.toString())
                     tv_mypage_age.text = it.data.birth.toString()
 
                     val gender = it.data.gender
@@ -260,7 +254,7 @@ class MyPageFragment : Fragment() {
                         val photoBody = RequestBody.create(MediaType.parse("image/jpg"), baos.toByteArray())
                         val img = File(getRealPathFromURI(context!!, imageUri!!))
 
-                        profileImg = MultipartBody.Part.createFormData("img", img.name, photoBody)
+                        profileImg = MultipartBody.Part.createFormData("userImg", img.name, photoBody)
                         Log.v("MyPage Activity", "$profileImg")
                     }
                 } catch (e: Exception) {
@@ -295,7 +289,7 @@ class MyPageFragment : Fragment() {
                         val photoBody = RequestBody.create(MediaType.parse("image/jpg"), baos.toByteArray())
                         val img = File(getRealPathFromURI(context!!, imageUri!!))
 
-                        backImg = MultipartBody.Part.createFormData("img", img.name, photoBody)
+                        backImg = MultipartBody.Part.createFormData("userBgImg", img.name, photoBody)
                         Log.v("MyPage Activity", "$backImg")
                     }
                 } catch (e: Exception) {
