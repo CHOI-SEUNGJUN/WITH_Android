@@ -16,6 +16,7 @@ import com.with.app.ui.signup.SignUpActivity
 import com.with.app.util.safeEnqueue
 import com.with.app.util.toSpanned
 import com.with.app.util.toast
+
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import org.koin.android.ext.android.inject
 

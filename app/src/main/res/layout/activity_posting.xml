@@ -179,7 +179,7 @@
                 android:background="@null"
                 android:gravity="top"
                 android:hint="동행 구하는 글을 작성해주세요"
-                android:minLines="30"
+                android:minLines="20"
                 android:textColorHint="@color/colorCloudyBlue"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"

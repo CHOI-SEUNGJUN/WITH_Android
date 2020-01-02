@@ -20,9 +20,9 @@ import com.afollestad.materialdialogs.customview.customView
 import com.bumptech.glide.Glide
 import com.with.app.R
 import com.with.app.manage.RequestManager
-import com.with.app.util.safeEnqueue
-import com.with.app.util.toSpanned
-import com.with.app.util.toast
+import com.with.app.extension.safeEnqueue
+import com.with.app.extension.toSpanned
+import com.with.app.extension.toast
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.dialog_sign_up.*
 import kotlinx.android.synthetic.main.dialog_signup_success.*

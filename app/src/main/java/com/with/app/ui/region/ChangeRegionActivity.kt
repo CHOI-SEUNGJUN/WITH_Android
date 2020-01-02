@@ -1,17 +1,13 @@
 package com.with.app.ui.region
 
 import android.graphics.Color
-import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.SpannableString
-import android.text.style.StyleSpan
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.tabs.TabLayout
 import com.with.app.R
-import com.with.app.ui.region.FragmentRegionPagerAdapter
-import com.with.app.util.toSpanned
+import com.with.app.extension.toSpanned
 import kotlinx.android.synthetic.main.activity_chagne_region.*
 import kotlinx.android.synthetic.main.fragment_region_tabbar.*
 
