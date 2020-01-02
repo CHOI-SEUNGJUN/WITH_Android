@@ -23,13 +23,18 @@ import kotlinx.android.synthetic.main.date_picker.view.*
 import org.koin.android.ext.android.inject
 import java.text.SimpleDateFormat
 import android.R
+import android.os.Handler
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.customview.customView
 import com.with.app.manage.PrefManager
+import com.with.app.util.toSpanned
 import com.with.app.util.toast
+import kotlinx.android.synthetic.main.dialog_signup_success.*
 
 
 class PostingActivity : AppCompatActivity() {
 
-    private var isSwitchChecked = -1
+    private var isSwitchChecked = 0
     private val requestManager : RequestManager by inject()
     private val prefManager : PrefManager by inject()
     private var boardIdx = 0
@@ -39,25 +44,24 @@ class PostingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(com.with.app.R.layout.activity_posting)
+
         //게시글 수정
         if(intent.getIntExtra("mode",0)==1) {
-
             boardIdx = intent.getIntExtra("boardIdx", 0)
-            //수정에서 넘어왔을 때 게시글 수정 텍스트 변경, 삭제 버튼
             edt_title.setText(intent.getStringExtra("title"))
             edt_region.setTextColor(Color.BLACK)
             edt_region.setText(intent.getStringExtra("regionCode"))
             edt_content.setText(intent.getStringExtra("content"))
             edt_date.setText(intent.getStringExtra("date"))
             edt_date.setTextColor(Color.BLACK)
-            isSwitchChecked = intent.getIntExtra("filter", -1)//동성필터 여부 받아오기
+            isSwitchChecked = intent.getIntExtra("filter", 0)//동성필터 여부 받아오기
             if(isSwitchChecked == 1){
                 switch_filter.isChecked = false
                 switch_filter.toggle()
             }
             btn_delete.visibility = View.VISIBLE
             txt_category.text = "게시글 수정"
-            mode = 0
+            mode = 1
         }
 
         else {//게시글 작성
@@ -70,18 +74,24 @@ class PostingActivity : AppCompatActivity() {
                 edt_date.setTextColor(Color.BLACK)
             }
             btn_delete.visibility = View.GONE
-            mode = 1
+            mode = 0
         }
 
         btn_save.setOnClickListener {
             regionCode = requestManager.regionManager.code
+
+            if(regionCode.isEmpty()||edt_title.text.isEmpty()||edt_content.text.isEmpty()||edt_date.text.isEmpty()){
+                toast("내용을 모두 입력해주세요")
+                return@setOnClickListener
+            }
+
             var title = edt_title.text.toString()
             var content = edt_content.text.toString()
             var startDate = edt_date.text.split(" ~ ")[0]
             var endDate = edt_date.text.split(" ~ ")[1]
             var filter: Int
-            if (switch_filter.isChecked) filter = 1 else filter = -1
-            if (mode == 0) {
+            if (switch_filter.isChecked) filter = 1 else filter = 0
+            if (mode == 1) {
                 requestManager.requestBoardEdit(boardIdx, RequestBoardData(regionCode, title, content, startDate, endDate, filter))
                     .safeEnqueue(
                         onSuccess = {
@@ -95,7 +105,7 @@ class PostingActivity : AppCompatActivity() {
                         }
                     )
             }
-            else {
+            else if(mode == 0) {
                 requestManager.requestBoardWrite(RequestBoardData(regionCode,title,content,startDate,endDate,filter))
                     .safeEnqueue (
                         onSuccess = {
@@ -161,4 +171,5 @@ class PostingActivity : AppCompatActivity() {
             edt_region.setTextColor(Color.BLACK)
         }
     }
+
 }
