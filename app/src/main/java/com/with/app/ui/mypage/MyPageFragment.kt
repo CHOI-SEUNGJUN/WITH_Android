@@ -42,8 +42,8 @@ import java.io.InputStream
 class MyPageFragment : Fragment() {
     private val requestManager: RequestManager by inject()
 
-    private val PROFILE_SETTING = 100
-    private val BACK_SETTING = 101
+    private val PROFILE_SETTING = 1000
+    private val BACK_SETTING = 10100
     var data: Uri? = null
     var imageUri: Uri? = null
     private var profileImg: MultipartBody.Part? = null
@@ -63,13 +63,7 @@ class MyPageFragment : Fragment() {
         makeSettingView()
 
 
-        img_camera1.setOnClickListener {
-            changeBackImage()
-        }
 
-        img_camera2.setOnClickListener {
-            changeProfileImage()
-        }
     }
 
     fun makeMyPageView() {
@@ -94,9 +88,10 @@ class MyPageFragment : Fragment() {
                     Glide.with(this)
                         .load(it.data.userImg)
                         .into(img_mypage_profile)
-//                    Glide.with(this)
-//                        .load(it.data.userImg)
-//                        .into(img_mypage_profile) 백그라운드 이미지 추가
+
+                    Glide.with(this)
+                        .load(it.data.userBgImg)
+                        .into(img_mypage_background)
                 }
             )
 
@@ -129,6 +124,8 @@ class MyPageFragment : Fragment() {
         }
     }
 
+
+
     fun makeSettingView() {
         btn_setting.setOnTouchListener { _, event ->
             when(event?.action) {
@@ -151,6 +148,14 @@ class MyPageFragment : Fragment() {
                 }
             }
             true
+        }
+
+        img_camera1.setOnClickListener {
+            changeBackImage()
+        }
+
+        img_camera2.setOnClickListener {
+            changeProfileImage()
         }
 
         edt_mypage_intro.setOnFocusChangeListener { _, hasFocus ->
@@ -188,6 +193,7 @@ class MyPageFragment : Fragment() {
         }
 
         tv_save.setOnClickListener {
+            Log.e("save", "save")
             requestManager.requestPutMyPage(
                 RequestBody.create(MediaType.parse("text.plain"), edt_mypage_intro.text.toString()),
                 profileImg,
@@ -198,6 +204,9 @@ class MyPageFragment : Fragment() {
                     it.success
                     returnMypage()
 
+                },
+                onFailure = {
+                    Log.e("fail", it.message())
                 }
             )
         }

@@ -13,6 +13,7 @@ import com.with.app.extension.safeEnqueue
 import com.with.app.extension.toSpanned
 import com.with.app.extension.toast
 import com.with.app.ui.base.MainActivity
+import com.with.app.ui.chatlist.evaluation.EvaluateActivity
 import com.with.app.ui.signup.SignUpActivity
 
 import kotlinx.android.synthetic.main.activity_sign_in.*
@@ -76,7 +77,7 @@ class SignInActivity : AppCompatActivity() {
                         requestManager.authManager.name = it.data.name
                         startActivity(Intent(this, MainActivity::class.java))
                         finish()
-                },
+                    },
                     onFailure = {
                         //TODO : 아이디 오류인지 비밀번호 오류인지 구분 => 경고메세지 띄워주기
                         toast("로그인에 실패하였습니다.")
@@ -90,7 +91,7 @@ class SignInActivity : AppCompatActivity() {
 
 
         btn_signin_signup.setOnClickListener {
-            startActivity(Intent(this, SignUpActivity::class.java))
+            startActivity(Intent(this, EvaluateActivity::class.java))
         }
     }
 }
