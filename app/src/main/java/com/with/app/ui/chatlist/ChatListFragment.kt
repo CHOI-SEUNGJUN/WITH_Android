@@ -1,5 +1,6 @@
 package com.with.app.ui.chatlist
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -18,6 +19,8 @@ import com.with.app.manage.RequestManager
 import com.with.app.ui.chatlist.recylcerview.ChatListAdapter
 import com.with.app.extension.addListener
 import com.with.app.extension.safeEnqueue
+import com.with.app.extension.visible
+import com.with.app.ui.chatlist.evaluation.EvaluateActivity
 import kotlinx.android.synthetic.main.fragment_chat_list.*
 import org.koin.android.ext.android.inject
 
@@ -54,12 +57,22 @@ class ChatListFragment : Fragment() {
         reference = FirebaseDatabase.getInstance().reference
         usersReference = reference.child("users")
 
+        btn_evaluation.setOnClickListener {
+            startActivity(Intent(context, EvaluateActivity::class.java))
+        }
+
         data = mutableListOf()
         requestManager.requestChatList()
             .safeEnqueue(
                 onSuccess = {
                     if (it.success) {
                         responseData = it.data
+                        for (item in responseData) {
+                            if (item.evalFrag == 2) {
+                                tv_name.text = "${requestManager.authManager.name}님"
+                                evaluation.visible()
+                            }
+                        }
                         fireBaseChatListener()
                     }
                 }
@@ -71,6 +84,10 @@ class ChatListFragment : Fragment() {
         rv_chat_list.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         rv_chat_list.layoutManager = lm
         rv_chat_list.adapter = adapter
+    }
+
+    private fun evaluationCheck() {
+
     }
 
     private fun fireBaseChatListener() {
