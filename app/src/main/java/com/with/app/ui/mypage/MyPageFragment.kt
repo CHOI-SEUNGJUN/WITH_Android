@@ -194,19 +194,21 @@ class MyPageFragment : Fragment() {
 
         tv_save.setOnClickListener {
             Log.e("save", "save")
+            Log.v("intro", edt_mypage_intro.text.toString())
+            Log.e("profileImg", profileImg.toString())
+            Log.e("backImg", backImg.toString())
             requestManager.requestPutMyPage(
                 RequestBody.create(MediaType.parse("text.plain"), edt_mypage_intro.text.toString()),
                 profileImg,
                 backImg
             ).safeEnqueue(
                 onSuccess = {
-                    Log.v("intro", edt_mypage_intro.text.toString())
-                    it.success
+
                     returnMypage()
 
                 },
                 onFailure = {
-                    Log.e("fail", it.message())
+                    Log.e("fail", it.raw().toString())
                 }
             )
         }
