@@ -22,19 +22,21 @@ data class ResponseBoardEditData(
 
 data class ResponseBoardObjectData(
     val boardIdx : Int,
-    val regionCode : String,
     val regionName : String,
     val title : String,
     val content : String,
-    val uploadTime : String,
     val startDate : String,
     val endDate : String,
-    val withNum : Int,
+    val active : Int,
     val filter : Int,
     val userIdx : Int,
     val name : String,
     val birth : Int,
     val gender : Int,
     val userImg : String,
-    val intro : String
+    val intro : String,
+    val likeNum : Int,
+    val dislikeNum : Int,
+    val withFlag : Int,
+    val badge : Int
 )

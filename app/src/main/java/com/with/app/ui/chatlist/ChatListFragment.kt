@@ -60,7 +60,6 @@ class ChatListFragment : Fragment() {
             .safeEnqueue(
                 onSuccess = {
                     if (it.success) {
-                        Log.e("data", it.data.toString())
                         responseData = it.data
                         fireBaseChatListener()
                     }

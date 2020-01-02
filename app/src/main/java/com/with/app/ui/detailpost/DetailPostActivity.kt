@@ -100,6 +100,7 @@ class DetailPostActivity : AppCompatActivity(){
                                         intent.putExtra("userImg", response.userImg)
                                         intent.putExtra("name", response.name)
                                         intent.putExtra("senderUserIdx", myIdx.toString())
+                                        intent.putExtra("withFlag", response.withFlag)
                                         startActivity(intent)
                                     } else {
                                         toast("네트워크 통신 오류")

@@ -1,6 +1,7 @@
 package com.with.app.ui.chatroom.recyclerview
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,12 +11,15 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.with.app.R
 import com.with.app.data.*
+import com.with.app.data.remote.RequestWithInviteData
+import com.with.app.manage.RequestManager
 import com.with.app.ui.chatroom.recyclerview.viewholder.*
 import com.with.app.util.*
+import org.koin.java.KoinJavaComponent.inject
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ChatRoomAdapter(private val passData: AdapterPassData) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ChatRoomAdapter(private val passData: AdapterPassData, private val requestManager: RequestManager) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var myId = passData.myIdx
     private var otherName = passData.otherName
@@ -233,23 +237,43 @@ class ChatRoomAdapter(private val passData: AdapterPassData) : RecyclerView.Adap
                     val pattern = SimpleDateFormat("yyyy년 MM월 dd일 HH:mm")
                     val nowDate = pattern.format(now)
                     val vo = ChatVO(MY_INVITE, "동행 성사 메시지입니다.-${temp}", passData.myIdx, nowDate)
+                    temp = temp!!
+                        .substring(2)
+                        .replace("년", ".")
+                        .replace("월", ".")
+                        .replace("일", "")
+                        .replace(" ", "")
+                    Log.e("temp", temp)
+                    Log.e("other", passData.otherIdx.toString())
+                    Log.e("other", passData.boardIdx.toString())
+                    requestManager.requestWithInvite(RequestWithInviteData(passData.otherIdx, passData.boardIdx, temp!!))
+                        .safeEnqueue(
+                            onSuccess = {
+                                value.lastMessage = "동행 성사 메시지입니다."
+                                tempValue.lastMessage = "동행 성사 메시지입니다."
+                                value.lastTime = nowDate
+                                tempValue.lastTime = nowDate
+                                value.unSeenCount = 0
 
-                    value.lastMessage = "동행 성사 메시지입니다."
-                    tempValue.lastMessage = "동행 성사 메시지입니다."
-                    value.lastTime = nowDate
-                    tempValue.lastTime = nowDate
-                    value.unSeenCount = 0
+                                chatReference.push().setValue(vo)
+                                usersReference.child("${passData.myIdx}").child("${passData.chatRoomId}").setValue(value)
+                                tempValue.unSeenCount = otherCount + 1
+                                usersReference.child("${passData.otherIdx}").child("${passData.chatRoomId}").setValue(tempValue)
 
-                    chatReference.push().setValue(vo)
-                    usersReference.child("${passData.myIdx}").child("${passData.chatRoomId}").setValue(value)
-                    tempValue.unSeenCount = otherCount + 1
-                    usersReference.child("${passData.otherIdx}").child("${passData.chatRoomId}").setValue(tempValue)
-
-                    inviteCheckPosition = position
-                    notifyDataSetChanged()
+                                inviteCheckPosition = position
+                                notifyDataSetChanged()
+                            },
+                            onFailure = {
+                                Log.e("failure", it.message())
+                                Log.e("failure", it.raw().toString())
+                            },
+                            onError = {
+                                Log.e("error", it.toString())
+                            }
+                        )
                 }
 
-                if (inviteCheckPosition == position){
+                if (inviteCheckPosition == position || passData.withFlag == 1){
                     holder.accept.setBackgroundResource(R.drawable.corner_cloudyblue_6dp)
                     holder.accept.setBackgroundColor(R.drawable.corner_cloudyblue_6dp)
                     holder.accept.isClickable = false
