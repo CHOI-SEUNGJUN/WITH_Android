@@ -35,8 +35,6 @@ data class ResponseBoardObjectData(
     val gender : Int,
     val userImg : String,
     val intro : String,
-    val likeNum : Int,
-    val dislikeNum : Int,
     val withFlag : Int,
     val badge : Int
 )

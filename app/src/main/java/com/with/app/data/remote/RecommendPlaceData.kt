@@ -7,6 +7,9 @@ data class ResponseRecommendPlaceData(
 )
 
 data class ResponseRecommendPlaceArrayData(
+    val regionCode : String,
+    val regionName : String,
     val regionNameEng : String,
-    val regionImg : String
+    val count : Int,
+    val regionImgS : String
 )

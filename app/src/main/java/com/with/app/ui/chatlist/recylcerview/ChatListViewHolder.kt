@@ -10,6 +10,8 @@ import com.bumptech.glide.Glide
 import com.with.app.R
 import com.with.app.data.ChatListVO
 import com.with.app.ui.chatroom.ChatRoomActivity
+import com.with.app.util.gone
+import com.with.app.util.load
 import de.hdodenhof.circleimageview.CircleImageView
 import java.text.SimpleDateFormat
 import java.util.*
@@ -32,10 +34,7 @@ class ChatListViewHolder(view : View) : RecyclerView.ViewHolder(view) {
         tv_title.text = ourServer.title
         tv_message.text = fireBase.lastMessage
 
-        Glide.with(itemView)
-            .load(ourServer.userImg)
-            .into(profile)
-
+        profile.load(itemView, ourServer.userImg)
 
         tv_date.text = fireBase.lastTime
         val pattern = SimpleDateFormat("yyyy년 MM월 dd일")
@@ -52,7 +51,7 @@ class ChatListViewHolder(view : View) : RecyclerView.ViewHolder(view) {
 
         when {
             fireBase.unSeenCount <= 0 -> {
-                tv_chat_remain.visibility = View.GONE
+                tv_chat_remain.gone()
             }
             fireBase.unSeenCount > 99 -> {
                 tv_chat_remain.text = "99+"

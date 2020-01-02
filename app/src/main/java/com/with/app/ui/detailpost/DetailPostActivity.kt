@@ -28,8 +28,9 @@ class DetailPostActivity : AppCompatActivity(){
     private lateinit var recentViewsHelper : RecentViewsHelper
     private var myIdx = requestManager.authManager.idx
     private var userIdx = 0
-    private var filter = 0
+    private var filter = -1
     private var boardIdx = 0
+    private var likeNum = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -109,13 +110,9 @@ class DetailPostActivity : AppCompatActivity(){
                                     } else {
                                         toast("네트워크 통신 오류")
                                     }
-                                }
-                            )
+                                })
                         }
                     }
-                },
-                onError = {
-                    Log.e("error", it.toString())
                 }
             )
     }

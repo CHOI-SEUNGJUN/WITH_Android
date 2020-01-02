@@ -1,11 +1,15 @@
 package com.with.app.util
 
+import android.content.Context
 import android.os.Build
 import android.text.Html
 import android.text.Spanned
 import android.view.View
 import android.widget.ImageView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
+import com.with.app.ui.chatroom.recyclerview.ChatRoomAdapter
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -41,4 +45,13 @@ fun View.gone() {
 
 fun ImageView.change(id : Int) {
     this.setImageResource(id)
+}
+
+fun RecyclerView.adjustScroll() {
+    this.scrollToPosition(this.adapter!!.itemCount - 1)
+}
+
+fun RecyclerView.setLinearLayoutManager(context : Context) {
+    val lm = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+    this.layoutManager = lm
 }

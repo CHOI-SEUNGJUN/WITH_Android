@@ -6,9 +6,8 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.with.app.data.remote.RequestBoardData
 import com.with.app.manage.RequestManager
 import com.with.app.ui.detailpost.DetailPostActivity
@@ -24,10 +23,12 @@ import org.koin.android.ext.android.inject
 import java.text.SimpleDateFormat
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
+import com.with.app.R
 import com.with.app.manage.PrefManager
+import com.with.app.util.gone
 import com.with.app.util.toast
-import kotlinx.android.synthetic.main.dialog_sign_up.*
-
+import com.with.app.util.visible
+import kotlinx.android.synthetic.main.dialog_posting.*
 
 class PostingActivity : AppCompatActivity() {
 
@@ -42,35 +43,34 @@ class PostingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(com.with.app.R.layout.activity_posting)
 
-        //게시글 수정
+        // 게시글 수정
         if(intent.getIntExtra("mode",0)==1) {
             boardIdx = intent.getIntExtra("boardIdx", 0)
             edt_title.setText(intent.getStringExtra("title"))
-            edt_region.setTextColor(Color.BLACK)
+            edt_region.toBlack()
             edt_region.setText(intent.getStringExtra("regionCode"))
             edt_content.setText(intent.getStringExtra("content"))
             edt_date.setText(intent.getStringExtra("date"))
-            edt_date.setTextColor(Color.BLACK)
+            edt_date.toBlack()
             isSwitchChecked = intent.getIntExtra("filter", 0)//동성필터 여부 받아오기
             if(isSwitchChecked == 1){
                 switch_filter.isChecked = false
                 switch_filter.toggle()
             }
-            btn_delete.visibility = View.VISIBLE
+
+            btn_delete.visible()
             txt_category.text = "게시글 수정"
             mode = 1
-        }
-
-        else {//게시글 작성
+        } else {//게시글 작성
             edt_region.setText(requestManager.regionManager.name)
-            edt_region.setTextColor(Color.BLACK)
+            edt_region.toBlack()
             if(prefManager.startDate != "0") {
                 edt_date.setText(
                     "${prefManager.startDate.substring(2)} ~ ${prefManager.endDate.substring(2)}"
                 )
-                edt_date.setTextColor(Color.BLACK)
+                edt_date.toBlack()
             }
-            btn_delete.visibility = View.GONE
+            btn_delete.gone()
             mode = 0
         }
 
@@ -87,7 +87,7 @@ class PostingActivity : AppCompatActivity() {
             var startDate = edt_date.text.split(" ~ ")[0]
             var endDate = edt_date.text.split(" ~ ")[1]
             var filter: Int
-            if (switch_filter.isChecked) filter = 1 else filter = 0
+            if (switch_filter.isChecked) filter = 1 else filter = -1
             if (mode == 1) {
                 requestManager.requestBoardEdit(boardIdx, RequestBoardData(regionCode, title, content, startDate, endDate, filter))
                     .safeEnqueue(
@@ -96,9 +96,6 @@ class PostingActivity : AppCompatActivity() {
                             intent.putExtra("boardIdx", boardIdx)
                             setResult(Activity.RESULT_OK, intent)
                             finish()
-                        },
-                        onError = {
-                            Log.e("error", it.toString())
                         }
                     )
             }
@@ -110,12 +107,6 @@ class PostingActivity : AppCompatActivity() {
                             intent.putExtra("boardIdx",it.data[0].boardIdx)
                             startActivity(intent)
                             finish()
-                        },
-                        onError = {
-                            Log.e("error", it.toString())
-                        },
-                        onFailure = {
-                            Log.e("failure", it.toString())
                         }
                     )
             }
@@ -128,7 +119,8 @@ class PostingActivity : AppCompatActivity() {
 
         edt_date.setOnClickListener{
             val dialogView = layoutInflater.inflate(com.with.app.R.layout.date_picker, null)
-            dialogView.btn_select_all.visibility = View.GONE
+            dialogView.btn_select_all.gone()
+
             if (dialogView.start_datepicker.parent != null)
                 (dialogView.start_datepicker.parent as ViewGroup).removeView(start_datepicker)
 
@@ -154,7 +146,7 @@ class PostingActivity : AppCompatActivity() {
                     }
                     edt_date.text = "${start_datepicker.year%100}.${start_datepicker.month+1}.${start_datepicker.dayOfMonth} " +
                             "~ ${end_datepicker.year%100}.${end_datepicker.month + 1}.${end_datepicker.dayOfMonth}"
-                    edt_date.setTextColor(Color.BLACK)
+                    edt_date.toBlack()
                     dialog.cancel()
                 }
             }
@@ -167,13 +159,9 @@ class PostingActivity : AppCompatActivity() {
 
     private fun showSettingPopup() {
         MaterialDialog(this).show {
-            customView(com.with.app.R.layout.dialog_posting)
-            btn_ok.setOnClickListener {
-                finish()
-            }
-            btn_cancle.setOnClickListener {
-                dismiss()
-            }
+            customView(R.layout.dialog_posting)
+            btn_ok.setOnClickListener { finish() }
+            btn_cancle.setOnClickListener { dismiss() }
         }
     }
 
@@ -181,8 +169,12 @@ class PostingActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == HomeFragment.REGIONCHANGE_REQCODE && resultCode == Activity.RESULT_OK) {
             edt_region.text = requestManager.regionManager.name
-            edt_region.setTextColor(Color.BLACK)
+            edt_region.toBlack()
         }
+    }
+
+    private fun TextView.toBlack() {
+        this.setTextColor(Color.BLACK)
     }
 
 }

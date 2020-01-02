@@ -21,6 +21,6 @@ class RecPlaceAdapter (private val context : Context) : RecyclerView.Adapter<Rec
     }
 
     override fun onBindViewHolder(holder: RecPlaceViewHolder, position: Int) {
-        holder.bind(recPlace[position])
+        holder.bind(recPlace[position], context)
     }
 }
