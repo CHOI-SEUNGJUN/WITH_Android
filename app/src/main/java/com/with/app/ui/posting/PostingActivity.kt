@@ -22,14 +22,11 @@ import kotlinx.android.synthetic.main.date_picker.*
 import kotlinx.android.synthetic.main.date_picker.view.*
 import org.koin.android.ext.android.inject
 import java.text.SimpleDateFormat
-import android.R
-import android.os.Handler
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.with.app.manage.PrefManager
-import com.with.app.util.toSpanned
 import com.with.app.util.toast
-import kotlinx.android.synthetic.main.dialog_signup_success.*
+import kotlinx.android.synthetic.main.dialog_sign_up.*
 
 
 class PostingActivity : AppCompatActivity() {
@@ -162,8 +159,24 @@ class PostingActivity : AppCompatActivity() {
                 }
             }
         }
-
     }
+
+    override fun onBackPressed() {
+        showSettingPopup()
+    }
+
+    private fun showSettingPopup() {
+        MaterialDialog(this).show {
+            customView(com.with.app.R.layout.dialog_posting)
+            btn_ok.setOnClickListener {
+                finish()
+            }
+            btn_cancle.setOnClickListener {
+                dismiss()
+            }
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == HomeFragment.REGIONCHANGE_REQCODE && resultCode == Activity.RESULT_OK) {
