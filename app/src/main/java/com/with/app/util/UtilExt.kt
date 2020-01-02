@@ -43,10 +43,6 @@ fun View.gone() {
     this.visibility = View.GONE
 }
 
-fun ImageView.change(id : Int) {
-    this.setImageResource(id)
-}
-
 fun RecyclerView.adjustScroll() {
     this.scrollToPosition(this.adapter!!.itemCount - 1)
 }

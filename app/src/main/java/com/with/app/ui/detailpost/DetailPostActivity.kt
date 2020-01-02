@@ -30,7 +30,7 @@ class DetailPostActivity : AppCompatActivity(){
     private var userIdx = 0
     private var filter = -1
     private var boardIdx = 0
-    private var likeNum = 0
+    private var badge = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,10 +69,10 @@ class DetailPostActivity : AppCompatActivity(){
                         userIdx = response.userIdx
                         txt_name.text = response.name
 
-                        likeNum = response.likeNum
-                        if(likeNum == 0) iv_like_level.setImageResource(R.drawable.like_level0)
-                        else if(likeNum == 1) iv_like_level.setImageResource(R.drawable.like_level1)
-                        else if(likeNum == 2) iv_like_level.setImageResource(R.drawable.like_level2)
+                        badge = response.badge
+                        if(badge == 0) iv_like_level.setImageResource(R.drawable.like_level0)
+                        else if(badge == 1) iv_like_level.setImageResource(R.drawable.like_level1)
+                        else if(badge == 2) iv_like_level.setImageResource(R.drawable.like_level2)
                         else iv_like_level.setImageResource(R.drawable.like_level3)
 
 
