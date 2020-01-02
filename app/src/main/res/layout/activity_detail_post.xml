@@ -289,7 +289,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorPrimary"
             android:layout_gravity="bottom|end"
-            android:foreground="@drawable/fab_selector"
+            android:foreground="@drawable/chat_fab_selected"
             app:fabCustomSize="60dp"
             android:elevation="20dp"
             android:visibility="gone"
