@@ -53,10 +53,34 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
+        var userID = edt_signup_email.text.toString()
+        var password = edt_signup_password.text.toString()
+        var pwCheck = edt_pw_check.text.toString()
+        var name = edt_name.text.toString()
+        var birth = edt_birth.text.toString()
+
+        tv_signup_intro.text = "안녕하세요!<br><b>회원가입</b>을 해주세요".toSpanned()
+
+
         signup() // 회원가입 유효성 조건문 & 서버 요청
-        validate() // 아이디 중복체크
+//        validate() // 아이디 중복체크
         textWatcher() // TextWatcher : ID, PW, PW_CK
 
+        edt_birth.setOnClickListener {
+            var text = edt_name.text.toString()
+            Log.e("text", "dd")
+            if(edt_name.text.length == 0) {
+
+                tv_name_warning.visibility = View.VISIBLE
+            }
+            else {
+                tv_name_warning.visibility = View.INVISIBLE
+            }
+        }
+
+        edt_signup_password.setOnClickListener {
+            //중복검사
+        }
 
         img_mypage_profile.setOnClickListener {
             changeImage()
@@ -70,20 +94,6 @@ class SignUpActivity : AppCompatActivity() {
             showSettingPopup()
         }
 
-    }
-
-    private fun validate() {
-        edt_signup_password.setOnClickListener {
-            var userID = edt_signup_email.text.toString()
-
-            // 빈칸 체크
-            if (userID.isEmpty()) {
-                tv_email_warning.setText("아이디를 입력해주세요")
-                tv_email_warning.visibility = View.VISIBLE
-                return@setOnClickListener
-            }
-            // 중복 체크
-        }
     }
 
     private fun textWatcher() {
@@ -101,6 +111,7 @@ class SignUpActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if ( edt_signup_email.text.toString().contains(Regex("^[ㄱ-ㅎㅏ-ㅣ가-힣\\s]"))) {
                     tv_email_warning.setText("이메일 형식이 올바르지 않습니다")
+                    edt_signup_email.setBackgroundResource(R.drawable.corner_border_primary_6dp)
                     tv_email_warning.visibility = View.VISIBLE
                     b_id = false
                 }
@@ -124,9 +135,11 @@ class SignUpActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 //최소 6글자 / 영문, 숫자 혼합
                 if (edt_signup_password.text.toString().contains(Regex("^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z[0-9]]{6,100}\$"))) {
+                    edt_signup_password.setBackgroundResource(R.drawable.corner_border_primary_6dp)
                     tv_password_warning.visibility = View.INVISIBLE
                     b_pw = true
                 } else {
+                    edt_signup_password.setBackgroundResource(R.drawable.corner_border_error_6dp)
                     tv_password_warning.visibility = View.VISIBLE
                     b_pw = false
                 }
@@ -134,9 +147,11 @@ class SignUpActivity : AppCompatActivity() {
                 // Confirm 재확인 (중간에 바꿀 경우 대비)
                 if (!edt_pw_check.text.toString().isEmpty()) {
                     if (edt_pw_check.text.toString().contentEquals(edt_signup_password.text.toString())) {
+                        edt_pw_check.setBackgroundResource(R.drawable.corner_border_primary_6dp)
                         tv_pw_check_warning.visibility = View.INVISIBLE
                         b_pwck = true
                     } else {
+                        edt_pw_check.setBackgroundResource(R.drawable.corner_border_error_6dp)
                         tv_pw_check_warning.visibility = View.VISIBLE
                         b_pwck = false
                     }
@@ -153,9 +168,11 @@ class SignUpActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (!edt_pw_check.text.toString().isEmpty()) {
                     if (edt_pw_check.text.toString().contentEquals(edt_signup_password.text.toString())) {
+                        edt_pw_check.setBackgroundResource(R.drawable.corner_border_primary_6dp)
                         tv_pw_check_warning.visibility = View.INVISIBLE
                         b_pwck = true
                     } else {
+                        edt_pw_check.setBackgroundResource(R.drawable.corner_border_error_6dp)
                         tv_pw_check_warning.visibility = View.VISIBLE
                         b_pwck = false
                     }
@@ -169,35 +186,43 @@ class SignUpActivity : AppCompatActivity() {
 
         edt_name.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                Log.v("name", "dd")
 
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                Log.v("name", "ss")
                 if (!edt_name.text.toString().isEmpty()) {
+                    edt_name.setBackgroundResource(R.drawable.corner_border_primary_6dp)
                     tv_name_warning.visibility = View.INVISIBLE
                 } else {
+                    edt_name.setBackgroundResource(R.drawable.corner_border_error_6dp)
                     tv_name_warning.visibility = View.VISIBLE
                 }
             }
         })
 
         edt_birth.addTextChangedListener(object : TextWatcher {
+
             override fun afterTextChanged(s: Editable?) {
 
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                Log.e("name", "dd")
+
 
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (!edt_birth.text.toString().isEmpty()) {
+                    edt_birth.setBackgroundResource(R.drawable.corner_border_primary_6dp)
                     tv_birth_warning.visibility = View.INVISIBLE
                 } else {
+                    edt_birth.setBackgroundResource(R.drawable.corner_border_error_6dp)
                     tv_birth_warning.visibility = View.VISIBLE
                 }
             }
@@ -220,10 +245,10 @@ class SignUpActivity : AppCompatActivity() {
     private fun signup() {
         btn_signup.setOnClickListener {
             // 아이디 중복체크
-            if (!validate) {
-                tv_email_warning.visibility = View.VISIBLE
-                return@setOnClickListener
-            }
+//            if (!validate) {
+//                tv_email_warning.visibility = View.VISIBLE
+//                return@setOnClickListener
+//            }
 
             val userID = edt_signup_email.text.toString()
             val password = edt_signup_password.text.toString()
