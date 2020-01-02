@@ -42,7 +42,7 @@ class RequestManager(val context: Context, val authManager: AuthManager, val reg
                            keyword: String, filter: Int)
             = retrofit.getSearchBoard(regionCode, startDate, endDate, keyword, filter, authManager.token)
 
-    fun requestDetailBoard(boardIdx: Int) = retrofit.getDetailBoard(boardIdx)
+    fun requestDetailBoard(boardIdx: Int) = retrofit.getDetailBoard(boardIdx, authManager.token)
 
     fun requestBoardWrite(data: RequestBoardData)
             = retrofit.postBoardWrite(data, authManager.token)

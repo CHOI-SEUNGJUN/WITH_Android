@@ -88,7 +88,7 @@ interface AuthRepositoryInterface {
      */
     @GET("/board/{boardIdx}")
     fun getDetailBoard(
-        @Path("boardIdx") boardIdx: Int
+        @Path("boardIdx") boardIdx: Int, @Header("token") token : String
     ) : Call<ResponseDetailBoardData>
 
     /**

@@ -56,6 +56,7 @@ class ChatRoomActivity : AppCompatActivity() {
     private var chatRoomId = ""
 
     private var inviteFlag = 0
+    private var withFlag = -1
 
     private lateinit var reference: DatabaseReference
     private lateinit var chatReference: DatabaseReference
@@ -78,10 +79,11 @@ class ChatRoomActivity : AppCompatActivity() {
         sendMessage()
         inviteMessage()
 
-        passData = AdapterPassData(myIdx, otherIdx, otherName, otherProfile, chatRoomId, boardIdx)
+        Log.e("otherIdx", otherIdx.toString())
+        passData = AdapterPassData(myIdx, otherIdx, otherName, otherProfile, chatRoomId, boardIdx, withFlag)
 
         lm = LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL, false)
-        adapter = ChatRoomAdapter(passData)
+        adapter = ChatRoomAdapter(passData, requestManager)
         rv_chat.layoutManager = lm
         rv_chat.adapter = adapter
         rv_chat.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
@@ -109,12 +111,15 @@ class ChatRoomActivity : AppCompatActivity() {
 
         posterIdx = intent.getStringExtra("writeUserIdx").toInt()
         senderIdx = intent.getStringExtra("senderUserIdx").toInt()
+        withFlag = intent.getIntExtra("withFlag", -1)
         chatRoomId = "${boardIdx}_${posterIdx}_${senderIdx}"
 
         val mode = intent.getIntExtra("mode", 0)
-        otherIdx =
-            if (mode == POSTINGTOCHAT) posterIdx
-            else intent.getIntExtra("userIdx", 0)
+        if (mode == POSTINGTOCHAT) {
+            otherIdx = posterIdx
+        } else {
+            otherIdx = intent.getIntExtra("userIdx", 0)
+        }
 
         btn_more.setOnClickListener {
             val intent = Intent(this, DetailPostActivity::class.java)

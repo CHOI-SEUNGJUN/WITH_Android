@@ -21,7 +21,11 @@ class MyInviteViewHolder(view : View) : RecyclerView.ViewHolder(view) {
     fun bind(data: ChatVO, next: ChatVO, last: Boolean) {
         msg.text = data.msg?.toSpanned()
         date.text = data.date?.substring(data.date?.lastIndexOf("일")!! + 2)
-
+        if (data.msg?.contains("신청")!!) {
+            img.setImageResource(R.drawable.illust_apply)
+        } else {
+            img.setImageResource(R.drawable.illust_complete)
+        }
         if (!last) {
             if ((next.type == 0 || next.type == 2)) {
                 val pattern = SimpleDateFormat("yyyy년 MM월 dd일 HH:mm")

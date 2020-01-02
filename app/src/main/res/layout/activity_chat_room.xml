@@ -28,9 +28,8 @@
 
         <ImageButton
             android:id="@+id/btn_report"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_marginEnd="16dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:background="@null"
             android:src="@drawable/btn_report"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -118,7 +117,7 @@
             android:layout_height="28dp"
             android:layout_marginEnd="16dp"
             android:background="@null"
-            android:src="@drawable/btn_more"
+            android:src="@drawable/btn_goboard"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
