@@ -49,15 +49,13 @@ class SignUpActivity : AppCompatActivity() {
     private var b_pw = false
     private var b_pwck = false
 
+    private var gender = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
-        var userID = edt_signup_email.text.toString()
-        var password = edt_signup_password.text.toString()
-        var pwCheck = edt_pw_check.text.toString()
-        var name = edt_name.text.toString()
-        var birth = edt_birth.text.toString()
+
 
         tv_signup_intro.text = "안녕하세요!<br><b>회원가입</b>을 해주세요".toSpanned()
 
@@ -66,20 +64,20 @@ class SignUpActivity : AppCompatActivity() {
 //        validate() // 아이디 중복체크
         textWatcher() // TextWatcher : ID, PW, PW_CK
 
-        edt_birth.setOnClickListener {
-            var text = edt_name.text.toString()
-            Log.e("text", "dd")
-            if(edt_name.text.length == 0) {
+        radioGroup.setOnCheckedChangeListener { radioGroup, i ->
+            when(i) {
+                R.id.rbtn_male -> {
+                    gender = 1
+                    tv_gender_warning.visibility = View.INVISIBLE
+                }
 
-                tv_name_warning.visibility = View.VISIBLE
+                R.id.rbtn_female -> {
+                    gender = -1
+                    tv_gender_warning.visibility = View.INVISIBLE
+                }
+                else ->
+                    tv_gender_warning.visibility = View.VISIBLE
             }
-            else {
-                tv_name_warning.visibility = View.INVISIBLE
-            }
-        }
-
-        edt_signup_password.setOnClickListener {
-            //중복검사
         }
 
         img_mypage_profile.setOnClickListener {
@@ -228,41 +226,20 @@ class SignUpActivity : AppCompatActivity() {
             }
         })
 
-        radioGroup.setOnCheckedChangeListener { radioGroup, i ->
-            when(i) {
-                R.id.rbtn_male ->
-                    tv_gender_warning.visibility = View.INVISIBLE
-                R.id.rbtn_female ->
-                    tv_gender_warning.visibility = View.INVISIBLE
-                else ->
-                    tv_gender_warning.visibility = View.VISIBLE
-            }
-        }
-
     }
 
     // 회원가입 유효성 조건문 & 서버 요청
     private fun signup() {
         btn_signup.setOnClickListener {
-            // 아이디 중복체크
-//            if (!validate) {
-//                tv_email_warning.visibility = View.VISIBLE
-//                return@setOnClickListener
-//            }
 
             val userID = edt_signup_email.text.toString()
             val password = edt_signup_password.text.toString()
             val name = edt_name.text.toString()
             val birth = edt_birth.text.toString()
-            var gender = 0
 
-            if (rbtn_male.isChecked) {
-                gender = 1
-            } else {
-                gender = -1
-            }
 
-            if (userID.isEmpty() || password.isEmpty() || name.isEmpty() || !b_id || !b_pw || !b_pwck || gender == 0) {
+
+            if (userID.isEmpty() || password.isEmpty() || name.isEmpty() || birth.isEmpty() || !b_id || !b_pw || !b_pwck || gender == 0) {
                 toast("회원가입 조건에 맞게 모두 채워주세요!")
                 return@setOnClickListener
             }
