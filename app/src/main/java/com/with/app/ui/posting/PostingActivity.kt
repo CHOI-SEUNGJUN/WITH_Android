@@ -162,7 +162,7 @@ class PostingActivity : AppCompatActivity() {
             customView(R.layout.dialog_posting)
             btn_ok.setOnClickListener { finish() }
             btn_cancle.setOnClickListener { dismiss() }
-        }
+        }.window?.setLayout(280*4,130*4)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
