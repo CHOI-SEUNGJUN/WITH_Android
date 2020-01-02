@@ -4,6 +4,7 @@ import android.os.Build
 import android.text.Html
 import android.text.Spanned
 import android.view.View
+import android.widget.ImageView
 import com.google.firebase.database.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -36,4 +37,8 @@ fun View.inVisible() {
 
 fun View.gone() {
     this.visibility = View.GONE
+}
+
+fun ImageView.change(id : Int) {
+    this.setImageResource(id)
 }

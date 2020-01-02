@@ -2,6 +2,7 @@ package com.with.app.ui.home.recyclerview
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
