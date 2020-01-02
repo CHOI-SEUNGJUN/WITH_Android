@@ -1,7 +1,6 @@
 package com.with.app.ui.signin
 
 import android.content.Intent
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -10,12 +9,12 @@ import android.util.Log
 import com.with.app.R
 import com.with.app.manage.RequestManager
 import com.with.app.data.remote.RequestSignInData
+import com.with.app.extension.safeEnqueue
+import com.with.app.extension.toSpanned
+import com.with.app.extension.toast
 import com.with.app.ui.base.MainActivity
-import com.with.app.ui.chatlist.evaluation.EvaluateActivity
 import com.with.app.ui.signup.SignUpActivity
-import com.with.app.util.safeEnqueue
-import com.with.app.util.toSpanned
-import com.with.app.util.toast
+
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import org.koin.android.ext.android.inject
 
@@ -71,11 +70,12 @@ class SignInActivity : AppCompatActivity() {
             )
                 .safeEnqueue(
                     onSuccess = {
-                    requestManager.authManager.token = it.data.token
+                        requestManager.authManager.token = it.data.token
                         Log.e("token", it.data.token.toString())
-                    requestManager.authManager.idx = it.data.userIdx
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finish()
+                        requestManager.authManager.idx = it.data.userIdx
+                        requestManager.authManager.name = it.data.name
+                        startActivity(Intent(this, MainActivity::class.java))
+                        finish()
                 },
                     onFailure = {
                         //TODO : 아이디 오류인지 비밀번호 오류인지 구분 => 경고메세지 띄워주기

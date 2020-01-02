@@ -1,7 +1,5 @@
 package com.with.app.data.remote
 
-import com.google.gson.annotations.SerializedName
-
 data class ResponseSignInData(
     val success : Boolean,
     val message : String,
@@ -15,5 +13,6 @@ data class RequestSignInData(
 
 data class ResponseAuthData(
     val token : String,
-    val userIdx : Int
+    val userIdx : Int,
+    val name : String
 )

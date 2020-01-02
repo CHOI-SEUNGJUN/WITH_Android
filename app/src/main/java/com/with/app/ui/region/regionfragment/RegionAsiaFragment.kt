@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.with.app.R
 import com.with.app.manage.RequestManager
 import com.with.app.ui.postlist.recyclerview.RegionListAdapter
-import com.with.app.util.safeEnqueue
+import com.with.app.extension.safeEnqueue
 import kotlinx.android.synthetic.main.fragment_region_asia.*
 import kotlinx.android.synthetic.main.fragment_region_europe.rv_region_list
 import org.koin.android.ext.android.inject

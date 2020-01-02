@@ -151,4 +151,28 @@ interface AuthRepositoryInterface {
         @Header("token") token: String
     ) : Call<ResponsePutMyPageData>
 
+    /**
+     * 동행평가 - LIKE
+     */
+    @PUT("/mypage/like")
+    fun putLike(
+        @Header("token") token: String
+    ) : Call<MessageData>
+
+    /**
+     * 동행평가 - DISLIKE
+     */
+    @PUT("/mypage/dislike")
+    fun putDisLike(
+        @Header("token") token: String
+    ) : Call<MessageData>
+
+    /**
+     * 동행평가 - 평가하지 않음
+     */
+    @PUT("/mypage/noEvaluation")
+    fun putNoEvaluation(
+        @Header("token") token: String
+    ) : Call<MessageData>
+
 }

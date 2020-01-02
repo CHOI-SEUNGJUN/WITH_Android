@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -12,8 +11,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="25dp"
         android:text="시작일"
+        android:textStyle="bold"
         android:textColor="@color/colorPrimary"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,49 +38,57 @@
         android:layout_gravity="center_horizontal"
         android:calendarViewShown="false"
         android:datePickerMode="spinner"
+        android:layout_marginTop="10dp"
+        android:scaleX="0.83"
+        android:scaleY="0.83"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
+        android:layout_marginTop="215dp"
         android:text="마감일"
         android:textColor="@color/colorPrimary"
         android:textSize="14sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/start_datepicker" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <DatePicker
         android:id="@+id/end_datepicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="200dp"
         android:calendarViewShown="false"
         android:datePickerMode="spinner"
+        android:scaleX="0.83"
+        android:scaleY="0.83"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btn_select_all"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_marginTop="20dp"
         android:layout_marginStart="30dp"
         android:layout_marginBottom="30dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:text="모든날짜"
-        android:textSize="16sp"
-        android:textStyle="bold"
         android:gravity="center"
         android:insetTop="0dp"
         android:insetBottom="0dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:text="모든날짜"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/end_datepicker" />
@@ -89,7 +97,6 @@
         android:id="@+id/btn_save"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="30dp"
         android:background="@drawable/corner_primary_6dp"
@@ -97,9 +104,9 @@
         android:insetTop="0dp"
         android:insetBottom="0dp"
         android:text="저장"
-        android:textStyle="bold"
         android:textColor="#ffffff"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/end_datepicker" />

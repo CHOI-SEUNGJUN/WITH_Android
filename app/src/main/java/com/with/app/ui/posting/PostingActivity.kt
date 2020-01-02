@@ -7,13 +7,14 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.ViewGroup
+import android.widget.DatePicker
 import android.widget.TextView
 import com.with.app.data.remote.RequestBoardData
 import com.with.app.manage.RequestManager
 import com.with.app.ui.detailpost.DetailPostActivity
 import com.with.app.ui.home.HomeFragment
 import com.with.app.ui.region.ChangeRegionActivity
-import com.with.app.util.safeEnqueue
+import com.with.app.extension.safeEnqueue
 import kotlinx.android.synthetic.main.activity_posting.*
 import kotlinx.android.synthetic.main.activity_posting.btn_save
 import kotlinx.android.synthetic.main.activity_posting.switch_filter
@@ -25,9 +26,9 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.with.app.R
 import com.with.app.manage.PrefManager
-import com.with.app.util.gone
-import com.with.app.util.toast
-import com.with.app.util.visible
+import com.with.app.extension.gone
+import com.with.app.extension.toast
+import com.with.app.extension.visible
 import kotlinx.android.synthetic.main.dialog_posting.*
 
 class PostingActivity : AppCompatActivity() {
@@ -121,15 +122,14 @@ class PostingActivity : AppCompatActivity() {
             val dialogView = layoutInflater.inflate(com.with.app.R.layout.date_picker, null)
             dialogView.btn_select_all.gone()
 
-            if (dialogView.start_datepicker.parent != null)
-                (dialogView.start_datepicker.parent as ViewGroup).removeView(start_datepicker)
-
-            if (dialogView.end_datepicker.parent != null)
-                (dialogView.end_datepicker.parent as ViewGroup).removeView(end_datepicker)
+            removeView(dialogView.start_datepicker)
+            removeView(dialogView.end_datepicker)
 
             val dialog = AlertDialog.Builder(this)
                 .setView(dialogView)
                 .show()
+
+            dialog.window?.setLayout(290*4, 500*4)
 
             dialogView.apply {
                 btn_close.setOnClickListener {
@@ -162,7 +162,7 @@ class PostingActivity : AppCompatActivity() {
             customView(R.layout.dialog_posting)
             btn_ok.setOnClickListener { finish() }
             btn_cancle.setOnClickListener { dismiss() }
-        }
+        }.window?.setLayout(280*4,130*4)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -175,6 +175,10 @@ class PostingActivity : AppCompatActivity() {
 
     private fun TextView.toBlack() {
         this.setTextColor(Color.BLACK)
+    }
+
+    private fun removeView(picker : DatePicker) {
+        if (picker.parent != null) (picker.parent as ViewGroup).removeView(picker)
     }
 
 }

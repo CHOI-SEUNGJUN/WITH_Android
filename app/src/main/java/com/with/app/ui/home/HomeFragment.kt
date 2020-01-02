@@ -3,14 +3,12 @@ package com.with.app.ui.home
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.with.app.R
 import com.with.app.manage.RecentViewsHelper
@@ -18,8 +16,10 @@ import com.with.app.manage.RequestManager
 import com.with.app.ui.home.recyclerview.*
 import com.with.app.ui.postlist.PostListFragment
 import com.with.app.ui.region.ChangeRegionActivity
-import com.with.app.util.gone
-import com.with.app.util.safeEnqueue
+import com.with.app.extension.gone
+import com.with.app.extension.load
+import com.with.app.extension.safeEnqueue
+import com.with.app.extension.setLinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.ext.android.inject
 
@@ -93,10 +93,7 @@ class HomeFragment : Fragment() {
             .safeEnqueue (
                 onSuccess = {
                     it.let {
-                        Glide.with(context!!)
-                            .load(it.data.regionImgH)
-                            .apply(requestOptions)
-                            .into(img_main_background)
+                        img_main_background.load(context!!, it.data.regionImgH, requestOptions)
                     }
                 }
         )
@@ -107,16 +104,17 @@ class HomeFragment : Fragment() {
 
         rv_with_mate.adapter = withMateAdapter
 
-        rv_with_mate.layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.HORIZONTAL, false)
-        requestManager.requestWithMate()
-            .safeEnqueue (
+        rv_with_mate.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+        requestManager.requestChatList()
+            .safeEnqueue(
                 onSuccess = {
-                    if (it.data.toString().isNullOrEmpty()) {
-                        tv_with_mate.gone()
-                        rv_with_mate.gone()
-                    } else {
+                    if (it.success) {
                         withMateAdapter.mate = it.data
                         withMateAdapter.notifyDataSetChanged()
+                    } else {
+                        tv_with_mate.gone()
+                        rv_with_mate.gone()
                     }
                 }
             )
@@ -128,7 +126,7 @@ class HomeFragment : Fragment() {
 
         rv_recommend_place.adapter = recPlaceAdapter
 
-        rv_recommend_place.layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.HORIZONTAL, false)
+        rv_recommend_place.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
         var regionCode = ""
         if (requestManager.regionManager.code.isEmpty()) {

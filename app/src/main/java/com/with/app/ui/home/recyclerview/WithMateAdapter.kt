@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.with.app.R
-import com.with.app.data.remote.ResponseWithMateArrayData
+import com.with.app.data.remote.ResponseChatListArrayData
 
 class WithMateAdapter (private val context : Context) : RecyclerView.Adapter<WithMateViewHolder>() {
-    var mate = listOf<ResponseWithMateArrayData>()
+    var mate = listOf<ResponseChatListArrayData>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WithMateViewHolder {
         val view : View = LayoutInflater.from(context).inflate(R.layout.item_mate, parent, false)
@@ -22,6 +22,6 @@ class WithMateAdapter (private val context : Context) : RecyclerView.Adapter<Wit
     }
 
     override fun onBindViewHolder(holder: WithMateViewHolder, position: Int) {
-        holder.bind(mate[position], context)
+        holder.bind(mate[position])
     }
 }
