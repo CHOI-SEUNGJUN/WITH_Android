@@ -10,7 +10,7 @@ class PrefManager(context : Context) {
 
     var startDate : String
         get() {
-            return preferences.getString(START_DATE, "2019.12.25")!!
+            return preferences.getString(START_DATE, "0")!!
         }
         set(value) {
             preferences.edit {
@@ -20,7 +20,7 @@ class PrefManager(context : Context) {
 
     var endDate : String
         get() {
-            return preferences.getString(END_DATE, "2019.12.25")!!
+            return preferences.getString(END_DATE, "0")!!
         }
         set(value) {
             preferences.edit {

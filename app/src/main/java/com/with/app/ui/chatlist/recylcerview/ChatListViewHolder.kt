@@ -67,7 +67,6 @@ class ChatListViewHolder(view : View) : RecyclerView.ViewHolder(view) {
             intent.putExtra("mode", CHATLISTTOCHAT)
             intent.putExtra("boardIdx", ourServer.boardIdx)
             intent.putExtra("writeUserIdx", ourServer.roomId.split("_")[1])
-            Log.e("writeUserIdx", ourServer.roomId.split("_")[1])
             intent.putExtra("regionName", ourServer.regionName)
             intent.putExtra("startDate", ourServer.startDate)
             intent.putExtra("endDate", ourServer.endDate)

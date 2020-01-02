@@ -18,6 +18,7 @@ import com.with.app.manage.RequestManager
 import com.with.app.ui.home.recyclerview.*
 import com.with.app.ui.postlist.PostListFragment
 import com.with.app.ui.region.ChangeRegionActivity
+import com.with.app.util.gone
 import com.with.app.util.safeEnqueue
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.ext.android.inject
@@ -111,8 +112,8 @@ class HomeFragment : Fragment() {
             .safeEnqueue (
                 onSuccess = {
                     if (it.data.toString().isNullOrEmpty()) {
-                        tv_with_mate.visibility = View.GONE
-                        rv_with_mate.visibility = View.GONE
+                        tv_with_mate.gone()
+                        rv_with_mate.gone()
                     } else {
                         withMateAdapter.mate = it.data
                         withMateAdapter.notifyDataSetChanged()
@@ -152,10 +153,8 @@ class HomeFragment : Fragment() {
         rv_recent_bulletin.layoutManager = GridLayoutManager(context!!, 2)
 
         var boardIdx = recentViewsHelper.readView()
-        if (boardIdx.isEmpty()) {
-
-        } else {
-            requestManager.requestLatelyBoard("131+132+133+134+135+136")
+        if (boardIdx.isNotEmpty()) {
+            requestManager.requestLatelyBoard(boardIdx)
                 .safeEnqueue(
                     onSuccess = {
                         recBulletinAdapter.bulletin = it.data
