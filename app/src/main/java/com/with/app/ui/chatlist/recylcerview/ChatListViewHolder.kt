@@ -1,17 +1,14 @@
 package com.with.app.ui.chatlist.recylcerview
 
 import android.content.Intent
-import android.util.Log
 import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.with.app.R
 import com.with.app.data.ChatListVO
 import com.with.app.ui.chatroom.ChatRoomActivity
-import com.with.app.util.gone
-import com.with.app.util.load
+import com.with.app.extension.gone
+import com.with.app.extension.load
 import de.hdodenhof.circleimageview.CircleImageView
 import java.text.SimpleDateFormat
 import java.util.*

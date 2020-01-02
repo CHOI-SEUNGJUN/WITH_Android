@@ -13,9 +13,11 @@ data class ResponseChatListArrayData(
     val name : String,
     val regionName : String,
     val title : String,
-    val content : String,
-    val withDate : String,
+    val withDate : String?,
     val startDate : String,
     val endDate : String,
-    val withFlag : Int
+    val withFlag : Int,
+    val evalFrag : Int?,
+    val writerImg : String,
+    val regionImgE : String
 )

@@ -1,7 +1,7 @@
 package com.with.app.data.remote
 
 data class RequestChatOpenData(
-    val receiverIdx : Int,
+    val userIdx1 : Int,
     val boardIdx : Int,
     val roomId : String
 )

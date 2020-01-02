@@ -9,9 +9,8 @@ import com.with.app.manage.RequestManager
 import com.with.app.data.remote.RequestSignInData
 import com.with.app.ui.base.MainActivity
 import com.with.app.ui.chatlist.evaluation.EvaluateActivity
-import com.with.app.ui.signup.SignUpActivity
-import com.with.app.util.safeEnqueue
-import com.with.app.util.toast
+import com.with.app.extension.safeEnqueue
+import com.with.app.extension.toast
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import org.koin.android.ext.android.inject
 

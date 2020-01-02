@@ -23,7 +23,7 @@ import com.bumptech.glide.Glide
 
 import com.with.app.R
 import com.with.app.manage.RequestManager
-import com.with.app.util.safeEnqueue
+import com.with.app.extension.safeEnqueue
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_my_page.*
 import kotlinx.android.synthetic.main.fragment_my_page.img_mypage_profile

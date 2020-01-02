@@ -1,16 +1,14 @@
 package com.with.app.ui.home.recyclerview
 
 import android.content.Context
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.with.app.R
 import com.with.app.data.remote.ResponseRecommendPlaceArrayData
-import com.with.app.util.load
-import com.with.app.util.toSpanned
+import com.with.app.extension.load
+import com.with.app.extension.toSpanned
 
 class RecPlaceViewHolder(view : View) : RecyclerView.ViewHolder(view) {
     val img_recommend_place : ImageView = view.findViewById(R.id.img_recommend_place)
