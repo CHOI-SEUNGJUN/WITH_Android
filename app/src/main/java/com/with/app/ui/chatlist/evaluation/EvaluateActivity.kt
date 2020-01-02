@@ -18,9 +18,9 @@ class EvaluateActivity : AppCompatActivity() {
 
         var eval_mate = ArrayList<String>()
         eval_mate.add("석영현")
-        eval_mate.add("최승준")
-        eval_mate.add("조현아")
         eval_mate.add("안현준")
+        eval_mate.add("조현아")
+        eval_mate.add("최승준")
 
 
         //tv_elevation_count.setText("$eval_count")
@@ -30,92 +30,144 @@ class EvaluateActivity : AppCompatActivity() {
         tv_elevation_intro.setText("$name" + "님과의\n동행은 어떠셨나요?")
         tv_elevation_count_total.setText("$eval_count_total")
 
-        img_close_button.setOnClickListener{
+        img_close_button.setOnClickListener {
             finish()
         }
 
+        if (eval_count_total == 1) {
+            btn_left.visibility = View.GONE
+            btn_right.visibility = View.GONE
+            btn_elevation_bottom.setOnTouchListener(object : View.OnTouchListener {
+                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                    var eval_count = tv_elevation_count.text.toString().toInt()
+                    var bottom_text = btn_elevation_bottom.text.toString()
 
-        btn_elevation_bottom.setOnTouchListener(object : View.OnTouchListener {
-            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                var eval_count = tv_elevation_count.text.toString().toInt()
-                var bottom_text = btn_elevation_bottom.text.toString()
+                    var end = false
+                    when (event?.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            btn_elevation_bottom.setBackgroundColor(Color.parseColor("#311a80"))
+                            if (bottom_text == "위드하기") {
 
-                var end = false
-                when (event?.action) {
-                    MotionEvent.ACTION_DOWN -> {
-                        btn_elevation_bottom.setBackgroundColor(Color.parseColor("#fd9f08"))
-                        if(bottom_text == "위드하기") {
-                            val intent = Intent(this@EvaluateActivity, ChangeRegionActivity::class.java)
-                            startActivity(intent)
-                            finish()
+                                finish()
+                            }
+
                         }
 
-                    }
-
-                    MotionEvent.ACTION_UP -> {
-                        btn_elevation_bottom.setBackgroundColor(Color.parseColor("#4DFFFFFF"))
-                        if(bottom_text == "위드하기") {
-                        }
-                        else if(eval_count == eval_count_total) {
-                            img_close_button.visibility = View.GONE
-                            tv_elevation_intro.setText("당신의 여행에\n더 멋진 동행이\n기다리고 있어요!")
-                            btn_elevation_bottom.setText("위드하기")
-                            btn_elevation_top.visibility = View.GONE
-                        } else {
-                            tv_elevation_intro.setText("당신의 여행에\n더 멋진 동행이\n기다리고 있어요!")
-                            img_close_button.visibility = View.GONE
-                            btn_elevation_top.setText("다른 동행은 어떠셨나요?")
-                            btn_elevation_bottom.setText("위드하기")
+                        MotionEvent.ACTION_UP -> {
+                            btn_elevation_bottom.setBackgroundColor(Color.parseColor("#4DFFFFFF"))
+                            if (bottom_text == "위드하기") {
+                            } else {
+                                img_close_button.visibility = View.GONE
+                                tv_elevation_intro.setText("감사합니다\n앞으로도 W!TH해요 :)")
+                                btn_elevation_bottom.setText("위드하기")
+                                btn_elevation_top.visibility = View.GONE
+                            }
                         }
                     }
+                    return false
                 }
-                return false
-            }
-        })
+            })
 
-        btn_elevation_top.setOnTouchListener(object : View.OnTouchListener {
-            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                var eval_count = tv_elevation_count.text.toString().toInt()
+            btn_elevation_top.setOnTouchListener(object : View.OnTouchListener {
+                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                    var top_text = btn_elevation_top.text.toString()
 
-                var top_text = btn_elevation_top.text.toString()
+                    when (event?.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            btn_elevation_top.setBackgroundColor(Color.parseColor("#311a80"))
+                        }
 
-                when (event?.action) {
-                    MotionEvent.ACTION_DOWN -> {
-                        btn_elevation_top.setBackgroundColor(Color.parseColor("#fd9f08"))
-                    }
-
-                    MotionEvent.ACTION_UP -> {
-                        btn_elevation_top.setBackgroundColor(Color.parseColor("#4DFFFFFF"))
-                        if(eval_count == eval_count_total) {
-                            tv_elevation_intro.setText("앞으로도\n위드와 함께해요")
+                        MotionEvent.ACTION_UP -> {
+                            btn_elevation_top.setBackgroundColor(Color.parseColor("#4DFFFFFF"))
+                            tv_elevation_intro.setText("감사합니다\n앞으로도 W!TH해요 :)")
                             btn_elevation_bottom.setText("위드하기")
                             btn_elevation_top.visibility = View.GONE
                             img_close_button.visibility = View.GONE
+                        }
+                    }
+                    return false
+                }
+            })
 
-                        } else {
-                            if(top_text == "다른 동행은 어떠셨나요?") {
+        } else {
+            btn_right.visibility = View.VISIBLE
+            btn_elevation_bottom.setOnTouchListener(object : View.OnTouchListener {
+                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                    var eval_count = tv_elevation_count.text.toString().toInt()
+                    var bottom_text = btn_elevation_bottom.text.toString()
+
+                    var end = false
+                    when (event?.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            btn_elevation_bottom.setBackgroundColor(Color.parseColor("#311a80"))
+                        }
+
+                        MotionEvent.ACTION_UP -> {
+                            btn_elevation_bottom.setBackgroundColor(Color.parseColor("#4DFFFFFF"))
+                            if (eval_count == eval_count_total) {
+                                tv_elevation_intro.setText("감사합니다\n앞으로도 W!TH해요 :)")
+                                btn_elevation_bottom.setText("위드하기")
+                                btn_elevation_top.visibility = View.GONE
+                                img_close_button.visibility = View.GONE
+
+                            } else {
                                 name = eval_mate[eval_count]
                                 var count = eval_count + 1
                                 var count_string = count.toString()
-                                tv_elevation_intro.setText("$name"+"님과의\n동행은 어떠셨나요?")
+                                tv_elevation_intro.setText("$name" + "님과의\n동행은 어떠셨나요?")
                                 btn_elevation_top.setText("좋았어요")
                                 btn_elevation_bottom.setText("별로였어요")
                                 tv_elevation_count.setText(count_string)
                                 img_close_button.visibility = View.VISIBLE
-                            }
-                            else {
-                                tv_elevation_intro.setText("앞으로도\n위드와 함께해요")
-                                btn_elevation_top.setText("다른 동행은 어떠셨나요?")
-                                btn_elevation_bottom.setText("위드하기")
-                                img_close_button.visibility = View.GONE
+                                if(count > 1) {
+                                    btn_left.visibility = View.VISIBLE
+                                }
                             }
                         }
-
-
                     }
+                    return false
                 }
-                return false
-            }
-        })
+            })
+
+            btn_elevation_top.setOnTouchListener(object : View.OnTouchListener {
+                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                    var eval_count = tv_elevation_count.text.toString().toInt()
+
+                    var top_text = btn_elevation_top.text.toString()
+
+                    when (event?.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            btn_elevation_top.setBackgroundColor(Color.parseColor("#311a80"))
+                        }
+
+                        MotionEvent.ACTION_UP -> {
+                            btn_elevation_top.setBackgroundColor(Color.parseColor("#4DFFFFFF"))
+                            if (eval_count == eval_count_total) {
+                                tv_elevation_intro.setText("감사합니다\n앞으로도 W!TH해요 :)")
+                                btn_elevation_bottom.setText("위드하기")
+                                btn_elevation_top.visibility = View.GONE
+                                img_close_button.visibility = View.GONE
+
+                            } else {
+                                name = eval_mate[eval_count]
+                                var count = eval_count + 1
+                                var count_string = count.toString()
+                                tv_elevation_intro.setText("$name" + "님과의\n동행은 어떠셨나요?")
+                                btn_elevation_top.setText("좋았어요")
+                                btn_elevation_bottom.setText("별로였어요")
+                                tv_elevation_count.setText(count_string)
+                                img_close_button.visibility = View.VISIBLE
+                                if(count > 1) {
+                                    btn_left.visibility = View.VISIBLE
+                                }
+                            }
+                        }
+                    }
+                    return false
+                }
+            })
+
+        }
+
     }
 }

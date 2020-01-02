@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/evaluationimg"
     android:clipToPadding="false"
+    android:visibility="visible"
     tools:context=".ui.chatlist.evaluation.EvaluateActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,48 +22,39 @@
         <TextView
             android:id="@+id/tv_elevation_count"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="31dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="3dp"
+            android:gravity="center"
             android:text="1"
             android:textColor="@color/colorWhite"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/img_person"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_elevation_div"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="1dp"
+            android:layout_height="0dp"
+            android:gravity="center"
             android:text="/"
             android:textColor="@color/colorWhite"
             android:textSize="15sp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_elevation_count"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_elevation_count"
-            app:layout_constraintTop_toTopOf="@+id/tv_elevation_count" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_elevation_count_total"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="1dp"
-            android:text="3"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:text="1"
             android:textColor="@color/colorWhite"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_elevation_div"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/img_elevation_person"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="55dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/people_icon" />
 
         <ImageButton
             android:id="@+id/img_close_button"
@@ -75,7 +67,40 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/cancel_btn" />
+            app:srcCompat="@drawable/close_white" />
+
+        <ImageView
+            android:id="@+id/btn_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="23dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/more_white" />
+
+        <ImageView
+            android:id="@+id/btn_right"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="5dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_elevation_count_total"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/more_white2" />
+
+        <ImageView
+            android:id="@+id/img_person"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="6dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_left"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_goneMarginStart="20dp"
+            app:srcCompat="@drawable/person_two" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -111,7 +136,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:strokeColor="#FFFFFF"
-        app:strokeWidth="1dp" />
+        app:strokeWidth="0.5dp" />
 
     <Button
         android:id="@+id/btn_elevation_top"
@@ -126,12 +151,12 @@
         android:paddingTop="0dp"
         android:paddingRight="0dp"
         android:paddingBottom="0dp"
-        android:text="좋았어요"
+        android:text="즐거웠어요"
         app:iconPadding="0dp"
         app:layout_constraintBottom_toTopOf="@id/btn_elevation_bottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:strokeColor="#FFFFFF"
-        app:strokeWidth="1dp" />
+        app:strokeWidth="0.5dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

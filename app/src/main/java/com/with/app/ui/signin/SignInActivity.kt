@@ -8,6 +8,7 @@ import com.with.app.R
 import com.with.app.manage.RequestManager
 import com.with.app.data.remote.RequestSignInData
 import com.with.app.ui.base.MainActivity
+import com.with.app.ui.chatlist.evaluation.EvaluateActivity
 import com.with.app.ui.signup.SignUpActivity
 import com.with.app.util.safeEnqueue
 import com.with.app.util.toast
@@ -47,7 +48,7 @@ class SignInActivity : AppCompatActivity() {
         }
 
         btn_signin_signup.setOnClickListener {
-            startActivity(Intent(this, SignUpActivity::class.java))
+            startActivity(Intent(this, EvaluateActivity::class.java))
         }
     }
 }
