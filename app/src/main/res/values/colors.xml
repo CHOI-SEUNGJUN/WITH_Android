@@ -26,5 +26,6 @@
 
     <color name="colorPrimaryPink">#f0ebff</color>
 
+    <color name="colorInActive">#a8a8a8</color>
 
 </resources>
