@@ -12,9 +12,8 @@ data class ResponseObjectMyPageData (
     val gender : Int,
     val userImg : String,
     val intro : String?,
-    val likeNum : Int,
-    val dislikeNum : Int,
-    val badge : Int
+    val badge : Int,
+    val userBgImg : String
 )
 
 data class ResponsePutMyPageData (

@@ -80,8 +80,10 @@
         <ImageView
             android:id="@+id/img_mypage_background"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:scaleType="fitXY"
+            android:layout_height="249dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+
             android:src="@drawable/img"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
