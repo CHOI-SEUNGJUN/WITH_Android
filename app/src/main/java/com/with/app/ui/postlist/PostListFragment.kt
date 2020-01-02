@@ -144,7 +144,10 @@ class PostListFragment : Fragment()
                 }
                 btn_save.setOnClickListener{
                     val tempStart = "${start_datepicker.year}.${start_datepicker.month+1}.${start_datepicker.dayOfMonth}"
+                    Log.v("YGYG1", start_datepicker.year.toString())
                     val tempEnd = "${end_datepicker.year}.${end_datepicker.month+1}.${end_datepicker.dayOfMonth}"
+                    Log.v("YGYG", end_datepicker.year.toString())
+
                     val pattern = SimpleDateFormat("yyyy.MM.dd")
                     val diffs = pattern.parse(tempEnd).compareTo(pattern.parse(tempStart))
                     if (diffs == -1) {
@@ -211,10 +214,13 @@ class PostListFragment : Fragment()
         }
         postListAdapter.data = listOf()
         postListAdapter.notifyDataSetChanged()
+        Log.v("YGYG", startDate)
+        Log.v("YGYG", endDate)
+
         requestManager.requestSearchBoard(regionCode,startDate,endDate,keyword,filter)
             .safeEnqueue (
                 onSuccess = {
-                    if(it.data.isEmpty()) {
+                    if(!it.success) {
                         txt_blank.visible()
                         textView.gone()
                         textView4.gone()
@@ -237,6 +243,7 @@ class PostListFragment : Fragment()
                     Log.e("failure", it.message())
                 }
             )
+
     }
 
     private fun DatePicker.saveLoad(mode : Int) : String{
