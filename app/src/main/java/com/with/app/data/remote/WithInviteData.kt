@@ -1,8 +1,7 @@
 package com.with.app.data.remote
 
 data class RequestWithInviteData(
-    val receiverIdx : Int,
-    val boardIdx : Int,
+    val roomId : String,
     val withDate : String
 )
 

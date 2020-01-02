@@ -1,6 +1,5 @@
 package com.with.app.ui.chatroom.recyclerview
 
-import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,8 +13,7 @@ import com.with.app.data.*
 import com.with.app.data.remote.RequestWithInviteData
 import com.with.app.manage.RequestManager
 import com.with.app.ui.chatroom.recyclerview.viewholder.*
-import com.with.app.util.*
-import org.koin.java.KoinJavaComponent.inject
+import com.with.app.extension.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -182,15 +180,10 @@ class ChatRoomAdapter(private val passData: AdapterPassData, private val request
             is OtherInviteViewHolder -> {
                 holder.setIsRecyclable(false)
                 if (position != data.size-1) {
-                    if (data[position+1].isOtherChat()) {
-                        val pattern = SimpleDateFormat("yyyy년 MM월 dd일 HH:mm")
-                        val nowDate = pattern.parse(data[position].date)
-                        val nextDate = pattern.parse(data[position+1].date)
-                        val diffs = (nextDate.time - nowDate.time) / (60 * 1000) // minutes 단위
-
-                        if (diffs.toString() == "0") holder.date.visibility = View.GONE
-                    }
+                    if (data[position+1].isOtherChat() && isDiffDays(data[position].date, data[position+1].date))
+                        holder.date.gone()
                 }
+
                 holder.msg.text = data[position].msg?.toSpanned()
                 var temp = data[position].msg
                 temp = temp?.replace("<font color=\"#311a80\"><b>", "")
@@ -233,28 +226,21 @@ class ChatRoomAdapter(private val passData: AdapterPassData, private val request
                     })
 
                 holder.accept.setOnClickListener {
-                    val now = Calendar.getInstance().time
-                    val pattern = SimpleDateFormat("yyyy년 MM월 dd일 HH:mm")
-                    val nowDate = pattern.format(now)
-                    val vo = ChatVO(MY_INVITE, "동행 성사 메시지입니다.-${temp}", passData.myIdx, nowDate)
+                    val vo = ChatVO(MY_INVITE, "동행 성사 메시지입니다.-${temp}", passData.myIdx, returnNowDate())
                     temp = temp!!
                         .substring(2)
                         .replace("년", ".")
                         .replace("월", ".")
                         .replace("일", "")
                         .replace(" ", "")
-                    Log.e("temp", temp)
-                    Log.e("other", passData.otherIdx.toString())
-                    Log.e("other", passData.boardIdx.toString())
-                    requestManager.requestWithInvite(RequestWithInviteData(passData.otherIdx, passData.boardIdx, temp!!))
+
+                    requestManager.requestWithInvite(RequestWithInviteData(passData.chatRoomId!!, temp!!))
                         .safeEnqueue(
                             onSuccess = {
-                                value.lastMessage = "동행 성사 메시지입니다."
-                                tempValue.lastMessage = "동행 성사 메시지입니다."
-                                value.lastTime = nowDate
-                                tempValue.lastTime = nowDate
-                                value.unSeenCount = 0
+                                setLastMessage(value, tempValue, "동행 성사 메시지입니다.")
+                                setLastTime(value, tempValue, returnNowDate())
 
+                                value.unSeenCount = 0
                                 chatReference.push().setValue(vo)
                                 usersReference.child("${passData.myIdx}").child("${passData.chatRoomId}").setValue(value)
                                 tempValue.unSeenCount = otherCount + 1
@@ -262,13 +248,6 @@ class ChatRoomAdapter(private val passData: AdapterPassData, private val request
 
                                 inviteCheckPosition = position
                                 notifyDataSetChanged()
-                            },
-                            onFailure = {
-                                Log.e("failure", it.message())
-                                Log.e("failure", it.raw().toString())
-                            },
-                            onError = {
-                                Log.e("error", it.toString())
                             }
                         )
                 }
@@ -293,7 +272,6 @@ class ChatRoomAdapter(private val passData: AdapterPassData, private val request
                 holder.setIsRecyclable(false)
                 holder.bind(data[position])
             }
-
         }
     }
 

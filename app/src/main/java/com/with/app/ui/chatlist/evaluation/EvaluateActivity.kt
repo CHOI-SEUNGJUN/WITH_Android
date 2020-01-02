@@ -9,7 +9,7 @@ import android.view.View
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.with.app.R
-import com.with.app.util.toSpanned
+import com.with.app.extension.toSpanned
 import kotlinx.android.synthetic.main.activity_evaluate.*
 import kotlinx.android.synthetic.main.dialog_evaluation.*
 

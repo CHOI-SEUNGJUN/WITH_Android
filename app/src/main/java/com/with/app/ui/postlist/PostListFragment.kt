@@ -22,8 +22,8 @@ import com.with.app.manage.RequestManager
 import com.with.app.ui.home.HomeFragment
 import com.with.app.ui.recent.RecentSearchesActivity
 import com.with.app.ui.region.ChangeRegionActivity
-import com.with.app.util.safeEnqueue
-import com.with.app.util.toast
+import com.with.app.extension.safeEnqueue
+import com.with.app.extension.toast
 import kotlinx.android.synthetic.main.date_picker.view.*
 import kotlinx.android.synthetic.main.fragment_post_list.*
 import kotlinx.android.synthetic.main.fragment_post_list.view.*
@@ -34,7 +34,7 @@ import java.text.SimpleDateFormat
 class PostListFragment : Fragment() {
     private val prefManager : PrefManager by inject()
     private val requestManager : RequestManager by inject()
-    private var filter = -1
+    private var filter = 0
     private var keyword = ""
 
     private var startDate : String = prefManager.startDate
@@ -116,6 +116,8 @@ class PostListFragment : Fragment() {
             val dialog = AlertDialog.Builder(context)
                 .setView(dialogView)
                 .show()
+
+            dialog.window?.setLayout(289*4, 500*4)
 
             dialogView.apply {
                 // split한 데이터를 datepicker에 설정

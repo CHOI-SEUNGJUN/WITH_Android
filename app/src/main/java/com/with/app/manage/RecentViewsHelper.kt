@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteConstraintException
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteException
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 import com.with.app.manage.RecentSearchesHelper.Companion.DATABASE_NAME
 import com.with.app.manage.RecentSearchesHelper.Companion.DATABASE_VERSION
 
@@ -40,9 +41,21 @@ class RecentViewsHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
     @Throws(SQLiteConstraintException::class)
     fun insertView(idx: Int){
         val db = writableDatabase
+        if (existView(idx)) {
+            Log.e("*****EXIST", idx.toString())
+            db.delete(TABLE_NAME, "$COLUMN_IDX = $idx", null)
+        }
+        Log.e("*****INSERT", idx.toString())
+
         val values = ContentValues()
         values.put("idx", idx)
         db.insert(TABLE_NAME, null, values)
+    }
+
+    fun existView(idx: Int) : Boolean{
+        val db = writableDatabase
+        val cursor = db.rawQuery("SELECT * FROM $TABLE_NAME WHERE $COLUMN_IDX = $idx", null)
+        return cursor.count > 0
     }
 
     fun readView(): String {

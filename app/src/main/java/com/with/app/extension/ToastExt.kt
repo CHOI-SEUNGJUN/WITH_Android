@@ -1,4 +1,4 @@
-package com.with.app.util
+package com.with.app.extension
 
 import android.content.Context
 import android.widget.Toast

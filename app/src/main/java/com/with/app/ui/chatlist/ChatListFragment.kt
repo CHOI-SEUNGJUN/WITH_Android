@@ -1,7 +1,6 @@
 package com.with.app.ui.chatlist
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,8 +16,8 @@ import com.with.app.data.ChatUserVO
 import com.with.app.data.remote.ResponseChatListArrayData
 import com.with.app.manage.RequestManager
 import com.with.app.ui.chatlist.recylcerview.ChatListAdapter
-import com.with.app.util.addListener
-import com.with.app.util.safeEnqueue
+import com.with.app.extension.addListener
+import com.with.app.extension.safeEnqueue
 import kotlinx.android.synthetic.main.fragment_chat_list.*
 import org.koin.android.ext.android.inject
 

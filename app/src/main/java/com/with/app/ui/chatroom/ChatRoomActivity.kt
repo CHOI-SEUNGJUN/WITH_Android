@@ -3,28 +3,20 @@ package com.with.app.ui.chatroom
 import android.os.Bundle
 import android.app.AlertDialog
 import android.content.Intent
-import android.util.Log
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
 import com.google.firebase.database.*
 import com.with.app.R
-import com.with.app.data.AdapterPassData
-import com.with.app.data.ChatVO
-import com.with.app.data.ChatUserVO
+import com.with.app.data.*
 import com.with.app.manage.RequestManager
 import com.with.app.ui.chatroom.recyclerview.ChatRoomAdapter
 import com.with.app.ui.chatroom.recyclerview.ChatRoomAdapter.Companion.MY_CHAT
 import com.with.app.ui.chatroom.recyclerview.ChatRoomAdapter.Companion.MY_INVITE
 import com.with.app.ui.detailpost.DetailPostActivity
 import com.with.app.ui.detailpost.DetailPostActivity.Companion.POSTINGTOCHAT
-import com.with.app.util.*
+import com.with.app.extension.*
 import kotlinx.android.synthetic.main.activity_chat_room.*
 import kotlinx.android.synthetic.main.dialog_invite.view.*
 import org.koin.android.ext.android.inject
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 class ChatRoomActivity : AppCompatActivity() {
@@ -96,13 +88,11 @@ class ChatRoomActivity : AppCompatActivity() {
         boardIdx = intent.getIntExtra("boardIdx", 0)
         tv_title.text = intent.getStringExtra("title")
         tv_date.text = "${intent.getStringExtra("startDate")} ~ ${intent.getStringExtra("endDate")}"
-
         otherProfile = intent.getStringExtra("userImg")
 
         iv_profile.load(application, otherProfile)
 
-        value.boardIdx = boardIdx
-        tempValue.boardIdx = boardIdx
+        setBoardIdx(value, tempValue, boardIdx)
 
         posterIdx = intent.getStringExtra("writeUserIdx").toInt()
         senderIdx = intent.getStringExtra("senderUserIdx").toInt()
@@ -110,11 +100,8 @@ class ChatRoomActivity : AppCompatActivity() {
         chatRoomId = "${boardIdx}_${posterIdx}_${senderIdx}"
 
         val mode = intent.getIntExtra("mode", 0)
-        if (mode == POSTINGTOCHAT) {
-            otherIdx = posterIdx
-        } else {
-            otherIdx = intent.getIntExtra("userIdx", 0)
-        }
+        otherIdx = (if (mode == POSTINGTOCHAT) posterIdx
+            else intent.getIntExtra("userIdx", 0))
 
         btn_more.setOnClickListener {
             val intent = Intent(this, DetailPostActivity::class.java)
@@ -136,29 +123,16 @@ class ChatRoomActivity : AppCompatActivity() {
             view.apply {
                 tv_otherName.text = otherName
 
-                btn_close.setOnClickListener {
-                    dialog.cancel()
-                }
-
+                btn_close.setOnClickListener { dialog.cancel() }
                 btn_goWith.setOnClickListener {
                     meetDate = "${dp_with.year}년 ${dp_with.month + 1}월 ${dp_with.dayOfMonth}일"
-                    val now = Calendar.getInstance().time
-                    val pattern = SimpleDateFormat("yyyy년 MM월 dd일 HH:mm")
-                    val nowDate = pattern.format(now)
+                    val nowDate = returnNowDate()
                     val chatVO = ChatVO(MY_INVITE, "동행 신청 메시지입니다.-${meetDate}", myIdx, nowDate)
 
-                    value.lastMessage = "동행 신청 메시지입니다."
-                    tempValue.lastMessage = "동행 신청 메시지입니다."
-                    value.lastTime = nowDate
-                    tempValue.lastTime = nowDate
-                    value.unSeenCount = 0
-                    value.inviteFlag = 1
-                    tempValue.inviteFlag = 1
-
-                    chatReference.push().setValue(chatVO)
-                    usersReference.child("$myIdx").child(chatRoomId).setValue(value)
-                    tempValue.unSeenCount = otherCount + 1
-                    usersReference.child("$otherIdx").child(chatRoomId).setValue(tempValue)
+                    setLastMessage(value, tempValue, "동행 신청 메시지입니다.")
+                    setLastTime(value, tempValue, nowDate)
+                    setInviteFlag(value, tempValue, 1)
+                    chatPush(chatVO)
 
                     dialog.cancel()
                 }
@@ -171,21 +145,12 @@ class ChatRoomActivity : AppCompatActivity() {
             if (edt_chat.text.toString().isBlank())
                 return@setOnClickListener
 
-            val now = Calendar.getInstance().time
-            val pattern = SimpleDateFormat("yyyy년 MM월 dd일 HH:mm")
-            val nowDate = pattern.format(now)
-            val chatVO = ChatVO(MY_CHAT, edt_chat.text.toString(), myIdx, nowDate)
+            val chatVO = ChatVO(MY_CHAT, edt_chat.text.toString(), myIdx, returnNowDate())
 
-            value.lastMessage = edt_chat.text.toString()
-            tempValue.lastMessage = edt_chat.text.toString()
-            value.lastTime = nowDate
-            tempValue.lastTime = nowDate
-            value.unSeenCount = 0
+            setLastMessage(value, tempValue, edt_chat.text.toString())
+            setLastTime(value, tempValue, returnNowDate())
 
-            chatReference.push().setValue(chatVO)
-            usersReference.child("$myIdx").child(chatRoomId).setValue(value)
-            tempValue.unSeenCount = otherCount + 1
-            usersReference.child("$otherIdx").child(chatRoomId).setValue(tempValue)
+            chatPush(chatVO)
 
             edt_chat.setText("")
             rv_chat.adjustScroll() // 아이템을 추가시켰으니 다시 스크롤 조정
@@ -223,20 +188,30 @@ class ChatRoomActivity : AppCompatActivity() {
                     btn_invite.gone()
             })
 
-        // 채팅방 입장시 초기화
-        if (!value.lastMessage.isNullOrBlank()) {
-            usersReference.child("$myIdx").child(chatRoomId).child("unSeenCount").setValue(0)
-        }
-
+        // 채팅방 입장시 카운트 초기화
+        if (!value.lastMessage.isNullOrBlank())
+            resetCount()
     }
 
     override fun onPause() {
         super.onPause()
-        usersReference.child("$myIdx").child(chatRoomId).child("unSeenCount").setValue(0)
+        resetCount()
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        resetCount()
+    }
+
+    private fun chatPush(chatVO : ChatVO) {
+        value.unSeenCount = 0
+        chatReference.push().setValue(chatVO)
+        usersReference.child("$myIdx").child(chatRoomId).setValue(value)
+        tempValue.unSeenCount = otherCount + 1
+        usersReference.child("$otherIdx").child(chatRoomId).setValue(tempValue)
+    }
+
+    private fun resetCount() {
         usersReference.child("$myIdx").child(chatRoomId).child("unSeenCount").setValue(0)
     }
 }

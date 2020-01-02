@@ -11,8 +11,7 @@ import com.with.app.R
 import com.with.app.ui.chatlist.ChatListFragment
 import com.with.app.ui.home.HomeFragment
 import com.with.app.ui.mypage.MyPageFragment
-import com.with.app.util.toast
-import kotlinx.android.synthetic.main.activity_main.*
+import com.with.app.extension.toast
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 

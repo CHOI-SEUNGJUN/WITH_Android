@@ -2,16 +2,14 @@ package com.with.app.ui.home.recyclerview
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.with.app.R
 import com.with.app.data.remote.ResponseLatelyBoardArrayData
 import com.with.app.ui.detailpost.DetailPostActivity
-import com.with.app.util.load
+import com.with.app.extension.load
 
 class RecentBulletinViewHolder(view : View) : RecyclerView.ViewHolder(view) {
     val img_bulletin_profile : ImageView = view.findViewById(R.id.img_bulletin_profile)

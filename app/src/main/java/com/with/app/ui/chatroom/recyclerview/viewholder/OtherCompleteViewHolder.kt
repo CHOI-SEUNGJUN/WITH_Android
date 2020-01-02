@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.with.app.R
 import com.with.app.data.ChatVO
-import com.with.app.util.toSpanned
+import com.with.app.extension.toSpanned
 import java.text.SimpleDateFormat
 
 class OtherCompleteViewHolder(view : View) : RecyclerView.ViewHolder(view) {
