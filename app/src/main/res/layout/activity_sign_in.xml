@@ -73,9 +73,8 @@
         app:layout_constraintStart_toStartOf="@+id/edt_signin_password"
         app:layout_constraintTop_toBottomOf="@+id/edt_signin_password" />
 
-    <android.widget.Button
+    <Button
         android:id="@+id/btn_login"
-        style="@style/Widget.AppCompat.Button"
         android:layout_width="320dp"
         android:layout_height="40dp"
         android:layout_marginTop="72dp"
