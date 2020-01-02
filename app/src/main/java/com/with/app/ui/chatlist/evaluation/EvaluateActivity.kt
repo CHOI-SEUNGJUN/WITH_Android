@@ -6,9 +6,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.customview.customView
 import com.with.app.R
 import com.with.app.util.toSpanned
 import kotlinx.android.synthetic.main.activity_evaluate.*
+import kotlinx.android.synthetic.main.dialog_evaluation.*
 
 class EvaluateActivity : AppCompatActivity() {
 
@@ -18,7 +21,11 @@ class EvaluateActivity : AppCompatActivity() {
 
         var eval_mate = ArrayList<String>()
         eval_mate.add("석영현")
-        
+        eval_mate.add("안현준")
+        eval_mate.add("조현아")
+        eval_mate.add("최승준")
+
+
 
         //tv_elevation_count.setText("$eval_count")
 
@@ -28,7 +35,7 @@ class EvaluateActivity : AppCompatActivity() {
         tv_elevation_count_total.setText("$eval_count_total")
 
         img_close_button.setOnClickListener {
-            finish()
+            showEvalPopup()
         }
 
         if (eval_count_total == 1) {
@@ -225,5 +232,17 @@ class EvaluateActivity : AppCompatActivity() {
 
         }
 
+    }
+
+    private fun showEvalPopup() {
+        MaterialDialog(this).show {
+            customView(R.layout.dialog_evaluation)
+            btn_eval_ok.setOnClickListener {
+                finish()
+            }
+            btn_eval_no.setOnClickListener {
+                dismiss()
+            }
+        }
     }
 }
