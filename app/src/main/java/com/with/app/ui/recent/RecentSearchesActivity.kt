@@ -44,6 +44,8 @@ class RecentSearchesActivity : AppCompatActivity(),NoDataInterface {
             btn_allDelete.visibility = View.VISIBLE
         }
 
+        edt_search.setText(intent.getStringExtra("text"))
+
         btn_search.setOnClickListener {
             val keyword = edt_search.text.toString()
             dbHelper.insertKeyword(keyword)

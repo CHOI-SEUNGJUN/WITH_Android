@@ -92,6 +92,7 @@ class PostListFragment : Fragment() {
         //검색
         edt_search.setOnClickListener {
             val intent = Intent(activity, RecentSearchesActivity::class.java)
+            intent.putExtra("text",edt_search.text)
             startActivityForResult(intent, REQUESTCODE)
             getDataWhenClick()
         }
@@ -103,7 +104,7 @@ class PostListFragment : Fragment() {
                 getDataWhenClick()
             }
             else {
-                filter = -1
+                filter = 0
                 getDataWhenClick()
             }
         }
