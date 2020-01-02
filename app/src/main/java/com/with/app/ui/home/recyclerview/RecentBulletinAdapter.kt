@@ -23,7 +23,7 @@ class RecentBulletinAdapter (private val context : Context) : RecyclerView.Adapt
     }
 
     override fun onBindViewHolder(holder: RecentBulletinViewHolder, position: Int) {
-        holder.bind(bulletin[position])
+        holder.bind(bulletin[position], context)
     }
 
 }

@@ -1,5 +1,6 @@
 package com.with.app.manage
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
@@ -35,23 +36,13 @@ class RecentViewsHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
         onUpgrade(db, oldVersion, newVersion)
     }
 
+    @SuppressLint("Recycle")
     @Throws(SQLiteConstraintException::class)
     fun insertView(idx: Int){
         val db = writableDatabase
-        if (existIdx(idx)){
-            db.rawQuery("DELETE FROM $TABLE_NAME WHERE $COLUMN_IDX = $idx", null)
-        }
         val values = ContentValues()
         values.put("idx", idx)
         db.insert(TABLE_NAME, null, values)
-    }
-
-    fun existIdx(idx : Int) : Boolean {
-        val db = writableDatabase
-        var cursor: Cursor? =
-            db.rawQuery("SELECT $COLUMN_ID FROM $TABLE_NAME WHERE $COLUMN_IDX = $idx", null)
-                ?: return false
-        return true
     }
 
     fun readView(): String {
@@ -59,7 +50,7 @@ class RecentViewsHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
         val db = writableDatabase
         var cursor: Cursor? = null
         try {
-            cursor = db.rawQuery("SELECT * FROM $TABLE_NAME ORDER BY $COLUMN_ID DESC", null)
+            cursor = db.rawQuery("SELECT * FROM $TABLE_NAME GROUP BY $COLUMN_IDX ORDER BY $COLUMN_ID DESC", null)
         } catch (e: SQLiteException) {
             db.execSQL(SQL_CREATE_ENTRIES)
             return result
@@ -67,15 +58,16 @@ class RecentViewsHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
 
         var idx: String
         if (cursor!!.moveToFirst()) {
-            while (!cursor.isAfterLast && cursor.position < 6) {
+            while (!cursor.isAfterLast) {
                 idx = cursor.getString(cursor.getColumnIndex(COLUMN_IDX))
-
-                result += if(!cursor.isLast) "$idx+" else idx
-
+                if (cursor.position != 5 && !cursor.isLast) result += "$idx+"
+                else if (cursor.isLast || cursor.position == 5) {
+                    result += idx
+                    break
+                }
                 cursor.moveToNext()
             }
         }
         return result
     }
-
 }

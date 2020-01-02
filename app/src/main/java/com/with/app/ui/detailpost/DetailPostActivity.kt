@@ -9,6 +9,7 @@ import android.view.View
 import com.bumptech.glide.Glide
 import com.with.app.R
 import com.with.app.data.remote.RequestChatOpenData
+import com.with.app.manage.RecentViewsHelper
 import com.with.app.manage.RequestManager
 import com.with.app.ui.chatroom.ChatRoomActivity
 import com.with.app.ui.posting.PostingActivity
@@ -24,15 +25,16 @@ import org.koin.android.ext.android.inject
 class DetailPostActivity : AppCompatActivity(){
 
     private val requestManager : RequestManager by inject()
+    private lateinit var recentViewsHelper : RecentViewsHelper
     private var myIdx = requestManager.authManager.idx
     private var userIdx = 0
-    private var filter = -1
+    private var filter = 0
     private var boardIdx = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_post)
-
+        recentViewsHelper = RecentViewsHelper(applicationContext)
         boardIdx = intent.getIntExtra("boardIdx",0)
         getData()
         btn_edit.setOnClickListener {
@@ -78,9 +80,11 @@ class DetailPostActivity : AppCompatActivity(){
                             btn_dealine.visibility = View.VISIBLE
                         }
                         else{
+                            recentViewsHelper.insertView(response.boardIdx)
                             fab.visibility = View.VISIBLE
                             btn_edit.visibility = View.GONE
                             btn_dealine.visibility = View.GONE
+
                         }
 
                         fab.setOnClickListener {
