@@ -5,7 +5,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import com.bumptech.glide.Glide
 import com.with.app.R
 import com.with.app.data.remote.RequestChatOpenData
@@ -13,8 +12,10 @@ import com.with.app.manage.RecentViewsHelper
 import com.with.app.manage.RequestManager
 import com.with.app.ui.chatroom.ChatRoomActivity
 import com.with.app.ui.posting.PostingActivity
-import com.with.app.util.safeEnqueue
-import com.with.app.util.toast
+import com.with.app.extension.gone
+import com.with.app.extension.safeEnqueue
+import com.with.app.extension.toast
+import com.with.app.extension.visible
 import kotlinx.android.synthetic.main.activity_detail_post.*
 import kotlinx.android.synthetic.main.activity_detail_post.img_profile
 import kotlinx.android.synthetic.main.activity_detail_post.txt_date
@@ -54,6 +55,7 @@ class DetailPostActivity : AppCompatActivity(){
     }
 
     private fun getData(){
+        Log.e("boardIdx", boardIdx.toString())
         requestManager.requestDetailBoard(boardIdx)
             .safeEnqueue (
                 onSuccess = {
@@ -84,15 +86,15 @@ class DetailPostActivity : AppCompatActivity(){
 
                         //게시글쓴 idx값과 접속한 idx값이 같으면 마감버튼, 수정버튼 보임/채팅버튼 사라짐
                         if (myIdx == userIdx) {
-                            fab.visibility = View.GONE
-                            btn_edit.visibility = View.VISIBLE
-                            btn_dealine.visibility = View.VISIBLE
+                            fab.gone()
+                            btn_edit.visible()
+                            btn_dealine.visible()
                         }
                         else{
                             recentViewsHelper.insertView(response.boardIdx)
-                            fab.visibility = View.VISIBLE
-                            btn_edit.visibility = View.GONE
-                            btn_dealine.visibility = View.GONE
+                            fab.visible()
+                            btn_edit.gone()
+                            btn_dealine.gone()
 
                         }
 

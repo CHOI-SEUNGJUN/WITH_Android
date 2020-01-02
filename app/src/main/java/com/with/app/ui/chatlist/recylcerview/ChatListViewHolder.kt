@@ -1,17 +1,14 @@
 package com.with.app.ui.chatlist.recylcerview
 
 import android.content.Intent
-import android.util.Log
 import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.with.app.R
 import com.with.app.data.ChatListVO
 import com.with.app.ui.chatroom.ChatRoomActivity
-import com.with.app.util.gone
-import com.with.app.util.load
+import com.with.app.extension.gone
+import com.with.app.extension.load
 import de.hdodenhof.circleimageview.CircleImageView
 import java.text.SimpleDateFormat
 import java.util.*
@@ -50,20 +47,16 @@ class ChatListViewHolder(view : View) : RecyclerView.ViewHolder(view) {
         }
 
         when {
-            fireBase.unSeenCount <= 0 -> {
-                tv_chat_remain.gone()
-            }
-            fireBase.unSeenCount > 99 -> {
-                tv_chat_remain.text = "99+"
-            }
-            else -> {
+            fireBase.unSeenCount <= 0 -> tv_chat_remain.gone()
+            fireBase.unSeenCount > 99 -> tv_chat_remain.text = "99+"
+            else ->
                 tv_chat_remain.text = fireBase.unSeenCount.toString()
-            }
         }
 
         itemView.setOnClickListener {
             val intent = Intent(itemView.context, ChatRoomActivity::class.java)
             intent.putExtra("mode", CHATLISTTOCHAT)
+            intent.putExtra("userIdx", ourServer.userIdx)
             intent.putExtra("boardIdx", ourServer.boardIdx)
             intent.putExtra("writeUserIdx", ourServer.roomId.split("_")[1])
             intent.putExtra("regionName", ourServer.regionName)
@@ -72,6 +65,8 @@ class ChatListViewHolder(view : View) : RecyclerView.ViewHolder(view) {
             intent.putExtra("title", ourServer.title)
             intent.putExtra("userImg", ourServer.userImg)
             intent.putExtra("name", ourServer.name)
+            intent.putExtra("withFlag", ourServer.withFlag)
+            intent.putExtra("writerImg", ourServer.writerImg)
             intent.putExtra("senderUserIdx", ourServer.roomId.split("_")[2])
             itemView.context.startActivity(intent)
         }

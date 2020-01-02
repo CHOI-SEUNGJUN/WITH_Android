@@ -7,6 +7,14 @@
     android:orientation="vertical"
     tools:context=".ui.signin.SignInActivity">
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loading"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_fileName="loading.json" />
+
     <EditText
         android:id="@+id/edt_signin_email"
         android:layout_width="320dp"
