@@ -67,10 +67,11 @@ class ChatListFragment : Fragment() {
                 onSuccess = {
                     if (it.success) {
                         responseData = it.data
+                        tv_name.text = "${requestManager.authManager.name}님"
+                        evaluation.visible()
                         for (item in responseData) {
                             if (item.evalFrag == 2) {
-                                tv_name.text = "${requestManager.authManager.name}님"
-                                evaluation.visible()
+                                break
                             }
                         }
                         fireBaseChatListener()

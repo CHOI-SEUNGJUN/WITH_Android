@@ -41,36 +41,34 @@ class EvaluateActivity : AppCompatActivity() {
         if (eval_count_total == 1) {
             btn_left.visibility = View.GONE
             btn_right.visibility = View.GONE
-            btn_elevation_bottom.setOnTouchListener(object : View.OnTouchListener {
-                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                    var eval_count = tv_elevation_count.text.toString().toInt()
-                    var bottom_text = btn_elevation_bottom.text.toString()
+            btn_elevation_bottom.setOnTouchListener { v, event ->
+                var eval_count = tv_elevation_count.text.toString().toInt()
+                var bottom_text = btn_elevation_bottom.text.toString()
 
-                    var end = false
-                    when (event?.action) {
-                        MotionEvent.ACTION_DOWN -> {
-                            btn_elevation_bottom.setBackgroundColor(Color.parseColor("#311a80"))
-                            if (bottom_text == "위드하기") {
-
-                                finish()
-                            }
-
+                var end = false
+                when (event?.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        btn_elevation_bottom.setBackgroundColor(Color.parseColor("#311a80"))
+                        if (bottom_text == "위드하기") {
+                            this@EvaluateActivity.finish()
                         }
 
-                        MotionEvent.ACTION_UP -> {
-                            btn_elevation_bottom.setBackgroundColor(Color.parseColor("#4DFFFFFF"))
-                            if (bottom_text == "위드하기") {
-                            } else {
-                                img_close_button.visibility = View.GONE
-                                tv_elevation_intro.setText("감사합니다\n앞으로도 W!TH해요 :)")
-                                btn_elevation_bottom.setText("위드하기")
-                                btn_elevation_top.visibility = View.GONE
-                            }
+                    }
+
+                    MotionEvent.ACTION_UP -> {
+                        btn_elevation_bottom.setBackgroundColor(Color.parseColor("#4DFFFFFF"))
+                        if (bottom_text == "위드하기") {
+                            this@EvaluateActivity.finish()
+                        } else {
+                            img_close_button.visibility = View.GONE
+                            tv_elevation_intro.setText("감사합니다\n앞으로도 W!TH해요 :)")
+                            btn_elevation_bottom.setText("위드하기")
+                            btn_elevation_top.visibility = View.GONE
                         }
                     }
-                    return false
                 }
-            })
+                false
+            }
 
             btn_elevation_top.setOnTouchListener(object : View.OnTouchListener {
                 override fun onTouch(v: View?, event: MotionEvent?): Boolean {
@@ -152,6 +150,7 @@ class EvaluateActivity : AppCompatActivity() {
 
                         MotionEvent.ACTION_UP -> {
                             btn_elevation_bottom.setBackgroundColor(Color.parseColor("#4DFFFFFF"))
+                            if (bottom_text == "위드하기") finish()
                             if (eval_count == eval_count_total) {
                                 tv_elevation_intro.setText("감사합니다\n앞으로도 W!TH해요 :)")
                                 btn_elevation_bottom.setText("위드하기")
