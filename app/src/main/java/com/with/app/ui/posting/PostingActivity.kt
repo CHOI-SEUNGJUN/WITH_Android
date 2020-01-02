@@ -18,7 +18,6 @@ import com.with.app.extension.safeEnqueue
 import kotlinx.android.synthetic.main.activity_posting.*
 import kotlinx.android.synthetic.main.activity_posting.btn_save
 import kotlinx.android.synthetic.main.activity_posting.switch_filter
-import kotlinx.android.synthetic.main.date_picker.*
 import kotlinx.android.synthetic.main.date_picker.view.*
 import org.koin.android.ext.android.inject
 import java.text.SimpleDateFormat
@@ -42,7 +41,7 @@ class PostingActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.with.app.R.layout.activity_posting)
+        setContentView(R.layout.activity_posting)
 
         // 게시글 수정
         if(intent.getIntExtra("mode",0)==1) {
@@ -119,11 +118,11 @@ class PostingActivity : AppCompatActivity() {
         }
 
         edt_date.setOnClickListener{
-            val dialogView = layoutInflater.inflate(com.with.app.R.layout.date_picker, null)
+            val dialogView = layoutInflater.inflate(R.layout.date_picker, null)
             dialogView.btn_select_all.gone()
 
-            removeView(dialogView.start_datepicker)
-            removeView(dialogView.end_datepicker)
+            //removeView(dialogView.start_datepicker)
+            //removeView(dialogView.end_datepicker)
 
             val dialog = AlertDialog.Builder(this)
                 .setView(dialogView)
@@ -162,7 +161,7 @@ class PostingActivity : AppCompatActivity() {
             customView(R.layout.dialog_posting)
             btn_ok.setOnClickListener { finish() }
             btn_cancle.setOnClickListener { dismiss() }
-        }.window?.setLayout(280*4,130*4)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

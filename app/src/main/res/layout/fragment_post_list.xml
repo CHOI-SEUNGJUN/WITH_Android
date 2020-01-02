@@ -106,7 +106,7 @@
             android:gravity="center"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:text="19.02.02 ~ 19.02.02"
+            android:text=""
             android:textColor="@color/colorPrimary"
             android:textSize="13sp"
             app:layout_constraintStart_toEndOf="@+id/txt_country"

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.with.app.R
 import com.with.app.data.PickerDTO
+import com.with.app.extension.gone
 import com.with.app.ui.posting.PostingActivity
 import com.with.app.ui.postlist.recylcerview.PostListAdapter
 import com.with.app.manage.PrefManager
@@ -22,12 +23,9 @@ import com.with.app.manage.RequestManager
 import com.with.app.ui.home.HomeFragment
 import com.with.app.ui.recent.RecentSearchesActivity
 import com.with.app.ui.region.ChangeRegionActivity
-import com.with.app.util.gone
-import com.with.app.util.safeEnqueue
-import com.with.app.util.toast
-import com.with.app.util.visible
 import com.with.app.extension.safeEnqueue
 import com.with.app.extension.toast
+import com.with.app.extension.visible
 import kotlinx.android.synthetic.main.date_picker.view.*
 import kotlinx.android.synthetic.main.fragment_post_list.*
 import kotlinx.android.synthetic.main.fragment_post_list.view.*
@@ -146,7 +144,10 @@ class PostListFragment : Fragment()
                 }
                 btn_save.setOnClickListener{
                     val tempStart = "${start_datepicker.year}.${start_datepicker.month+1}.${start_datepicker.dayOfMonth}"
+                    Log.v("YGYG1", start_datepicker.year.toString())
                     val tempEnd = "${end_datepicker.year}.${end_datepicker.month+1}.${end_datepicker.dayOfMonth}"
+                    Log.v("YGYG", end_datepicker.year.toString())
+
                     val pattern = SimpleDateFormat("yyyy.MM.dd")
                     val diffs = pattern.parse(tempEnd).compareTo(pattern.parse(tempStart))
                     if (diffs == -1) {
@@ -213,10 +214,13 @@ class PostListFragment : Fragment()
         }
         postListAdapter.data = listOf()
         postListAdapter.notifyDataSetChanged()
+        Log.v("YGYG", startDate)
+        Log.v("YGYG", endDate)
+
         requestManager.requestSearchBoard(regionCode,startDate,endDate,keyword,filter)
             .safeEnqueue (
                 onSuccess = {
-                    if(it.data.isEmpty()) {
+                    if(!it.success) {
                         txt_blank.visible()
                         textView.gone()
                         textView4.gone()
@@ -239,6 +243,7 @@ class PostListFragment : Fragment()
                     Log.e("failure", it.message())
                 }
             )
+
     }
 
     private fun DatePicker.saveLoad(mode : Int) : String{
