@@ -1,21 +1,17 @@
 package com.with.app.ui.chatroom.recyclerview
 
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.with.app.R
-import com.with.app.data.*
+import com.with.app.data.local.*
 import com.with.app.data.remote.RequestWithInviteData
 import com.with.app.manage.RequestManager
 import com.with.app.ui.chatroom.recyclerview.viewholder.*
 import com.with.app.extension.*
-import java.text.SimpleDateFormat
-import java.util.*
 
 class ChatRoomAdapter(private val passData: AdapterPassData, private val requestManager: RequestManager) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -226,7 +222,12 @@ class ChatRoomAdapter(private val passData: AdapterPassData, private val request
                     })
 
                 holder.accept.setOnClickListener {
-                    val vo = ChatVO(MY_INVITE, "동행 성사 메시지입니다.-${temp}", passData.myIdx, returnNowDate())
+                    val vo = ChatVO(
+                        MY_INVITE,
+                        "동행 성사 메시지입니다.-${temp}",
+                        passData.myIdx,
+                        returnNowDate()
+                    )
                     temp = temp!!
                         .substring(2)
                         .replace("년", ".")
@@ -237,8 +238,16 @@ class ChatRoomAdapter(private val passData: AdapterPassData, private val request
                     requestManager.requestWithInvite(RequestWithInviteData(passData.chatRoomId!!, temp!!))
                         .safeEnqueue(
                             onSuccess = {
-                                setLastMessage(value, tempValue, "동행 성사 메시지입니다.")
-                                setLastTime(value, tempValue, returnNowDate())
+                                setLastMessage(
+                                    value,
+                                    tempValue,
+                                    "동행 성사 메시지입니다."
+                                )
+                                setLastTime(
+                                    value,
+                                    tempValue,
+                                    returnNowDate()
+                                )
 
                                 value.unSeenCount = 0
                                 chatReference.push().setValue(vo)

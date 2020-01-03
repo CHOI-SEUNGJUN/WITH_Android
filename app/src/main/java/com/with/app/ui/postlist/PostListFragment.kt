@@ -14,7 +14,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.with.app.R
-import com.with.app.data.PickerDTO
+import com.with.app.data.local.PickerDTO
 import com.with.app.extension.gone
 import com.with.app.ui.posting.PostingActivity
 import com.with.app.ui.postlist.recylcerview.PostListAdapter
@@ -277,7 +277,11 @@ class PostListFragment : Fragment()
 
     private fun String.splitDate() : PickerDTO {
         val data = this.split(".")
-        val dto = PickerDTO(data[0].toInt(), data[1].toInt(), data[2].toInt())
+        val dto = PickerDTO(
+            data[0].toInt(),
+            data[1].toInt(),
+            data[2].toInt()
+        )
         return dto
     }
 

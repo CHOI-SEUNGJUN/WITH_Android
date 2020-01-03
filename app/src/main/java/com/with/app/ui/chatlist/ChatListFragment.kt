@@ -2,6 +2,7 @@ package com.with.app.ui.chatlist
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,15 +13,15 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
 import com.with.app.R
-import com.with.app.data.ChatListVO
-import com.with.app.data.ChatUserVO
+import com.with.app.data.local.ChatListVO
+import com.with.app.data.local.ChatUserVO
 import com.with.app.data.remote.ResponseChatListArrayData
 import com.with.app.manage.RequestManager
 import com.with.app.ui.chatlist.recylcerview.ChatListAdapter
 import com.with.app.extension.addListener
 import com.with.app.extension.safeEnqueue
 import com.with.app.extension.visible
-import com.with.app.ui.chatlist.evaluation.EvaluateActivity
+import com.with.app.ui.evaluation.EvaluateActivity
 import kotlinx.android.synthetic.main.fragment_chat_list.*
 import org.koin.android.ext.android.inject
 
@@ -30,7 +31,8 @@ class ChatListFragment : Fragment() {
 
     private var myIdx = requestManager.authManager.idx
 
-    private var value : ChatUserVO = ChatUserVO()
+    private var value : ChatUserVO =
+        ChatUserVO()
 
     private var responseData : List<ResponseChatListArrayData> = listOf()
 
@@ -67,10 +69,11 @@ class ChatListFragment : Fragment() {
                 onSuccess = {
                     if (it.success) {
                         responseData = it.data
-                        tv_name.text = "${requestManager.authManager.name}님"
-                        evaluation.visible()
+                        Log.e("data", responseData.toString())
                         for (item in responseData) {
-                            if (item.evalFrag == 2) {
+                            if (item.evalFlag == 2) {
+                                tv_name.text = "${requestManager.authManager.name}님"
+                                evaluation.visible()
                                 break
                             }
                         }
@@ -85,10 +88,6 @@ class ChatListFragment : Fragment() {
         rv_chat_list.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         rv_chat_list.layoutManager = lm
         rv_chat_list.adapter = adapter
-    }
-
-    private fun evaluationCheck() {
-
     }
 
     private fun fireBaseChatListener() {

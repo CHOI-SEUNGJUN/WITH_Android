@@ -1,4 +1,4 @@
-package com.with.app.data
+package com.with.app.data.local
 
 data class AdapterPassData(
     var myIdx: Int = 0,

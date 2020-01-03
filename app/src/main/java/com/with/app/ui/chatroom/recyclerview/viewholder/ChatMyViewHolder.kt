@@ -5,7 +5,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.with.app.R
-import com.with.app.data.ChatVO
+import com.with.app.data.local.ChatVO
 import java.text.SimpleDateFormat
 
 class ChatMyViewHolder(view : View) : RecyclerView.ViewHolder(view) {

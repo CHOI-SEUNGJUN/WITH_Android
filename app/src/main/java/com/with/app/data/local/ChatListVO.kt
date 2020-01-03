@@ -1,5 +1,6 @@
-package com.with.app.data
+package com.with.app.data.local
 
+import com.with.app.data.local.ChatUserVO
 import com.with.app.data.remote.ResponseChatListArrayData
 
 data class ChatListVO(

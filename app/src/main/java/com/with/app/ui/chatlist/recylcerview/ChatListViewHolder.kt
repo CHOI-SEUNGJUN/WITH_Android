@@ -5,7 +5,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.with.app.R
-import com.with.app.data.ChatListVO
+import com.with.app.data.local.ChatListVO
 import com.with.app.ui.chatroom.ChatRoomActivity
 import com.with.app.extension.gone
 import com.with.app.extension.load

@@ -1,15 +1,12 @@
 package com.with.app.ui.chatroom
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.app.AlertDialog
 import android.content.Intent
-import android.content.res.ColorStateList
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.google.firebase.database.*
 import com.with.app.R
-import com.with.app.data.*
+import com.with.app.data.local.*
 import com.with.app.manage.RequestManager
 import com.with.app.ui.chatroom.recyclerview.ChatRoomAdapter
 import com.with.app.ui.chatroom.recyclerview.ChatRoomAdapter.Companion.MY_CHAT
@@ -27,9 +24,12 @@ class ChatRoomActivity : AppCompatActivity() {
 
     private lateinit var adapter: ChatRoomAdapter
 
-    private var value: ChatUserVO = ChatUserVO()
-    private var tempValue: ChatUserVO = ChatUserVO()
-    private var passData: AdapterPassData = AdapterPassData()
+    private var value: ChatUserVO =
+        ChatUserVO()
+    private var tempValue: ChatUserVO =
+        ChatUserVO()
+    private var passData: AdapterPassData =
+        AdapterPassData()
 
     private var otherCount: Int = 0
 
@@ -71,7 +71,15 @@ class ChatRoomActivity : AppCompatActivity() {
         sendMessage()
         inviteMessage()
 
-        passData = AdapterPassData(myIdx, otherIdx, otherName, otherProfile, chatRoomId, boardIdx, withFlag)
+        passData = AdapterPassData(
+            myIdx,
+            otherIdx,
+            otherName,
+            otherProfile,
+            chatRoomId,
+            boardIdx,
+            withFlag
+        )
 
         adapter = ChatRoomAdapter(passData, requestManager)
         rv_chat.setLinearLayoutManager(applicationContext)
@@ -141,10 +149,23 @@ class ChatRoomActivity : AppCompatActivity() {
                 btn_goWith.setOnClickListener {
                     meetDate = "${dp_with.year}년 ${dp_with.month + 1}월 ${dp_with.dayOfMonth}일"
                     val nowDate = returnNowDate()
-                    val chatVO = ChatVO(MY_INVITE, "동행 신청 메시지입니다.-${meetDate}", myIdx, nowDate)
+                    val chatVO = ChatVO(
+                        MY_INVITE,
+                        "동행 신청 메시지입니다.-${meetDate}",
+                        myIdx,
+                        nowDate
+                    )
 
-                    setLastMessage(value, tempValue, "동행 신청 메시지입니다.")
-                    setLastTime(value, tempValue, nowDate)
+                    setLastMessage(
+                        value,
+                        tempValue,
+                        "동행 신청 메시지입니다."
+                    )
+                    setLastTime(
+                        value,
+                        tempValue,
+                        nowDate
+                    )
                     setInviteFlag(value, tempValue, 1)
                     chatPush(chatVO)
 
@@ -159,10 +180,23 @@ class ChatRoomActivity : AppCompatActivity() {
             if (edt_chat.text.toString().isBlank())
                 return@setOnClickListener
 
-            val chatVO = ChatVO(MY_CHAT, edt_chat.text.toString(), myIdx, returnNowDate())
+            val chatVO = ChatVO(
+                MY_CHAT,
+                edt_chat.text.toString(),
+                myIdx,
+                returnNowDate()
+            )
 
-            setLastMessage(value, tempValue, edt_chat.text.toString())
-            setLastTime(value, tempValue, returnNowDate())
+            setLastMessage(
+                value,
+                tempValue,
+                edt_chat.text.toString()
+            )
+            setLastTime(
+                value,
+                tempValue,
+                returnNowDate()
+            )
 
             chatPush(chatVO)
 
