@@ -30,6 +30,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_mypage.*
 import kotlinx.android.synthetic.main.fragment_my_page.*
 import kotlinx.android.synthetic.main.fragment_my_page.img_mypage_profile
+import kotlinx.android.synthetic.main.fragment_my_page.iv_like_level
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -51,6 +52,7 @@ class MyPageFragment : Fragment() {
     var imageUri: Uri? = null
     private var profileImg: MultipartBody.Part? = null
     private var backImg: MultipartBody.Part? = null
+    private var badge = 0
 
     lateinit var resetProfile : String
     lateinit var resetBackground : String
@@ -127,6 +129,12 @@ class MyPageFragment : Fragment() {
                         .into(img_mypage_background)
 
                     resetBackground = it.data.userBgImg
+
+                    badge = it.data.badge
+                    if(badge == 0) iv_like_level.setImageResource(R.drawable.like_level0)
+                    else if(badge == 1) iv_like_level.setImageResource(R.drawable.like_level1)
+                    else if(badge == 2) iv_like_level.setImageResource(R.drawable.like_level2)
+                    else iv_like_level.setImageResource(R.drawable.like_level3)
                 }
             )
 
