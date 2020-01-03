@@ -127,8 +127,6 @@ lambda 사용
 ### extension function
 
 extension function의 사용
-<img width="465" alt="스크린샷 2020-01-03 오후 11 51 08" src="https://user-images.githubusercontent.com/55845206/71729961-51228900-2e84-11ea-86a2-74887c5a8fbf.png">
-- lambda와 extension 용례
 **********
 - CallExt
 - FireBaseListenerExt
@@ -137,7 +135,11 @@ extension function의 사용
 - UtilExt
 - ViewExt
     <br></br>
+    - lambda와 extension 용례
+<br></br>
+    <img width="465" alt="스크린샷 2020-01-03 오후 11 51 08" src="https://user-images.githubusercontent.com/55845206/71729961-51228900-2e84-11ea-86a2-74887c5a8fbf.png">
     <br></br>
+
     
 ### ConstraintLayout 
 <img width="1074" alt="스크린샷 2020-01-03 오후 11 49 54" src="https://user-images.githubusercontent.com/55845206/71729956-4d8f0200-2e84-11ea-9d69-3b809cbf3654.png">
@@ -145,8 +147,7 @@ extension function의 사용
 모든 뷰를 ConstraintLayout을 이용하여 XML 레이아웃 작성.
  - 채팅과 Custom Dialog은 ConstraintLayout의 match_parent 버그로 사용할 수 없는 이유로 다른 레이아웃으로 작성
  
-    <br></br>
-    <br></br>
+ <br></br>
 
 ### Developer
 
