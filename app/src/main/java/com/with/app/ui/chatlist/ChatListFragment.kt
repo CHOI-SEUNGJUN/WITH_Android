@@ -19,6 +19,7 @@ import com.with.app.data.remote.ResponseChatListArrayData
 import com.with.app.manage.RequestManager
 import com.with.app.ui.chatlist.recylcerview.ChatListAdapter
 import com.with.app.extension.addListener
+import com.with.app.extension.gone
 import com.with.app.extension.safeEnqueue
 import com.with.app.extension.visible
 import com.with.app.ui.evaluation.EvaluateActivity
@@ -62,6 +63,8 @@ class ChatListFragment : Fragment() {
         btn_evaluation.setOnClickListener {
             startActivity(Intent(context, EvaluateActivity::class.java))
         }
+
+        btn_close.setOnClickListener { evaluation.gone() }
 
         data = mutableListOf()
         requestManager.requestChatList()

@@ -3,11 +3,13 @@ package com.with.app.ui.home.recyclerview
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.with.app.R
 import com.with.app.data.remote.ResponseRecommendPlaceArrayData
+import com.with.app.manage.RequestManager
 
-class RecPlaceAdapter (private val context : Context) : RecyclerView.Adapter<RecPlaceViewHolder>() {
+class RecPlaceAdapter(private val context: Context, private val placeClickListener : PlaceClickListener) : RecyclerView.Adapter<RecPlaceViewHolder>() {
     var recPlace = listOf<ResponseRecommendPlaceArrayData>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecPlaceViewHolder {
@@ -21,6 +23,6 @@ class RecPlaceAdapter (private val context : Context) : RecyclerView.Adapter<Rec
     }
 
     override fun onBindViewHolder(holder: RecPlaceViewHolder, position: Int) {
-        holder.bind(recPlace[position], context)
+        holder.bind(recPlace[position], placeClickListener)
     }
 }
