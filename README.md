@@ -15,11 +15,11 @@
 
 * <a href="https://github.com/TEAM-WITH/WITH-Android">Android</a>
 
-  Android Strudio Client
+  Android Studio Client
   
 * <a href="https://github.com/TEAM-WITH/WITH_iOS">iOS</a>
 
-  
+  XCODE - Swift
 
 * <a href="https://github.com/TEAM-WITH/WITH_Server">Server</a>
 
@@ -39,14 +39,14 @@
 
 **********
 
-- manage : 로그인, token 및 서버 통신 모듈 등을 관리하는 코드
-- data : ui에서 화면을 그리는데 사용하는 데이터를 모아놓은 코드
-    - local : 
-    - remote : retrofit을 이용해서 response 클래스와 request 클래스를 관리하는 코드
-    - repository : retrofit 통신을 위한 interface가 구현된 코드
-- extension : 확장함수
-- ui : Activity, Fragment, Adapter, Holder 등 화면을 그려주는 코드
-    - 기능별로 패키지 분류
+- manage : TOKEN 및 서버 통신 모듈 등을 관리하는 코드
+- data : UI에서 화면을 그리는데 사용하는 데이터를 모아놓은 코드
+    - local : 로컬에서 저장하는 데이터 클래스를 모아놓은 코드
+    - remote : Retrofit을 이용해서 response 클래스와 request 클래스를 관리하는 코드
+    - repository : Retrofit 통신을 위한 interface가 구현된 코드
+- extension : 재사용성이 강한 반복되는 코드를 간결하게 만들어주는 kotlin extension 함수들을 모아놓은 코드
+- ui : Activity, Fragment, Adapter, ViewHolder 등 화면을 그려주는 코드
+    - 화면별로 패키지를 분류
     <br></br>
     <br></br>
 
@@ -61,7 +61,8 @@
 - retrofit + gson : Json 데이터를 이용한 rest 서버 통신을 위해 사용 (Callback를 람다를 이용해 만드는 함수 설계로 일관적인 code 개발 구현)
 - google material : google material design 적용을 위해 사용
 - circle imageView : 원형 이미지를 구현하기 위해 사용
-- firebase - Database : ???
+- firebase-database : Firebase realtime db를 이용하여 채팅 구현하기 위해 사용
+- lottie : 애프터이펙트로 만든 애니메이션을 적용하기 위해 사용
     <br></br>
     <br></br>
 
@@ -79,6 +80,7 @@
     * RecyclerView.Adapter에서 채팅 데이터를 각 item viewtype으로 반환하는 로직 구현
           =>  kotlin extension을 최대한 활용하여 보일러 코드를 줄임)
       
+    * WITH DB와 파이어베이스를 연동하여 채팅 목록을 구성함.
       
 
 
@@ -90,7 +92,7 @@
 	* 코드를 매우 단순화시켜 기존 enqueue 코드를 단 두 줄로 가능하게함
 		1)   모듈을 생성(koin DSL - manage 패키지)
 		2)   Android Application Class를 생성 후 그곳에서 startKoin()으로 실행
-		3)  사용하고자 하는 클래스에서 의존성 주입
+		3)   사용하고자 하는 클래스에서 의존성 주입
 		
 		
 
@@ -113,13 +115,15 @@
     <br></br>
     <br></br>
 
-### lamda
+### lambda
 
-lamda 사용
+lambda 사용
 
 ***********
--
--
+* 주요 사용처
+- extension/CallExt : Retrofit Enqueue 코드
+- extension/FireBaseListenerExt : FireBase Single Listener와 Value Event Listener 코드
+* 람다 사용가능한 코드에는 대부분 적용.
 
     
 ### extension function
@@ -127,12 +131,20 @@ lamda 사용
 extension function의 사용
 
 **********
-- CallEx
+- CallExt
 - FireBaseListenerExt
 - GlideExt
 - ToastExt
 - UtilExt
 - ViewExt
+
+    <br></br>
+    <br></br>
+    
+### ConstraintLayout 
+
+모든 뷰를 ConstraintLayout을 이용하여 XML 레이아웃 작성.
+ - 채팅과 Custom Dialog은 ConstraintLayout의 match_parent 버그로 사용할 수 없는 이유로 다른 레이아웃으로 작성
 
     <br></br>
     <br></br>

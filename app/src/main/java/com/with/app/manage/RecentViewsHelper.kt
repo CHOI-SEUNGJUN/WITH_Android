@@ -43,7 +43,8 @@ class RecentViewsHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
         val db = writableDatabase
         if (existView(idx)) {
             Log.e("*****EXIST", idx.toString())
-            db.delete(TABLE_NAME, "$COLUMN_IDX = $idx", null)
+            // db.delete(TABLE_NAME, "$COLUMN_IDX = $idx", null)
+            db.rawQuery("DELETE FROM $TABLE_NAME WHERE $COLUMN_IDX = '$idx'",null)
         }
         Log.e("*****INSERT", idx.toString())
 
@@ -54,7 +55,7 @@ class RecentViewsHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
 
     fun existView(idx: Int) : Boolean{
         val db = writableDatabase
-        val cursor = db.rawQuery("SELECT * FROM $TABLE_NAME WHERE $COLUMN_IDX = $idx", null)
+        val cursor = db.rawQuery("SELECT * FROM $TABLE_NAME WHERE $COLUMN_IDX = '$idx'", null)
         return cursor.count > 0
     }
 

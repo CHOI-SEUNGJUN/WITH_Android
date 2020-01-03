@@ -8,14 +8,11 @@ import android.util.Log
 import com.bumptech.glide.Glide
 import com.with.app.R
 import com.with.app.data.remote.RequestChatOpenData
+import com.with.app.extension.*
 import com.with.app.manage.RecentViewsHelper
 import com.with.app.manage.RequestManager
 import com.with.app.ui.chatroom.ChatRoomActivity
 import com.with.app.ui.posting.PostingActivity
-import com.with.app.extension.gone
-import com.with.app.extension.safeEnqueue
-import com.with.app.extension.toast
-import com.with.app.extension.visible
 import kotlinx.android.synthetic.main.activity_detail_post.*
 import kotlinx.android.synthetic.main.activity_detail_post.img_profile
 import kotlinx.android.synthetic.main.activity_detail_post.txt_date
@@ -50,8 +47,6 @@ class DetailPostActivity : AppCompatActivity(){
             intent.putExtra("boardIdx",boardIdx)
             startActivityForResult(intent, REQUESTCODE)
         }
-
-        //게시글쓴 idx값과 접속한 idx값이 다르면 채팅버튼 보임, 마감이면 회색처리. 채팅버튼 비활성화
     }
 
     private fun getData(){
@@ -77,14 +72,12 @@ class DetailPostActivity : AppCompatActivity(){
                         else if(badge == 2) iv_like_level.setImageResource(R.drawable.like_level2)
                         else iv_like_level.setImageResource(R.drawable.like_level3)
 
-
                         if(it.data.gender == 1) txt_age_gender.text = response.birth.toString()+"살 남자"
                         else txt_age_gender.text = response.birth.toString()+"살 여자"
-                        Glide.with(applicationContext)
-                            .load(response.userImg)
-                            .into(img_profile)
 
-                        //게시글쓴 idx값과 접속한 idx값이 같으면 마감버튼, 수정버튼 보임/채팅버튼 사라짐
+                        img_profile.load(applicationContext,response.userImg)
+                        img_background.load(applicationContext,response.userBgImg)
+
                         if (myIdx == userIdx) {
                             fab.gone()
                             btn_edit.visible()
@@ -95,7 +88,6 @@ class DetailPostActivity : AppCompatActivity(){
                             fab.visible()
                             btn_edit.gone()
                             btn_dealine.gone()
-
                         }
 
                         fab.setOnClickListener {

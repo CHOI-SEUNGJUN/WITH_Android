@@ -99,11 +99,12 @@ class HomeFragment : Fragment(), PlaceClickListener {
             .safeEnqueue(
                 onSuccess = {
                     if (it.success) {
-                        for (item in it.data) if (item.withFlag == 1) withMateData.add(item)
+                        for (item in it.data) if (item.withFlag == 1 && item.evalFlag == 1) withMateData.add(item)
                         if (withMateData.isEmpty()) {
                             tv_with_mate.gone()
                             rv_with_mate.gone()
                         } else {
+                            // withMateData = withMateData.sortedWith(compareBy { it.withDate }).toMutableList()
                             withMateAdapter.mate = withMateData
                             withMateAdapter.notifyDataSetChanged()
                         }

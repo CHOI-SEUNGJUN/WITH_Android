@@ -18,7 +18,11 @@ class WithMateAdapter (private val context : Context) : RecyclerView.Adapter<Wit
     }
 
     override fun getItemCount(): Int {
-        return mate.size
+        return if (mate.size < 6) {
+            mate.size
+        } else {
+            6
+        }
     }
 
     override fun onBindViewHolder(holder: WithMateViewHolder, position: Int) {
