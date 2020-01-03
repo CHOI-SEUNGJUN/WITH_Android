@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.with.app.R
 import com.with.app.data.local.PickerDTO
-import com.with.app.extension.gone
+import com.with.app.extension.*
 import com.with.app.ui.posting.PostingActivity
 import com.with.app.ui.postlist.recylcerview.PostListAdapter
 import com.with.app.manage.PrefManager
@@ -24,10 +24,8 @@ import com.with.app.manage.RequestManager
 import com.with.app.ui.home.HomeFragment
 import com.with.app.ui.recent.RecentSearchesActivity
 import com.with.app.ui.region.ChangeRegionActivity
-import com.with.app.extension.safeEnqueue
-import com.with.app.extension.toast
-import com.with.app.extension.visible
 import kotlinx.android.synthetic.main.date_picker.view.*
+import kotlinx.android.synthetic.main.fragment_chat_list.*
 import kotlinx.android.synthetic.main.fragment_post_list.*
 import kotlinx.android.synthetic.main.fragment_post_list.view.*
 import org.koin.android.ext.android.inject
@@ -200,7 +198,7 @@ class PostListFragment : Fragment()
     }
 
     private fun getDataWhenClick() {
-        loading.visible()
+        activity?.showLoading(loading)
         val regionCode = requestManager.regionManager.code
         startDate = prefManager.startDate
         endDate = prefManager.endDate
@@ -231,14 +229,14 @@ class PostListFragment : Fragment()
                         textView4.gone()
                         switch_filter.gone()
                         rv_postList.gone()
-                        loading.gone()
+                        activity?.hideLoading(loading)
                     } else {
                         txt_blank.gone()
                         textView.visible()
                         textView4.visible()
                         switch_filter.visible()
                         rv_postList.visible()
-                        loading.gone()
+                        activity?.hideLoading(loading)
                         postListAdapter.data = it.data
                     }
                     postListAdapter.notifyDataSetChanged()
@@ -254,7 +252,7 @@ class PostListFragment : Fragment()
                     textView4.gone()
                     switch_filter.gone()
                     rv_postList.gone()
-                    loading.gone()
+                    activity?.hideLoading(loading)
                 }
             )
 
@@ -297,6 +295,11 @@ class PostListFragment : Fragment()
         private const val REQUESTCODE = 0
     }
 
+    override fun onResume() {
+        super.onResume()
+        getDataWhenClick()
+        txt_country.text = requestManager.regionManager.name
+    }
 }
 
 

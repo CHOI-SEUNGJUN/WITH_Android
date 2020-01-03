@@ -8,14 +8,14 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.tabs.TabLayout
 import com.with.app.R
 import com.with.app.extension.toSpanned
-import kotlinx.android.synthetic.main.activity_chagne_region.*
+import kotlinx.android.synthetic.main.activity_change_region.*
 import kotlinx.android.synthetic.main.fragment_region_tabbar.*
 
 class ChangeRegionActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_chagne_region)
+        setContentView(R.layout.activity_change_region)
         val spanText = "<b>떠나고 싶은 곳</b>을<br>선택해주세요".toSpanned()
         tv_region_intro.text = spanText
 

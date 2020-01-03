@@ -15,7 +15,6 @@ import com.with.app.manage.RequestManager
 import com.with.app.ui.detailpost.DetailPostActivity
 import com.with.app.ui.home.HomeFragment
 import com.with.app.ui.region.ChangeRegionActivity
-import com.with.app.extension.safeEnqueue
 import kotlinx.android.synthetic.main.activity_posting.*
 import kotlinx.android.synthetic.main.activity_posting.btn_save
 import kotlinx.android.synthetic.main.activity_posting.switch_filter
@@ -25,10 +24,8 @@ import java.text.SimpleDateFormat
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.with.app.R
+import com.with.app.extension.*
 import com.with.app.manage.PrefManager
-import com.with.app.extension.gone
-import com.with.app.extension.toast
-import com.with.app.extension.visible
 import kotlinx.android.synthetic.main.dialog_posting.*
 
 class PostingActivity : AppCompatActivity() {
@@ -76,10 +73,12 @@ class PostingActivity : AppCompatActivity() {
         }
 
         btn_save.setOnClickListener {
+            showLoading(loading)
             regionCode = requestManager.regionManager.code
 
             if(regionCode.isEmpty()||edt_title.text.isEmpty()||edt_content.text.isEmpty()||edt_date.text.isEmpty()){
                 toast("내용을 모두 입력해주세요")
+                hideLoading(loading)
                 return@setOnClickListener
             }
 
