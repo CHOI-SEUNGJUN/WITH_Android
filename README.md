@@ -23,18 +23,18 @@
 
 * <a href="https://github.com/TEAM-WITH/WITH_Server">Server</a>
 
-​       Node.js API Server
+   Node.js API Server
 
-
-
-
+    <br></br>
+    <br></br>
 
 ### Work Flow
 
 ********
 ![위드 work-flow](https://user-images.githubusercontent.com/50166893/71722841-cafb4800-2e6d-11ea-82e8-eaabaecbc864.PNG)
 
-
+    <br></br>
+    <br></br>
 
 ### 패키지 구조
 
@@ -50,10 +50,8 @@
 - extension : 확장함수
 - ui : Activity, Fragment, Adapter, Holder 등 화면을 그려주는 코드
     - 기능별로 패키지 분류
-
-
-
-
+    <br></br>
+    <br></br>
 
 ### 사용 라이브러리
 
@@ -67,10 +65,8 @@
 - google material : google material design 적용을 위해 사용
 - circle imageView : 원형 이미지를 구현하기 위해 사용
 - firebase - Database : ???
-
-
-
-
+    <br></br>
+    <br></br>
 
 ### 핵심기능
 
@@ -117,10 +113,8 @@
     - Glide 라이브러리를 사용하여 간편하게 배치
   - getRealPathFromURI() 함수에서 이미지의 절대 파일 경로를 가져옴
   - Multipart로 서버에 해당 이미지 전송
-
-
-
-
+    <br></br>
+    <br></br>
 
 ### lamda
 
@@ -130,9 +124,8 @@ lamda 사용
 -
 -
 
-
-
-
+    <br></br>
+    <br></br>
 
 ### extension function
 
@@ -146,15 +139,14 @@ extension function의 사용
 - UtilExt
 - ViewExt
 
-
-
-
+    <br></br>
+    <br></br>
 
 ### Developer
 
 개발자
 ***********
 
-**최승준**(CHOI-SEUNGJUN)
-**조현아**(whgusdk98)
+**최승준**(CHOI-SEUNGJUN)</br>
+**조현아**(whgusdk98)</br>
 **석영현**(yeonghyeonSeok)
