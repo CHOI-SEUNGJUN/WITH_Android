@@ -124,9 +124,6 @@ class PostingActivity : AppCompatActivity() {
             val dialogView = layoutInflater.inflate(R.layout.date_picker, null)
             dialogView.btn_select_all.gone()
 
-            //removeView(dialogView.start_datepicker)
-            //removeView(dialogView.end_datepicker)
-
             val dialog = AlertDialog.Builder(this)
                 .setView(dialogView)
                 .show()
@@ -176,9 +173,4 @@ class PostingActivity : AppCompatActivity() {
     private fun TextView.toBlack() {
         this.setTextColor(Color.BLACK)
     }
-
-    private fun removeView(picker : DatePicker) {
-        if (picker.parent != null) (picker.parent as ViewGroup).removeView(picker)
-    }
-
 }
