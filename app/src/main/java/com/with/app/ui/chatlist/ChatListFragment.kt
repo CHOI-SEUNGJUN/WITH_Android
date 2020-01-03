@@ -17,12 +17,9 @@ import com.with.app.data.local.ChatListVO
 import com.with.app.data.local.ChatUserVO
 import com.with.app.data.remote.ResponseChatListArrayData
 import com.with.app.data.remote.RoomIdData
+import com.with.app.extension.*
 import com.with.app.manage.RequestManager
 import com.with.app.ui.chatlist.recylcerview.ChatListAdapter
-import com.with.app.extension.addListener
-import com.with.app.extension.gone
-import com.with.app.extension.safeEnqueue
-import com.with.app.extension.visible
 import com.with.app.ui.evaluation.EvaluateActivity
 import kotlinx.android.synthetic.main.fragment_chat_list.*
 import org.koin.android.ext.android.inject
@@ -58,8 +55,8 @@ class ChatListFragment : Fragment() {
     }
 
     private fun init() {
-        loading.playAnimation()
-        loading.loop(true)
+        activity?.showLoading(loading)
+
 
         reference = FirebaseDatabase.getInstance().reference
         usersReference = reference.child("users")
@@ -96,10 +93,10 @@ class ChatListFragment : Fragment() {
                     }
                 },
                 onError = {
-                    loading.gone()
+                    activity?.hideLoading(loading)
                 },
                 onFailure = {
-                    loading.gone()
+                    activity?.hideLoading(loading)
                 }
             )
 
@@ -134,7 +131,7 @@ class ChatListFragment : Fragment() {
             }
         )
         if(data.isEmpty()) {
-            loading.gone()
+            activity?.hideLoading(loading)
         }
     }
 }

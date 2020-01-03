@@ -115,6 +115,7 @@ class DetailPostActivity : AppCompatActivity(){
                                     }
                                 })
                         }
+
                     }
                 }
             )

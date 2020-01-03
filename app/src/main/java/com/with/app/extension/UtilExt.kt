@@ -1,8 +1,12 @@
 package com.with.app.extension
 
+import android.app.Activity
+import android.content.Context
 import android.os.Build
 import android.text.Html
 import android.text.Spanned
+import android.view.WindowManager
+import com.airbnb.lottie.LottieAnimationView
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -36,4 +40,17 @@ fun isDiffDays(now : String?, next : String?) : Boolean {
     val nextDate = pattern.parse(next)
     val diffs = (nextDate.time - nowDate.time) / (60 * 1000)
     return diffs.toString() == "0"
+}
+
+fun Activity.showLoading(ani : LottieAnimationView) {
+    ani.playAnimation()
+    ani.visible()
+    ani.loop(true)
+    window?.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+}
+
+fun Activity.hideLoading(ani : LottieAnimationView) {
+    ani.pauseAnimation()
+    ani.gone()
+    window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
 }
