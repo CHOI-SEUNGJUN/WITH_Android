@@ -75,6 +75,7 @@ class ChatRoomActivity : AppCompatActivity() {
             cl_tutorial.gone()
             edt_chat.isEnabled = true
             requestManager.authManager.flag = true
+            edt_chat.isEnabled = true
             layout_toolbar.isEnabled = true
             layout_post.isEnabled = true
             layout_send.isEnabled = true

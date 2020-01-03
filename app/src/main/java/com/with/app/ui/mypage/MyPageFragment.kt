@@ -18,6 +18,7 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
@@ -174,6 +175,10 @@ class MyPageFragment : Fragment() {
             when(event?.action) {
 
                 MotionEvent.ACTION_UP -> {
+                    val animation = AnimationUtils.loadAnimation(context!!, R.anim.fade)
+                    img_camera1.startAnimation(animation)
+                    img_camera2.startAnimation(animation)
+                    
                     btn_mypage_cancle.visibility = View.VISIBLE
                     tv_mypage.text = "개인정보 수정"
                     cl_back.setBackgroundResource(R.drawable.edit_bg)
