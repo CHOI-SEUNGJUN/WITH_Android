@@ -74,6 +74,8 @@ class EvaluateActivity : AppCompatActivity() {
         }
 
         btn_right.setOnClickListener {
+            var animationEvalRight = AnimationUtils.loadAnimation(this, R.anim.fade)
+
             var evalCount = tv_elevation_count.text.toString().toInt()
             var dataPosition = evalCount - 1
 
@@ -92,17 +94,14 @@ class EvaluateActivity : AppCompatActivity() {
                         tv_elevation_count.text = currentCount
                         container.load(this, evalData[nextMate].regionImgE, loadingContainer, evalContainer)
 
-
-                        var animationEval = AnimationUtils.loadAnimation(this, R.anim.fade)
-                        evalContainer.visibility = View.VISIBLE
-                        evalContainer.startAnimation(animationEval)
-
                         if (count > 1) {
                             btn_left.visibility = View.VISIBLE
                         }
                         if (count == totalCount) {
                             btn_right.visibility = View.GONE
                         }
+                        evalContainer.visibility = View.VISIBLE
+                        evalContainer.startAnimation(animationEvalRight)
                     },
                     onError = {
                         toast("네트워크 통신 오류")
@@ -118,9 +117,13 @@ class EvaluateActivity : AppCompatActivity() {
             var dataPosition = evalCount - 1
             btn_right.visibility = View.VISIBLE
 
+            var animationEvalLeft = AnimationUtils.loadAnimation(this, R.anim.fade)
+
             requestManager.requestNoEvaluation(RoomIdData(evalData[dataPosition].roomId))
                 .safeEnqueue(
                     onSuccess = {
+                        evalContainer.visibility = View.GONE
+
                         var prevMate = evalCount - 2
                         var count = evalCount - 1
                         name = evalData[prevMate].name
@@ -137,6 +140,9 @@ class EvaluateActivity : AppCompatActivity() {
                         if (count == 1) {
                             btn_left.visibility = View.GONE
                         }
+
+                        evalContainer.visibility = View.VISIBLE
+                        evalContainer.startAnimation(animationEvalLeft)
                     },
                     onError = {
                         toast("네트워크 통신 오류")
@@ -156,23 +162,31 @@ class EvaluateActivity : AppCompatActivity() {
 
             var end = false
             when (event?.action) {
+
                 MotionEvent.ACTION_DOWN -> {
                     btn_elevation_bottom.setBackgroundColor(Color.parseColor("#311a80"))
                 }
 
                 MotionEvent.ACTION_UP -> {
+                    var animationEvalBottom = AnimationUtils.loadAnimation(this, R.anim.fade)
+
                     btn_elevation_bottom.setBackgroundColor(Color.parseColor("#4DFFFFFF"))
                     if (bottomText == "위드하기") finish()
                     if (evalCount == totalCount) {
                         requestManager.requestPutDisLike(RoomIdData(evalData[dataPosition].roomId))
                             .safeEnqueue(
                                 onSuccess = {
+                                    evalContainer.visibility = View.GONE
+
                                     tv_elevation_intro.text = "감사합니다\n앞으로도 W!TH해요 :)"
                                     btn_elevation_bottom.text = "위드하기"
                                     btn_left.visibility = View.GONE
                                     btn_right.visibility = View.GONE
                                     btn_elevation_top.visibility = View.GONE
                                     container.setImageResource(R.drawable.evaluationimg)
+
+                                    evalContainer.visibility = View.VISIBLE
+                                    evalContainer.startAnimation(animationEvalBottom)
 
                                 },
                                 onFailure = {
@@ -190,6 +204,8 @@ class EvaluateActivity : AppCompatActivity() {
                         requestManager.requestPutDisLike(RoomIdData(evalData[dataPosition].roomId))
                             .safeEnqueue(
                                 onSuccess = {
+                                    evalContainer.visibility = View.GONE
+
                                     name = evalData[evalCount].name
                                     var count = evalCount + 1
                                     tv_elevation_intro.text = "<b>${name}님</b>과의<br>동행은 어떠셨나요?".toSpanned()
@@ -197,12 +213,16 @@ class EvaluateActivity : AppCompatActivity() {
                                     btn_elevation_bottom.text = "별로였어요"
                                     tv_elevation_count.text = count.toString()
                                     container.load(this, evalData[0].regionImgE, loadingContainer, evalContainer)
+
                                     if (count > 1) {
                                         btn_left.visibility = View.VISIBLE
                                     }
                                     if (count == totalCount) {
                                         btn_right.visibility = View.GONE
                                     }
+                                    evalContainer.visibility = View.VISIBLE
+                                    evalContainer.startAnimation(animationEvalBottom)
+
                                 },
                                 onFailure = {
                                     toast("네트워크 통신 오류")
@@ -213,8 +233,6 @@ class EvaluateActivity : AppCompatActivity() {
                                     Log.e("onError", it.toString())
                                 }
                             )
-
-
                     }
                 }
             }
@@ -232,11 +250,15 @@ class EvaluateActivity : AppCompatActivity() {
                 }
 
                 MotionEvent.ACTION_UP -> {
+                    var animationEvalTop = AnimationUtils.loadAnimation(this, R.anim.fade)
+
                     btn_elevation_top.setBackgroundColor(Color.parseColor("#4DFFFFFF"))
                     if (evalCount == totalCount) {
                         requestManager.requestPutLike(RoomIdData(evalData[dataPosition].roomId))
                             .safeEnqueue(
                                 onSuccess = {
+                                    evalContainer.visibility = View.GONE
+
                                     tv_elevation_intro.text = "감사합니다\n앞으로도 W!TH해요 :)"
                                     btn_elevation_bottom.text = "위드하기"
                                     btn_elevation_top.visibility = View.GONE
@@ -248,6 +270,9 @@ class EvaluateActivity : AppCompatActivity() {
                                     btn_left.visibility = View.GONE
                                     btn_right.visibility = View.GONE
                                     container.setImageResource(R.drawable.evaluationimg)
+
+                                    evalContainer.visibility = View.VISIBLE
+                                    evalContainer.startAnimation(animationEvalTop)
                                 },
                                 onFailure = {
                                     toast("네트워크 통신 오류")
@@ -262,6 +287,8 @@ class EvaluateActivity : AppCompatActivity() {
                         requestManager.requestPutLike(RoomIdData(evalData[dataPosition].roomId))
                             .safeEnqueue(
                                 onSuccess = {
+                                    evalContainer.visibility = View.GONE
+
                                     name = evalData[evalCount].name
                                     var count = evalCount + 1
                                     var count_string = count.toString()
@@ -278,6 +305,8 @@ class EvaluateActivity : AppCompatActivity() {
                                     if (count == totalCount) {
                                         btn_right.visibility = View.GONE
                                     }
+                                    evalContainer.visibility = View.VISIBLE
+                                    evalContainer.startAnimation(animationEvalTop)
                                 },
                                 onFailure = {
                                     toast("네트워크 통신 오류")
