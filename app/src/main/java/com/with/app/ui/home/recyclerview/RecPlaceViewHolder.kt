@@ -21,7 +21,6 @@ class RecPlaceViewHolder(view : View) : RecyclerView.ViewHolder(view) {
         img_recommend_place.load(itemView, recPlace.regionImgS)
 
         itemView.setOnClickListener{
-
         }
     }
 }

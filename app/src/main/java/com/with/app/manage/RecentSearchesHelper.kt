@@ -36,11 +36,14 @@ class RecentSearchesHelper(context: Context) : SQLiteOpenHelper(context, DATABAS
 
     @Throws(SQLiteConstraintException::class)
     fun insertKeyword(keyword: String): Boolean {
-        val db = writableDatabase
-        val values = ContentValues()
-        values.put("keyword", keyword)
-        db.insert(TABLE_NAME, null, values)
-        return true
+        if (keyword != "") {
+            val db = writableDatabase
+            val values = ContentValues()
+            values.put("keyword", keyword)
+            db.insert(TABLE_NAME, null, values)
+            return true
+        }
+        return false
     }
 
     @Throws(SQLiteConstraintException::class)

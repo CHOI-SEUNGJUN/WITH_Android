@@ -156,7 +156,7 @@ interface AuthRepositoryInterface {
      */
     @PUT("/mypage/like")
     fun putLike(
-        @Body roomId : String,
+        @Body data : RoomIdData,
         @Header("token") token: String
     ) : Call<MessageData>
 
@@ -165,7 +165,7 @@ interface AuthRepositoryInterface {
      */
     @PUT("/mypage/dislike")
     fun putDisLike(
-        @Body roomId : String,
+        @Body data : RoomIdData,
         @Header("token") token: String
     ) : Call<MessageData>
 
@@ -174,7 +174,7 @@ interface AuthRepositoryInterface {
      */
     @PUT("/mypage/noEvaluation")
     fun putNoEvaluation(
-        @Body roomId : String,
+        @Body data : RoomIdData,
         @Header("token") token: String
     ) : Call<MessageData>
 

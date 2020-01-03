@@ -1,10 +1,7 @@
 package com.with.app.manage
 
 import android.content.Context
-import com.with.app.data.remote.RequestBoardData
-import com.with.app.data.remote.RequestChatOpenData
-import com.with.app.data.remote.RequestSignInData
-import com.with.app.data.remote.RequestWithInviteData
+import com.with.app.data.remote.*
 import com.with.app.data.repository.AuthRepositoryInterface
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -63,11 +60,11 @@ class RequestManager(val context: Context, val authManager: AuthManager, val reg
     fun requestPutMyPage(intro: RequestBody, userImg: MultipartBody.Part?, userBgImg: MultipartBody.Part?)
             = retrofit.putMyPage(intro, userImg, userBgImg, authManager.token)
 
-    fun requestPutLike(roomId : String) = retrofit.putLike(roomId, authManager.token)
+    fun requestPutLike(roomId : RoomIdData) = retrofit.putLike(roomId, authManager.token)
 
-    fun requestPutDisLike(roomId : String) = retrofit.putDisLike(roomId, authManager.token)
+    fun requestPutDisLike(roomId : RoomIdData) = retrofit.putDisLike(roomId, authManager.token)
 
-    fun requestNoEvaluation(roomId : String) = retrofit.putNoEvaluation(roomId, authManager.token)
+    fun requestNoEvaluation(roomId : RoomIdData) = retrofit.putNoEvaluation(roomId, authManager.token)
 
 }
 
