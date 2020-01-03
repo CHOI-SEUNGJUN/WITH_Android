@@ -4,8 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.with.app.R
-import com.with.app.data.ChatListVO
-import com.with.app.data.remote.ResponseChatListArrayData
+import com.with.app.data.local.ChatListVO
 
 class ChatListAdapter(private val data : MutableList<ChatListVO>) : RecyclerView.Adapter<ChatListViewHolder>() {
 

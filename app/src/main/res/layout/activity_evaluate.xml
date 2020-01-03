@@ -7,7 +7,7 @@
     android:background="@drawable/evaluationimg"
     android:clipToPadding="false"
     android:visibility="visible"
-    tools:context=".ui.chatlist.evaluation.EvaluateActivity">
+    tools:context=".ui.evaluation.EvaluateActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_elevation_toolbar"
@@ -57,7 +57,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
-            android:id="@+id/img_close_button"
+            android:id="@+id/btn_close"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"

@@ -1,6 +1,4 @@
-package com.with.app.data
-
-import android.content.Context
+package com.with.app.data.local
 
 data class ChatUserVO (
     var boardIdx : Int = 0,

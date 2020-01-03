@@ -1,6 +1,6 @@
 package com.with.app.ui.postlist.recylcerview
 
-import com.with.app.data.PostItem
+import com.with.app.data.local.PostItem
 
 
 internal class PostListDummy {

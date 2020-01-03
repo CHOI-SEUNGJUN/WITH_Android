@@ -48,6 +48,7 @@
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:textSize="14sp"
+            android:textStyle="bold"
             android:layout_marginBottom="20dp"
             android:background="@drawable/corner_primary_6dp"
             android:text="수락하기"

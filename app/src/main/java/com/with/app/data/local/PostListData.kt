@@ -1,6 +1,4 @@
-package com.with.app.data
-
-import com.google.gson.annotations.SerializedName
+package com.with.app.data.local
 
 data class PostListData(
     val status: Int,
