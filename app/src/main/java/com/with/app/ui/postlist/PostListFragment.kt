@@ -13,6 +13,7 @@ import android.widget.DatePicker
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
 import com.with.app.R
 import com.with.app.data.local.PickerDTO
 import com.with.app.extension.gone
@@ -39,6 +40,8 @@ class PostListFragment : Fragment()
     private var filter = 0
     private var keyword = ""
 
+    private lateinit var loading : LottieAnimationView
+
     private var startDate : String = prefManager.startDate
     private var endDate : String = prefManager.endDate
     private lateinit var rvPostList : RecyclerView
@@ -51,13 +54,13 @@ class PostListFragment : Fragment()
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_post_list, container, false)
-
         view.btn_posting.setOnClickListener {
             val intent = Intent(context, PostingActivity::class.java)
             startActivity(intent)
         }
 
         edt_search = view.findViewById(R.id.edt_search)
+        loading = view.findViewById(R.id.loading)
         GetPostListData(view)
 
         if (prefManager.startDate != prefManager.endDate) {
@@ -76,6 +79,9 @@ class PostListFragment : Fragment()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        loading.playAnimation()
+        loading.loop(true)
 
         txt_country.text = requestManager.regionManager.name
 
@@ -180,9 +186,6 @@ class PostListFragment : Fragment()
         }
     }
 
-/*    override fun onRefresh() {
-        //새로고침 구현
-    }*/
 
     private fun GetPostListData(v : View) {
         rvPostList = v.findViewById(R.id.rv_postList)
@@ -197,6 +200,7 @@ class PostListFragment : Fragment()
     }
 
     private fun getDataWhenClick() {
+        loading.visible()
         val regionCode = requestManager.regionManager.code
         startDate = prefManager.startDate
         endDate = prefManager.endDate
@@ -216,8 +220,7 @@ class PostListFragment : Fragment()
         }
         postListAdapter.data = listOf()
         postListAdapter.notifyDataSetChanged()
-        Log.v("YGYG", startDate)
-        Log.v("YGYG", endDate)
+
 
         requestManager.requestSearchBoard(regionCode,startDate,endDate,keyword,filter)
             .safeEnqueue (
@@ -228,12 +231,14 @@ class PostListFragment : Fragment()
                         textView4.gone()
                         switch_filter.gone()
                         rv_postList.gone()
+                        loading.gone()
                     } else {
                         txt_blank.gone()
                         textView.visible()
                         textView4.visible()
                         switch_filter.visible()
                         rv_postList.visible()
+                        loading.gone()
                         postListAdapter.data = it.data
                     }
                     postListAdapter.notifyDataSetChanged()
@@ -249,6 +254,7 @@ class PostListFragment : Fragment()
                     textView4.gone()
                     switch_filter.gone()
                     rv_postList.gone()
+                    loading.gone()
                 }
             )
 

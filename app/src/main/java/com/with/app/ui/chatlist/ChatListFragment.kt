@@ -16,6 +16,7 @@ import com.with.app.R
 import com.with.app.data.local.ChatListVO
 import com.with.app.data.local.ChatUserVO
 import com.with.app.data.remote.ResponseChatListArrayData
+import com.with.app.data.remote.RoomIdData
 import com.with.app.manage.RequestManager
 import com.with.app.ui.chatlist.recylcerview.ChatListAdapter
 import com.with.app.extension.addListener
@@ -57,14 +58,25 @@ class ChatListFragment : Fragment() {
     }
 
     private fun init() {
+        loading.playAnimation()
+        loading.loop(true)
+
         reference = FirebaseDatabase.getInstance().reference
         usersReference = reference.child("users")
 
         btn_evaluation.setOnClickListener {
             startActivity(Intent(context, EvaluateActivity::class.java))
+            evaluation.gone()
         }
 
-        btn_close.setOnClickListener { evaluation.gone() }
+        btn_close.setOnClickListener {
+            evaluation.gone()
+            for (item in responseData) {
+                if (item.evalFlag == 2) {
+                    requestManager.requestNoEvaluation(RoomIdData(item.roomId)).safeEnqueue()
+                }
+            }
+        }
 
         data = mutableListOf()
         requestManager.requestChatList()
@@ -82,6 +94,12 @@ class ChatListFragment : Fragment() {
                         }
                         fireBaseChatListener()
                     }
+                },
+                onError = {
+                    loading.gone()
+                },
+                onFailure = {
+                    loading.gone()
                 }
             )
 
@@ -115,5 +133,8 @@ class ChatListFragment : Fragment() {
                 }
             }
         )
+        if(data.isEmpty()) {
+            loading.gone()
+        }
     }
 }
