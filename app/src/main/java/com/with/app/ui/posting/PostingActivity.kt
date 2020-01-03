@@ -131,8 +131,6 @@ class PostingActivity : AppCompatActivity() {
                 .setView(dialogView)
                 .show()
 
-            dialog.window?.setLayout(290*4, 500*4)
-
             dialogView.apply {
                 btn_close.setOnClickListener {
                     dialog.cancel()
