@@ -92,7 +92,6 @@ class ChatRoomActivity : AppCompatActivity() {
         sendMessage()
         inviteMessage()
 
-        Log.e("withFlag", withFlag.toString())
         passData = AdapterPassData(myIdx, otherIdx, otherName, otherProfile, chatRoomId, boardIdx, withFlag)
 
         adapter = ChatRoomAdapter(passData, requestManager)
@@ -214,7 +213,7 @@ class ChatRoomActivity : AppCompatActivity() {
             onChildAdded = { snap, _ ->
                 if (snap.key == "unSeenCount") otherCount = snap.value.toString().toInt()
                 if (snap.key == "inviteFlag") inviteFlag = snap.value.toString().toInt()
-                if (inviteFlag == 1) {
+                if (inviteFlag > 0) {
                     btn_invite.setImageResource(R.drawable.send_invitation_unselected_btn)
                     btn_invite.isEnabled = false
                 }
@@ -222,7 +221,7 @@ class ChatRoomActivity : AppCompatActivity() {
             onChildChanged = { snap, _ ->
                 if (snap.key == "unSeenCount") otherCount = snap.value.toString().toInt()
                 if (snap.key == "inviteFlag") inviteFlag = snap.value.toString().toInt()
-                if (inviteFlag == 1) {
+                if (inviteFlag > 0) {
                     btn_invite.setImageResource(R.drawable.send_invitation_unselected_btn)
                     btn_invite.isEnabled = false
                 }
