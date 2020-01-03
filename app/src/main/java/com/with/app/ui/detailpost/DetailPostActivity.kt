@@ -5,7 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.bumptech.glide.Glide
+import android.view.animation.AnimationUtils
 import com.with.app.R
 import com.with.app.data.remote.RequestChatOpenData
 import com.with.app.extension.*
@@ -15,6 +15,7 @@ import com.with.app.ui.chatroom.ChatRoomActivity
 import com.with.app.ui.posting.PostingActivity
 import kotlinx.android.synthetic.main.activity_detail_post.*
 import kotlinx.android.synthetic.main.activity_detail_post.img_profile
+import kotlinx.android.synthetic.main.activity_detail_post.iv_like_level
 import kotlinx.android.synthetic.main.activity_detail_post.txt_date
 import kotlinx.android.synthetic.main.activity_detail_post.txt_region
 import kotlinx.android.synthetic.main.activity_detail_post.txt_title
@@ -50,6 +51,9 @@ class DetailPostActivity : AppCompatActivity(){
     }
 
     private fun getData(){
+        val animation = AnimationUtils.loadAnimation(applicationContext, R.anim.fade)
+        layout_post_detail.inVisible()
+
         Log.e("boardIdx", boardIdx.toString())
         requestManager.requestDetailBoard(boardIdx)
             .safeEnqueue (
@@ -115,6 +119,8 @@ class DetailPostActivity : AppCompatActivity(){
                                     }
                                 })
                         }
+                        layout_post_detail.startAnimation(animation)
+                        layout_post_detail.visible()
                     }
                 }
             )
