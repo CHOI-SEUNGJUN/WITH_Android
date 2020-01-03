@@ -1,6 +1,7 @@
 package com.with.app.ui.signin
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -27,6 +28,10 @@ class SignInActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
 
+        btn_login.setBackgroundColor(0)
+
+
+
         tv_signin_intro.text = "안녕하세요!<br><b>로그인</b>을 해주세요".toSpanned()
 
         edt_signin_email.addTextChangedListener(object : TextWatcher {
@@ -38,8 +43,16 @@ class SignInActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if(edt_signin_email.text.toString().isNotBlank() && edt_signin_password.text.toString().isNotBlank()) {
+                if(!edt_signin_email.text.toString().isEmpty() && !edt_signin_password.text.toString().isEmpty()) {
                     btn_login.setBackgroundResource(R.drawable.corner_primary_6dp)
+                    btn_login.setTextColor(Color.parseColor("#ffffff"))
+                }
+                else if(edt_signin_email.text.toString().isEmpty()) {
+                    btn_login.setBackgroundColor(0)
+                    btn_login.setBackgroundColor(Color.parseColor("#000000"))
+                    btn_login.setBackgroundResource(R.drawable.corner_very_light_pink_6dp)
+                    btn_login.setTextColor(Color.parseColor("#a8a8a8"))
+
                 }
             }
         })
@@ -54,9 +67,16 @@ class SignInActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if(edt_signin_email.text.toString().isNotBlank() && edt_signin_password.text.toString().isNotBlank()) {
-                    Log.e("**", edt_signin_email.text.toString())
+                if(!edt_signin_email.text.toString().isEmpty() && !edt_signin_password.text.toString().isEmpty()) {
                     btn_login.setBackgroundResource(R.drawable.corner_primary_6dp)
+                    btn_login.setTextColor(Color.parseColor("#ffffff"))
+                } else if (edt_signin_password.text.toString().isEmpty()){
+
+                    btn_login.setBackgroundColor(Color.parseColor("#000000"))
+
+                    btn_login.setBackgroundResource(R.drawable.corner_very_light_pink_6dp)
+                    btn_login.setTextColor(Color.parseColor("#a8a8a8"))
+
                 }
             }
         })

@@ -1,5 +1,6 @@
 package com.with.app.ui.chatlist.evaluation
 
+import android.animation.ObjectAnimator
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -66,6 +67,7 @@ class EvaluateActivity : AppCompatActivity() {
                 btn_right.visibility = View.GONE
             }
         }
+
         btn_left.setOnClickListener {
             var eval_count = tv_elevation_count.text.toString().toInt()
             btn_right.visibility = View.VISIBLE
