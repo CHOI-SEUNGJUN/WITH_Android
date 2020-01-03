@@ -25,16 +25,13 @@
 
    Node.js API Server
 
-    <br></br>
-    <br></br>
 
 ### Work Flow
 
 ********
 ![위드 work-flow](https://user-images.githubusercontent.com/50166893/71722841-cafb4800-2e6d-11ea-82e8-eaabaecbc864.PNG)
 
-    <br></br>
-    <br></br>
+    
 
 ### 패키지 구조
 
