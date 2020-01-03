@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
@@ -52,6 +53,12 @@ class EvaluateActivity : AppCompatActivity() {
         loading.playAnimation()
         loading.loop(true)
 
+        evalContainer.visibility = View.GONE
+
+        var animationEval = AnimationUtils.loadAnimation(this, R.anim.fade)
+        evalContainer.visibility = View.VISIBLE
+        evalContainer.startAnimation(animationEval)
+
         val totalCount = evalData.size
         var name = evalData[0].name
         container.load(this, evalData[0].regionImgE, loadingContainer, evalContainer)
@@ -73,6 +80,8 @@ class EvaluateActivity : AppCompatActivity() {
             requestManager.requestNoEvaluation(RoomIdData(evalData[dataPosition].roomId))
                 .safeEnqueue(
                     onSuccess = {
+                        evalContainer.visibility = View.GONE
+
                         var nextMate = evalCount
                         var count = evalCount + 1
                         name = evalData[nextMate].name
@@ -82,6 +91,11 @@ class EvaluateActivity : AppCompatActivity() {
                         btn_elevation_bottom.text = "별로였어요"
                         tv_elevation_count.text = currentCount
                         container.load(this, evalData[nextMate].regionImgE, loadingContainer, evalContainer)
+
+
+                        var animationEval = AnimationUtils.loadAnimation(this, R.anim.fade)
+                        evalContainer.visibility = View.VISIBLE
+                        evalContainer.startAnimation(animationEval)
 
                         if (count > 1) {
                             btn_left.visibility = View.VISIBLE
