@@ -119,8 +119,6 @@ class PostListFragment : Fragment()
                 .setView(dialogView)
                 .show()
 
-            dialog.window?.setLayout(289*4, 500*4)
-
             dialogView.apply {
                 // split한 데이터를 datepicker에 설정
                 when {
