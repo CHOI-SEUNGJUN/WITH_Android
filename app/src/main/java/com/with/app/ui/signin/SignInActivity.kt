@@ -90,7 +90,6 @@ class SignInActivity : AppCompatActivity() {
                     onSuccess = {
                         if (it.success && it.message == "로그인 성공") {
                             requestManager.authManager.token = it.data.token
-                            Log.e("token", it.data.token.toString())
                             requestManager.authManager.idx = it.data.userIdx
                             requestManager.authManager.name = it.data.name
                             startActivity(Intent(this, MainActivity::class.java))
