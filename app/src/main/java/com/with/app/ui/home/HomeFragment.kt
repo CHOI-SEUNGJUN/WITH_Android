@@ -51,9 +51,9 @@ class HomeFragment : Fragment() {
         getBgImg()
 
         val bannerList = arrayListOf(
-            Banner("img1"),
-            Banner("img3"),
-            Banner("img2")
+            Banner("event_img"),
+            Banner("event_img_2"),
+            Banner("event_img_3")
         )
 
         val adapter = BannerPagerAdapter(bannerList)
