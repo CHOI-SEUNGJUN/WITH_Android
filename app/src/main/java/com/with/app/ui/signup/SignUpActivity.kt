@@ -253,11 +253,12 @@ class SignUpActivity : AppCompatActivity() {
                 profileImg
             ).safeEnqueue(
                 onSuccess = {
-                    if (it.success && it.message == "회원가입 성공") {
-                        showSuccessPopup()
-                    } else {
-                        toast(it.message)
-                    }
+//                    if (it.success && it.message == "회원가입 성공") {
+//                        showSuccessPopup()
+//                    } else {
+//                        toast(it.message)
+//                    }
+                    showSuccessPopup()
                 }
                 ,
                 onError = {
@@ -350,8 +351,6 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun showSuccessPopup() {
-
-
         MaterialDialog(this).show {
             customView(R.layout.dialog_signup_success)
             textView7.text = "<font color=\"311a80\"><b>W!TH</font></b>와 <b>안전</b>하고 <b>간편</b>하게<br>동행을 구해보세요!".toSpanned()
