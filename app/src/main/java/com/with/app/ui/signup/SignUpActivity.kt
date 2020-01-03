@@ -239,7 +239,7 @@ class SignUpActivity : AppCompatActivity() {
 
 
 
-            if (userID.isEmpty() || password.isEmpty() || name.isEmpty() || birth.isEmpty() || !b_id || !b_pw || !b_pwck || gender == 0) {
+            if (userID.isEmpty() || password.isEmpty() || name.isEmpty() || birth.isEmpty() || profileImg == null || !b_id || !b_pw || !b_pwck || gender == 0) {
                 toast("회원가입 조건에 맞게 모두 채워주세요!")
                 return@setOnClickListener
             }
