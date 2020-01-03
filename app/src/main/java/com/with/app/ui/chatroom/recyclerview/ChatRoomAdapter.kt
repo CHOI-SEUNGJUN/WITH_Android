@@ -221,13 +221,7 @@ class ChatRoomAdapter(private val passData: AdapterPassData, private val request
                         value = snap.getValue(ChatUserVO::class.java)!!
                     })
 
-                holder.accept.setOnClickListener {
-                    val vo = ChatVO(
-                        MY_INVITE,
-                        "동행 성사 메시지입니다.-${temp}",
-                        passData.myIdx,
-                        returnNowDate()
-                    )
+                holder.accept.setOnClickListener { val vo = ChatVO(MY_INVITE, "동행 성사 메시지입니다.-${temp}", passData.myIdx, returnNowDate())
                     temp = temp!!
                         .substring(2)
                         .replace("년", ".")
@@ -238,16 +232,8 @@ class ChatRoomAdapter(private val passData: AdapterPassData, private val request
                     requestManager.requestWithInvite(RequestWithInviteData(passData.chatRoomId!!, temp!!))
                         .safeEnqueue(
                             onSuccess = {
-                                setLastMessage(
-                                    value,
-                                    tempValue,
-                                    "동행 성사 메시지입니다."
-                                )
-                                setLastTime(
-                                    value,
-                                    tempValue,
-                                    returnNowDate()
-                                )
+                                setLastMessage(value, tempValue, "동행 성사 메시지입니다.")
+                                setLastTime(value, tempValue, returnNowDate())
 
                                 value.unSeenCount = 0
                                 chatReference.push().setValue(vo)

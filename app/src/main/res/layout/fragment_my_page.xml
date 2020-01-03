@@ -6,7 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".ui.mypage.MyPageFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loading"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="70dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_fileName="loading.json" />
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_toolbar"

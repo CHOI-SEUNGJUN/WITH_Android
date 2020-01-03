@@ -3,6 +3,7 @@ package com.with.app.ui.chatroom
 import android.os.Bundle
 import android.app.AlertDialog
 import android.content.Intent
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.*
@@ -50,6 +51,7 @@ class ChatRoomActivity : AppCompatActivity() {
 
     private var inviteFlag = 0
     private var withFlag = -1
+    private var textDate = ""
 
     private lateinit var reference: DatabaseReference
     private lateinit var chatReference: DatabaseReference
@@ -63,7 +65,6 @@ class ChatRoomActivity : AppCompatActivity() {
 
     private fun init() {
         if(!requestManager.authManager.flag) {
-            // TODO : 튜토리얼 보여주고 저장
             cl_tutorial.visible()
             edt_chat.isEnabled = false
             layout_toolbar.isEnabled = false
@@ -91,15 +92,8 @@ class ChatRoomActivity : AppCompatActivity() {
         sendMessage()
         inviteMessage()
 
-        passData = AdapterPassData(
-            myIdx,
-            otherIdx,
-            otherName,
-            otherProfile,
-            chatRoomId,
-            boardIdx,
-            withFlag
-        )
+        Log.e("withFlag", withFlag.toString())
+        passData = AdapterPassData(myIdx, otherIdx, otherName, otherProfile, chatRoomId, boardIdx, withFlag)
 
         adapter = ChatRoomAdapter(passData, requestManager)
         rv_chat.setLinearLayoutManager(applicationContext)
@@ -117,7 +111,8 @@ class ChatRoomActivity : AppCompatActivity() {
         tv_region.text = intent.getStringExtra("regionName")
         boardIdx = intent.getIntExtra("boardIdx", 0)
         tv_title.text = intent.getStringExtra("title")
-        tv_date.text = "${intent.getStringExtra("startDate")} ~ ${intent.getStringExtra("endDate")}"
+        textDate = "${intent.getStringExtra("startDate")} ~ ${intent.getStringExtra("endDate")}"
+        tv_date.text = textDate
 
         otherProfile = intent.getStringExtra("userImg")
 
@@ -144,9 +139,7 @@ class ChatRoomActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        if (posterIdx != myIdx) {
-            btn_invite.gone()
-        }
+        if (posterIdx != myIdx) btn_invite.gone()
 
         if (withFlag == 1) {
             btn_invite.setImageResource(R.drawable.send_invitation_unselected_btn)
@@ -163,29 +156,17 @@ class ChatRoomActivity : AppCompatActivity() {
                 .show()
 
             view.apply {
+                tv_curDate.text = textDate
                 tv_otherName.text = otherName
 
                 btn_close.setOnClickListener { dialog.cancel() }
                 btn_goWith.setOnClickListener {
                     meetDate = "${dp_with.year}년 ${dp_with.month + 1}월 ${dp_with.dayOfMonth}일"
                     val nowDate = returnNowDate()
-                    val chatVO = ChatVO(
-                        MY_INVITE,
-                        "동행 신청 메시지입니다.-${meetDate}",
-                        myIdx,
-                        nowDate
-                    )
+                    val chatVO = ChatVO(MY_INVITE, "동행 신청 메시지입니다.-${meetDate}", myIdx, nowDate)
 
-                    setLastMessage(
-                        value,
-                        tempValue,
-                        "동행 신청 메시지입니다."
-                    )
-                    setLastTime(
-                        value,
-                        tempValue,
-                        nowDate
-                    )
+                    setLastMessage(value, tempValue, "동행 신청 메시지입니다.")
+                    setLastTime(value, tempValue, nowDate)
                     setInviteFlag(value, tempValue, 1)
                     chatPush(chatVO)
 
@@ -200,23 +181,10 @@ class ChatRoomActivity : AppCompatActivity() {
             if (edt_chat.text.toString().isBlank())
                 return@setOnClickListener
 
-            val chatVO = ChatVO(
-                MY_CHAT,
-                edt_chat.text.toString(),
-                myIdx,
-                returnNowDate()
-            )
+            val chatVO = ChatVO(MY_CHAT, edt_chat.text.toString(), myIdx, returnNowDate())
 
-            setLastMessage(
-                value,
-                tempValue,
-                edt_chat.text.toString()
-            )
-            setLastTime(
-                value,
-                tempValue,
-                returnNowDate()
-            )
+            setLastMessage(value, tempValue, edt_chat.text.toString())
+            setLastTime(value, tempValue, returnNowDate())
 
             chatPush(chatVO)
 

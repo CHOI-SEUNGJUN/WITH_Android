@@ -42,11 +42,9 @@ class RecentViewsHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
     fun insertView(idx: Int){
         val db = writableDatabase
         if (existView(idx)) {
-            Log.e("*****EXIST", idx.toString())
             // db.delete(TABLE_NAME, "$COLUMN_IDX = $idx", null)
             db.rawQuery("DELETE FROM $TABLE_NAME WHERE $COLUMN_IDX = '$idx'",null)
         }
-        Log.e("*****INSERT", idx.toString())
 
         val values = ContentValues()
         values.put("idx", idx)

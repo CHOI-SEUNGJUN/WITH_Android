@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.View
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
@@ -25,6 +26,12 @@ fun ImageView.load(context: Context, url : String, loading : ConstraintLayout, c
 
 fun ImageView.load(view: View, url : String) {
     Glide.with(view)
+        .load(url)
+        .into(this)
+}
+
+fun ImageView.load(fragment: Fragment, url : String) {
+    Glide.with(fragment)
         .load(url)
         .into(this)
 }

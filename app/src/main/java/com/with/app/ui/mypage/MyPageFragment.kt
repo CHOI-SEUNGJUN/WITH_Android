@@ -25,8 +25,8 @@ import com.afollestad.materialdialogs.customview.customView
 import com.bumptech.glide.Glide
 
 import com.with.app.R
+import com.with.app.extension.*
 import com.with.app.manage.RequestManager
-import com.with.app.extension.safeEnqueue
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_mypage.*
 import kotlinx.android.synthetic.main.fragment_my_page.*
@@ -64,7 +64,6 @@ class MyPageFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_my_page, container, false)
     }
 
@@ -89,14 +88,15 @@ class MyPageFragment : Fragment() {
     }
 
     fun resetMyPageView(){
+        activity?.showLoading(loading)
         cl_back.visibility = View.GONE
         returnMypage()
         edt_mypage_intro.setText(resetIntro)
-//
+
         Glide.with(context!!)
             .load(resetProfile)
             .into(img_mypage_profile)
-//
+
         Glide.with(context!!)
             .load(resetBackground)
             .into(img_mypage_background)
@@ -104,9 +104,11 @@ class MyPageFragment : Fragment() {
         var animation = AnimationUtils.loadAnimation(context!!, R.anim.fade)
         cl_back.visibility = View.VISIBLE
         cl_back.startAnimation(animation)
+        activity?.hideLoading(loading)
     }
 
     fun makeMyPageView() {
+        activity?.showLoading(loading)
         requestManager.requestMyPage()
             .safeEnqueue (
                 onSuccess = { it ->
@@ -124,16 +126,11 @@ class MyPageFragment : Fragment() {
 
                     resetIntro = edt_mypage_intro.text.toString()
 
-
-                    Glide.with(this)
-                        .load(it.data.userImg)
-                        .into(img_mypage_profile)
+                    img_mypage_profile.load(this, it.data.userImg)
 
                     resetProfile = it.data.userImg
 
-                    Glide.with(this)
-                        .load(it.data.userBgImg)
-                        .into(img_mypage_background)
+                    img_mypage_background.load(this, it.data.userBgImg)
 
                     resetBackground = it.data.userBgImg
 
@@ -146,9 +143,13 @@ class MyPageFragment : Fragment() {
                     var animation = AnimationUtils.loadAnimation(context!!, R.anim.fade)
                     cl_back.visibility = View.VISIBLE
                     cl_back.startAnimation(animation)
-
-
-
+                    activity?.hideLoading(loading)
+                },
+                onError = {
+                    activity?.hideLoading(loading)
+                },
+                onFailure = {
+                    activity?.hideLoading(loading)
                 }
             )
 
@@ -176,57 +177,42 @@ class MyPageFragment : Fragment() {
             val column_index = cursor!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
             cursor.moveToFirst()
             return cursor.getString(column_index)
-        } finally {
-            cursor?.close()
-        }
+        } finally { cursor?.close() }
     }
-
-
 
     fun makeSettingView() {
         btn_setting.setOnTouchListener { _, event ->
             when(event?.action) {
-
                 MotionEvent.ACTION_UP -> {
                     btn_mypage_cancle.visibility = View.VISIBLE
                     tv_mypage.text = "개인정보 수정"
                     cl_back.setBackgroundResource(R.drawable.edit_bg)
                     activity?.img_disabled_navi?.visibility = View.VISIBLE
                     edt_mypage_intro.isEnabled = true
-                    img_badge.visibility = View.INVISIBLE
-                    img_camera2.visibility = View.VISIBLE
-                    img_camera1.visibility = View.VISIBLE
-                    btn_setting.visibility = View.GONE
-                    //btn_setting.visibility = View.GONE
-                    tv_save.visibility = View.VISIBLE
+                    img_badge.inVisible()
+                    img_camera2.visible()
+                    img_camera1.visible()
+                    btn_setting.gone()
+                    tv_save.visible()
                     val input = edt_mypage_intro.text.toString().length
-                    tv_text_count.text = "$input" + "/ 17"
-                    tv_text_count.visibility = View.VISIBLE
+                    tv_text_count.text = "$input/ 17"
+                    tv_text_count.visible()
                 }
             }
             true
         }
 
-        img_camera1.setOnClickListener {
-            changeBackImage()
+        img_camera1.setOnClickListener { changeBackImage() }
 
-        }
-
-        img_camera2.setOnClickListener {
-            changeProfileImage()
-        }
+        img_camera2.setOnClickListener { changeProfileImage() }
 
         edt_mypage_intro.setOnFocusChangeListener { _, hasFocus ->
-            if(hasFocus) {
-                line_Edt.visibility = View.VISIBLE
-            } else {
-                line_Edt.visibility = View.INVISIBLE
-            }
+            if(hasFocus) line_Edt.visible()
+            else line_Edt.inVisible()
         }
 
         edt_mypage_intro.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -234,15 +220,11 @@ class MyPageFragment : Fragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val input = edt_mypage_intro.text.toString().length
-                tv_text_count.text = "$input" + "/ 17"
+                tv_text_count.text = "$input/ 17"
             }
         })
 
-        cl_back.setOnClickListener {
-
-            view!!.requestFocus()
-
-        }
+        cl_back.setOnClickListener { view!!.requestFocus() }
 
         cl_back.setOnFocusChangeListener{ _, hasFocus ->
             if(hasFocus) {
@@ -253,44 +235,38 @@ class MyPageFragment : Fragment() {
         }
 
         tv_save.setOnClickListener {
-            Log.e("save", "save")
-            Log.v("intro", edt_mypage_intro.text.toString())
-            Log.e("profileImg", profileImg.toString())
-            Log.e("backImg", backImg.toString())
+            activity?.showLoading(loading)
+
             requestManager.requestPutMyPage(
                 RequestBody.create(MediaType.parse("text.plain"), edt_mypage_intro.text.toString()),
-                profileImg,
-                backImg
-            ).safeEnqueue(
+                profileImg, backImg).safeEnqueue(
                 onSuccess = {
-
                     returnMypage()
-
+                    activity?.hideLoading(loading)
                 },
                 onFailure = {
                     Log.e("fail", it.raw().toString())
+                    activity?.hideLoading(loading)
+                },
+                onError = {
+                    activity?.hideLoading(loading)
                 }
             )
         }
     }
 
     fun returnMypage() {
-
-        btn_mypage_cancle.visibility = View.GONE
+        btn_mypage_cancle.gone()
         tv_mypage.text = "마이페이지"
         cl_back.setBackgroundResource(0)
-        activity?.img_disabled_navi?.visibility = View.GONE
+        activity?.img_disabled_navi?.gone()
         edt_mypage_intro.isEnabled = false
-        img_badge.visibility = View.VISIBLE
-        img_camera2.visibility = View.GONE
-        img_camera1.visibility = View.GONE
-        btn_setting.visibility = View.VISIBLE
-        //btn_setting.visibility = View.GONE
-        tv_save.visibility = View.GONE
-        tv_text_count.visibility = View.INVISIBLE
-
-
-
+        img_badge.visible()
+        img_camera2.gone()
+        img_camera1.gone()
+        btn_setting.visible()
+        tv_save.gone()
+        tv_text_count.inVisible()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -321,7 +297,6 @@ class MyPageFragment : Fragment() {
                         val img = File(getRealPathFromURI(context!!, imageUri!!))
 
                         profileImg = MultipartBody.Part.createFormData("userImg", img.name, photoBody)
-                        Log.v("MyPage Activity", "$profileImg")
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -356,7 +331,6 @@ class MyPageFragment : Fragment() {
                         val img = File(getRealPathFromURI(context!!, imageUri!!))
 
                         backImg = MultipartBody.Part.createFormData("userBgImg", img.name, photoBody)
-                        Log.v("MyPage Activity", "$backImg")
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -365,6 +339,4 @@ class MyPageFragment : Fragment() {
             }
         }
     }
-
-
 }
