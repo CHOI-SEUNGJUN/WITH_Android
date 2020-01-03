@@ -334,10 +334,10 @@ class SignUpActivity : AppCompatActivity() {
     private fun showSettingPopup() {
         MaterialDialog(this).show {
             customView(R.layout.dialog_sign_up)
-            btn_ok.setOnClickListener {
+            btn_dialog_mypage_ok.setOnClickListener {
                 finish()
             }
-            btn_cancle.setOnClickListener {
+            btn_dialog_mypage_cancle.setOnClickListener {
                 dismiss()
             }
         }

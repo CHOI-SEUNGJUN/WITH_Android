@@ -19,12 +19,15 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.customview.customView
 import com.bumptech.glide.Glide
 
 import com.with.app.R
 import com.with.app.manage.RequestManager
 import com.with.app.extension.safeEnqueue
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.dialog_mypage.*
 import kotlinx.android.synthetic.main.fragment_my_page.*
 import kotlinx.android.synthetic.main.fragment_my_page.img_mypage_profile
 import okhttp3.MediaType
@@ -49,6 +52,11 @@ class MyPageFragment : Fragment() {
     private var profileImg: MultipartBody.Part? = null
     private var backImg: MultipartBody.Part? = null
 
+    lateinit var resetProfile : String
+    lateinit var resetBackground : String
+    lateinit var resetIntro : String
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -61,6 +69,33 @@ class MyPageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         makeMyPageView()
         makeSettingView()
+
+        btn_mypage_cancle.setOnClickListener {
+
+            MaterialDialog(context!!).show {
+                customView(R.layout.dialog_mypage)
+                btn_dialog_mypage_ok.setOnClickListener {
+                    dismiss()
+                    resetMyPageView()
+                }
+                btn_dialog_mypage_cancle.setOnClickListener {
+                    dismiss()
+                }
+            }
+        }
+    }
+
+    fun resetMyPageView(){
+        returnMypage()
+        edt_mypage_intro.setText(resetIntro)
+//
+        Glide.with(context!!)
+            .load(resetProfile)
+            .into(img_mypage_profile)
+//
+        Glide.with(context!!)
+            .load(resetBackground)
+            .into(img_mypage_background)
     }
 
     fun makeMyPageView() {
@@ -79,13 +114,19 @@ class MyPageFragment : Fragment() {
                     }
                     edt_mypage_intro.setText(it.data.intro.toString())
 
+                    resetIntro = edt_mypage_intro.text.toString()
+
                     Glide.with(this)
                         .load(it.data.userImg)
                         .into(img_mypage_profile)
 
+                    resetProfile = it.data.userImg
+
                     Glide.with(this)
                         .load(it.data.userBgImg)
                         .into(img_mypage_background)
+
+                    resetBackground = it.data.userBgImg
                 }
             )
 
@@ -125,7 +166,7 @@ class MyPageFragment : Fragment() {
             when(event?.action) {
 
                 MotionEvent.ACTION_UP -> {
-                    btn_cancle.visibility = View.VISIBLE
+                    btn_mypage_cancle.visibility = View.VISIBLE
                     tv_mypage.text = "개인정보 수정"
                     cl_back.setBackgroundResource(R.drawable.edit_bg)
                     activity?.img_disabled_navi?.visibility = View.VISIBLE
@@ -173,6 +214,7 @@ class MyPageFragment : Fragment() {
                 tv_text_count.text = "$input" + "/ 17"
             }
         })
+
         cl_back.setOnClickListener {
 
             view!!.requestFocus()
@@ -183,6 +225,7 @@ class MyPageFragment : Fragment() {
             if(hasFocus) {
                 val imm = context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow(cl_back.windowToken, 0)
+                view!!.requestFocus()
             }
         }
 
@@ -210,7 +253,7 @@ class MyPageFragment : Fragment() {
 
     fun returnMypage() {
 
-        btn_cancle.visibility = View.GONE
+        btn_mypage_cancle.visibility = View.GONE
         tv_mypage.text = "마이페이지"
         cl_back.setBackgroundResource(0)
         activity?.img_disabled_navi?.visibility = View.GONE
