@@ -17,7 +17,7 @@
 
   Android Strudio Client
   
-* <a href="https://github.com/TEAM-WITH/WITH-iOS">iOS</a>
+* <a href="https://github.com/TEAM-WITH/WITH_iOS">iOS</a>
 
   
 
