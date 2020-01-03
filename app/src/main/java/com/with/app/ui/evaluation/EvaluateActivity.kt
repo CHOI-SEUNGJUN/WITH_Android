@@ -1,11 +1,11 @@
 package com.with.app.ui.evaluation
 
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.with.app.R
@@ -21,7 +21,6 @@ class EvaluateActivity : AppCompatActivity() {
 
     private val requestManager : RequestManager by inject()
     private val evalData : MutableList<ResponseChatListArrayData> = mutableListOf()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,12 +53,14 @@ class EvaluateActivity : AppCompatActivity() {
     }
 
     private fun setListener() {
+        loading.playAnimation()
+        loading.loop(true)
+
         val totalCount = evalData.size
         var name = evalData[0].name
+        container.load(this, evalData[0].regionImgE, loadingContainer, evalContainer)
         tv_elevation_intro.text = "<b>${name}님</b>과의<br>동행은 어떠셨나요?".toSpanned()
         tv_elevation_count_total.text = "$totalCount"
-
-
 
         if(totalCount == 1) {
             btn_left.gone()
@@ -81,9 +82,11 @@ class EvaluateActivity : AppCompatActivity() {
                         name = evalData[nextMate].name
                         var currentCount = count.toString()
                         tv_elevation_intro.text = "<b>${name}님</b>과의<br>동행은 어떠셨나요?".toSpanned()
-                        btn_elevation_top.text = "좋았어요"
+                        btn_elevation_top.text = "즐거웠어요"
                         btn_elevation_bottom.text = "별로였어요"
                         tv_elevation_count.text = currentCount
+                        container.load(this, evalData[nextMate].regionImgE, loadingContainer, evalContainer)
+
                         if (count > 1) {
                             btn_left.visibility = View.VISIBLE
                         }
@@ -113,9 +116,11 @@ class EvaluateActivity : AppCompatActivity() {
                         name = evalData[prevMate].name
                         var currentCount = count.toString()
                         tv_elevation_intro.text = "<b>${name}님</b>과의<br>동행은 어떠셨나요?".toSpanned()
-                        btn_elevation_top.text = "좋았어요"
+                        btn_elevation_top.text = "즐거웠어요"
                         btn_elevation_bottom.text = "별로였어요"
                         tv_elevation_count.text = currentCount
+                        container.load(this, evalData[0].regionImgE, loadingContainer, evalContainer)
+
                         if (count > 1) {
                             btn_left.visibility = View.VISIBLE
                         }
@@ -157,6 +162,8 @@ class EvaluateActivity : AppCompatActivity() {
                                     btn_left.visibility = View.GONE
                                     btn_right.visibility = View.GONE
                                     btn_elevation_top.visibility = View.GONE
+                                    container.setImageResource(R.drawable.evaluationimg)
+
                                 },
                                 onFailure = {
                                     toast("네트워크 통신 오류")
@@ -176,9 +183,10 @@ class EvaluateActivity : AppCompatActivity() {
                                     name = evalData[evalCount].name
                                     var count = evalCount + 1
                                     tv_elevation_intro.text = "<b>${name}님</b>과의<br>동행은 어떠셨나요?".toSpanned()
-                                    btn_elevation_top.text = "좋았어요"
+                                    btn_elevation_top.text = "즐거웠어요"
                                     btn_elevation_bottom.text = "별로였어요"
                                     tv_elevation_count.text = count.toString()
+                                    container.load(this, evalData[0].regionImgE, loadingContainer, evalContainer)
                                     if (count > 1) {
                                         btn_left.visibility = View.VISIBLE
                                     }
@@ -229,6 +237,7 @@ class EvaluateActivity : AppCompatActivity() {
                                     tv_elevation_count_total.visibility = View.GONE
                                     btn_left.visibility = View.GONE
                                     btn_right.visibility = View.GONE
+                                    container.setImageResource(R.drawable.evaluationimg)
                                 },
                                 onFailure = {
                                     toast("네트워크 통신 오류")
@@ -248,10 +257,11 @@ class EvaluateActivity : AppCompatActivity() {
                                     var count_string = count.toString()
 
                                     tv_elevation_intro.text = "<b>${name}님</b>과의<br>동행은 어떠셨나요?".toSpanned()
-                                    btn_elevation_top.setText("좋았어요")
-                                    btn_elevation_bottom.setText("별로였어요")
-                                    tv_elevation_count.setText(count_string)
+                                    btn_elevation_top.text = "즐거웠어요"
+                                    btn_elevation_bottom.text = "별로였어요"
+                                    tv_elevation_count.text = count_string
                                     btn_close.visibility = View.VISIBLE
+                                    container.load(this, evalData[0].regionImgE, loadingContainer, evalContainer)
                                     if (count > 1) {
                                         btn_left.visibility = View.VISIBLE
                                     }
