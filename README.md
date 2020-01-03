@@ -95,8 +95,6 @@
 		3)   사용하고자 하는 클래스에서 의존성 주입
 		
 		
-
-
 - DatePicker
 	* 날짜 선택 컨트롤을 커스텀하여 다이얼로그 창에 구현
 	
@@ -137,15 +135,14 @@ extension function의 사용
 - ToastExt
 - UtilExt
 - ViewExt
-
     <br></br>
     <br></br>
     
 ### ConstraintLayout 
-
+**********
 모든 뷰를 ConstraintLayout을 이용하여 XML 레이아웃 작성.
  - 채팅과 Custom Dialog은 ConstraintLayout의 match_parent 버그로 사용할 수 없는 이유로 다른 레이아웃으로 작성
-
+ 
     <br></br>
     <br></br>
 
