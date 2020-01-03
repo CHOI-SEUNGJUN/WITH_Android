@@ -65,6 +65,7 @@ class ChatRoomActivity : AppCompatActivity() {
         if(!requestManager.authManager.flag) {
             // TODO : 튜토리얼 보여주고 저장
             cl_tutorial.visible()
+            edt_chat.isEnabled = false
             layout_toolbar.isEnabled = false
             layout_post.isEnabled = false
             layout_send.isEnabled = false
@@ -73,6 +74,7 @@ class ChatRoomActivity : AppCompatActivity() {
         img_tutorial_cancle.setOnClickListener {
             cl_tutorial.gone()
             requestManager.authManager.flag = true
+            edt_chat.isEnabled = true
             layout_toolbar.isEnabled = true
             layout_post.isEnabled = true
             layout_send.isEnabled = true
