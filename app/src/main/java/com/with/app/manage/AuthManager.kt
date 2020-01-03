@@ -40,11 +40,22 @@ class AuthManager(context: Context) {
             }
         }
 
+    var flag: Boolean
+        get() {
+            return preferences.getBoolean(FLAG_KEY, false)
+        }
+        set(value) {
+            preferences.edit {
+                putBoolean(FLAG_KEY, value)
+            }
+        }
+
     private companion object {
         const val AUTH_PREFERENCES = "auth"
         const val TOKEN_KEY = "token"
         const val IDX_KEY = "idx"
         const val NAME_KEY = "name"
+        const val FLAG_KEY = "flag"
     }
 }
 

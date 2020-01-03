@@ -3,6 +3,7 @@ package com.with.app.ui.chatroom
 import android.os.Bundle
 import android.app.AlertDialog
 import android.content.Intent
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.*
 import com.with.app.R
@@ -61,6 +62,22 @@ class ChatRoomActivity : AppCompatActivity() {
     }
 
     private fun init() {
+        if(!requestManager.authManager.flag) {
+            // TODO : 튜토리얼 보여주고 저장
+            cl_tutorial.visible()
+            layout_toolbar.isEnabled = false
+            layout_post.isEnabled = false
+            layout_send.isEnabled = false
+        }
+
+        img_tutorial_cancle.setOnClickListener {
+            cl_tutorial.gone()
+            requestManager.authManager.flag = true
+            layout_toolbar.isEnabled = true
+            layout_post.isEnabled = true
+            layout_send.isEnabled = true
+        }
+
         setBasicData()
 
         reference = FirebaseDatabase.getInstance().reference
