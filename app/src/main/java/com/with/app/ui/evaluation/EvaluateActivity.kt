@@ -41,11 +41,7 @@ class EvaluateActivity : AppCompatActivity() {
                 if (it.success) {
                     val data = it.data
                     Log.e("data", data.toString())
-                    for (item in data) {
-                        if (item.evalFlag == 2) {
-                            evalData.add(item)
-                        }
-                    }
+                    for (item in data) if (item.evalFlag == 2) evalData.add(item)
                     setListener()
                 }
             }
@@ -289,6 +285,10 @@ class EvaluateActivity : AppCompatActivity() {
         MaterialDialog(this).show {
             customView(R.layout.dialog_evaluation)
             btn_eval_ok.setOnClickListener {
+                for(item in evalData) {
+                    requestManager.requestNoEvaluation(RoomIdData(item.roomId))
+                        .safeEnqueue()
+                }
                 finish()
             }
             btn_eval_no.setOnClickListener {

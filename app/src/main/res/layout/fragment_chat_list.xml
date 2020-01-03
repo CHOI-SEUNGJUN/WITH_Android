@@ -24,6 +24,12 @@
 
     </LinearLayout>
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loading"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        app:lottie_fileName="loading.json" />
 
 
     <androidx.recyclerview.widget.RecyclerView
