@@ -127,8 +127,6 @@ lambda 사용
 ### extension function
 
 extension function의 사용
-<img width="465" alt="스크린샷 2020-01-03 오후 11 51 08" src="https://user-images.githubusercontent.com/55845206/71729961-51228900-2e84-11ea-86a2-74887c5a8fbf.png">
-- lambda와 extension 용례
 **********
 - CallExt
 - FireBaseListenerExt
@@ -137,6 +135,10 @@ extension function의 사용
 - UtilExt
 - ViewExt
     <br></br>
+    <img width="465" alt="스크린샷 2020-01-03 오후 11 51 08" src="https://user-images.githubusercontent.com/55845206/71729961-51228900-2e84-11ea-86a2-74887c5a8fbf.png">
+    <br></br>
+- lambda와 extension 용례
+
     <br></br>
     
 ### ConstraintLayout 
