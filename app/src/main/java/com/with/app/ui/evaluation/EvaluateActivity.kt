@@ -10,6 +10,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.with.app.R
 import com.with.app.data.remote.ResponseChatListArrayData
+import com.with.app.data.remote.RoomIdData
 import com.with.app.extension.*
 import com.with.app.manage.RequestManager
 import kotlinx.android.synthetic.main.activity_evaluate.*
@@ -25,13 +26,8 @@ class EvaluateActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_evaluate)
-
         init()
         setData()
-
-        //tv_elevation_count.setText("$eval_count")
-
-
     }
 
     private fun init() {
@@ -77,7 +73,7 @@ class EvaluateActivity : AppCompatActivity() {
             var evalCount = tv_elevation_count.text.toString().toInt()
             var dataPosition = evalCount - 1
 
-            requestManager.requestNoEvaluation(evalData[dataPosition].roomId)
+            requestManager.requestNoEvaluation(RoomIdData(evalData[dataPosition].roomId))
                 .safeEnqueue(
                     onSuccess = {
                         var nextMate = evalCount
@@ -106,9 +102,10 @@ class EvaluateActivity : AppCompatActivity() {
 
         btn_left.setOnClickListener {
             var evalCount = tv_elevation_count.text.toString().toInt()
+            var dataPosition = evalCount - 1
             btn_right.visibility = View.VISIBLE
 
-            requestManager.requestNoEvaluation(evalData[evalCount].roomId)
+            requestManager.requestNoEvaluation(RoomIdData(evalData[dataPosition].roomId))
                 .safeEnqueue(
                     onSuccess = {
                         var prevMate = evalCount - 2
@@ -140,6 +137,7 @@ class EvaluateActivity : AppCompatActivity() {
         btn_elevation_bottom.setOnTouchListener { v, event ->
             var evalCount = tv_elevation_count.text.toString().toInt()
             var bottomText = btn_elevation_bottom.text.toString()
+            var dataPosition = evalCount - 1
 
             var end = false
             when (event?.action) {
@@ -151,7 +149,7 @@ class EvaluateActivity : AppCompatActivity() {
                     btn_elevation_bottom.setBackgroundColor(Color.parseColor("#4DFFFFFF"))
                     if (bottomText == "위드하기") finish()
                     if (evalCount == totalCount) {
-                        requestManager.requestPutDisLike(evalData[evalCount].roomId)
+                        requestManager.requestPutDisLike(RoomIdData(evalData[dataPosition].roomId))
                             .safeEnqueue(
                                 onSuccess = {
                                     tv_elevation_intro.text = "감사합니다\n앞으로도 W!TH해요 :)"
@@ -171,8 +169,8 @@ class EvaluateActivity : AppCompatActivity() {
                             )
 
                     } else {
-                        Log.e("id", evalData[evalCount].roomId)
-                        requestManager.requestPutDisLike(evalData[evalCount].roomId)
+                        Log.e("id", evalData[dataPosition].roomId)
+                        requestManager.requestPutDisLike(RoomIdData(evalData[dataPosition].roomId))
                             .safeEnqueue(
                                 onSuccess = {
                                     name = evalData[evalCount].name
@@ -207,7 +205,7 @@ class EvaluateActivity : AppCompatActivity() {
 
         btn_elevation_top.setOnTouchListener { v, event ->
             var evalCount = tv_elevation_count.text.toString().toInt()
-
+            var dataPosition = evalCount - 1
             var top_text = btn_elevation_top.text.toString()
 
             when (event?.action) {
@@ -218,7 +216,7 @@ class EvaluateActivity : AppCompatActivity() {
                 MotionEvent.ACTION_UP -> {
                     btn_elevation_top.setBackgroundColor(Color.parseColor("#4DFFFFFF"))
                     if (evalCount == totalCount) {
-                        requestManager.requestPutLike(evalData[evalCount].roomId)
+                        requestManager.requestPutLike(RoomIdData(evalData[dataPosition].roomId))
                             .safeEnqueue(
                                 onSuccess = {
                                     tv_elevation_intro.text = "감사합니다\n앞으로도 W!TH해요 :)"
@@ -242,7 +240,7 @@ class EvaluateActivity : AppCompatActivity() {
 
 
                     } else {
-                        requestManager.requestPutLike(evalData[evalCount].roomId)
+                        requestManager.requestPutLike(RoomIdData(evalData[dataPosition].roomId))
                             .safeEnqueue(
                                 onSuccess = {
                                     name = evalData[evalCount].name

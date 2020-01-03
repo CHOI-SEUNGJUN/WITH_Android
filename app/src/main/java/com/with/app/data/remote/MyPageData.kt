@@ -20,3 +20,7 @@ data class ResponsePutMyPageData (
     val success : Boolean,
     val message : String
 )
+
+data class RoomIdData (
+    val roomId : String
+)
