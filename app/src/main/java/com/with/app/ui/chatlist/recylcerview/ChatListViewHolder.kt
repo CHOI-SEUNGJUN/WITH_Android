@@ -1,6 +1,8 @@
 package com.with.app.ui.chatlist.recylcerview
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -24,10 +26,16 @@ class ChatListViewHolder(view : View) : RecyclerView.ViewHolder(view) {
     val tv_date : TextView = view.findViewById(R.id.tv_date)
     val tv_chat_remain : TextView = view.findViewById(R.id.tv_chat_remain)
 
+    @SuppressLint("ResourceAsColor")
     fun bind(item : ChatListVO) {
         val ourServer = item.ourServer
         val fireBase = item.fireBase
         tv_name.text = ourServer.name
+        if (ourServer.withFlag == 1 ) {
+            tv_title.setTextColor(Color.parseColor("#311a80"))
+        } else {
+            tv_title.setTextColor(Color.parseColor("#000000"))
+        }
         tv_title.text = ourServer.title
         tv_message.text = fireBase.lastMessage
 

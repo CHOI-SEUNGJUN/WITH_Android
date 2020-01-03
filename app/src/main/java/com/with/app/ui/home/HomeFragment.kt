@@ -3,6 +3,7 @@ package com.with.app.ui.home
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -99,6 +100,7 @@ class HomeFragment : Fragment(), PlaceClickListener {
             .safeEnqueue(
                 onSuccess = {
                     if (it.success) {
+                        withMateData = mutableListOf()
                         for (item in it.data) if (item.withFlag == 1 && item.evalFlag == 1) withMateData.add(item)
                         if (withMateData.isEmpty()) {
                             tv_with_mate.gone()
@@ -108,8 +110,17 @@ class HomeFragment : Fragment(), PlaceClickListener {
                             withMateAdapter.mate = withMateData
                             withMateAdapter.notifyDataSetChanged()
                         }
+                    } else {
+                        tv_with_mate.gone()
+                        rv_with_mate.gone()
                     }
-                })
+                },
+                onFailure = {
+                    tv_with_mate.gone()
+                    rv_with_mate.gone()
+                }
+
+            )
     }
 
     private fun makeRecPlace() {

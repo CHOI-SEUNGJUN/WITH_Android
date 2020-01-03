@@ -115,6 +115,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="46dp"
                     android:lineSpacingExtra="3sp"
+                    android:visibility="visible"
                     android:text="W!TH MATE"
                     android:textStyle="bold"
                     android:textColor="@android:color/black"
@@ -127,10 +128,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:visibility="visible"
                     android:clipToPadding="false"
                     android:paddingStart="5dp"
                     android:paddingEnd="20dp"
-                    android:visibility="visible"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_with_mate" />
 

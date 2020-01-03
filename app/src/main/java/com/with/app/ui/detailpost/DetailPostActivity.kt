@@ -65,6 +65,7 @@ class DetailPostActivity : AppCompatActivity(){
                         else txt_filter.text = "미적용"
                         userIdx = response.userIdx
                         txt_name.text = response.name
+                        txt_state_message.text = response.intro
 
                         badge = response.badge
                         if(badge == 0) iv_like_level.setImageResource(R.drawable.like_level0)

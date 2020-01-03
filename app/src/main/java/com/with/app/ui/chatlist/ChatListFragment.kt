@@ -117,7 +117,7 @@ class ChatListFragment : Fragment() {
                     snap, _ ->
                 value = snap.getValue(ChatUserVO::class.java)!!
                 for (item in responseData) {
-                    if (item.roomId == snap.key)
+                    if (item.roomId == snap.key && !value.lastMessage.isNullOrBlank())
                         data.add(ChatListVO(item, value))
                 }
                 adapter.notifyDataSetChanged()
