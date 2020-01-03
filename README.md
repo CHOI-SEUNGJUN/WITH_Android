@@ -7,7 +7,7 @@
 안전하고 간편한 여행 동행 플랫폼 'W!TH'
 
 ***
-![WITH 그림자](https://user-images.githubusercontent.com/50166893/71722574-a783cd80-2e6c-11ea-82a1-eb62218093d0.jpg){: .alineleft}
+![WITH 그림자](https://user-images.githubusercontent.com/50166893/71722574-a783cd80-2e6c-11ea-82a1-eb62218093d0.jpg)
 
 
 
