@@ -7,10 +7,10 @@
 
     <ImageView
         android:id="@+id/img_banner"
-        android:layout_width="309dp"
-        android:layout_height="102dp"
+        android:layout_width="314dp"
+        android:layout_height="160dp"
         android:background="@drawable/corner_sub_6dp"
-        android:scaleType="centerCrop"
+        android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/dog" />

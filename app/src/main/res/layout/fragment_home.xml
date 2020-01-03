@@ -216,8 +216,8 @@
                     <androidx.viewpager.widget.ViewPager
                         android:id="@+id/vp_banner"
                         android:layout_width="match_parent"
-                        android:layout_height="102dp"
-                        android:layout_marginStart="20dp"
+                        android:layout_height="160dp"
+                        android:layout_marginStart="17dp"
                         android:layout_marginTop="60dp"
                         android:layout_marginEnd="15dp"
                         android:alwaysDrawnWithCache="false"
