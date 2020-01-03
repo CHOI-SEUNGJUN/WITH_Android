@@ -2,16 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menu_home"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/icon_bottom_home"
         android:title="홈" />
 
     <item
         android:id="@+id/menu_chat"
-        android:icon="@drawable/ic_insert_comment_black_24dp"
+        android:icon="@drawable/icon_bottom_chat"
         android:title="채팅" />
 
     <item
         android:id="@+id/menu_myPage"
-        android:icon="@drawable/ic_person_black_24dp"
-        android:title="마이페이지"/>
+        android:icon="@drawable/icon_bottom_mypage"
+        android:title="마이페이지" />
 </menu>
