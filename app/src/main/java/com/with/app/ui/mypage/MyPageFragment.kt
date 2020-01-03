@@ -89,6 +89,7 @@ class MyPageFragment : Fragment() {
     }
 
     fun resetMyPageView(){
+        cl_back.visibility = View.GONE
         returnMypage()
         edt_mypage_intro.setText(resetIntro)
 //
@@ -99,6 +100,10 @@ class MyPageFragment : Fragment() {
         Glide.with(context!!)
             .load(resetBackground)
             .into(img_mypage_background)
+
+        var animation = AnimationUtils.loadAnimation(context!!, R.anim.fade)
+        cl_back.visibility = View.VISIBLE
+        cl_back.startAnimation(animation)
     }
 
     fun makeMyPageView() {
@@ -119,6 +124,7 @@ class MyPageFragment : Fragment() {
 
                     resetIntro = edt_mypage_intro.text.toString()
 
+
                     Glide.with(this)
                         .load(it.data.userImg)
                         .into(img_mypage_profile)
@@ -136,6 +142,13 @@ class MyPageFragment : Fragment() {
                     else if(badge == 1) iv_like_level.setImageResource(R.drawable.like_level1)
                     else if(badge == 2) iv_like_level.setImageResource(R.drawable.like_level2)
                     else iv_like_level.setImageResource(R.drawable.like_level3)
+
+                    var animation = AnimationUtils.loadAnimation(context!!, R.anim.fade)
+                    cl_back.visibility = View.VISIBLE
+                    cl_back.startAnimation(animation)
+
+
+
                 }
             )
 
@@ -175,10 +188,6 @@ class MyPageFragment : Fragment() {
             when(event?.action) {
 
                 MotionEvent.ACTION_UP -> {
-                    val animation = AnimationUtils.loadAnimation(context!!, R.anim.fade)
-                    img_camera1.startAnimation(animation)
-                    img_camera2.startAnimation(animation)
-                    
                     btn_mypage_cancle.visibility = View.VISIBLE
                     tv_mypage.text = "개인정보 수정"
                     cl_back.setBackgroundResource(R.drawable.edit_bg)
@@ -200,6 +209,7 @@ class MyPageFragment : Fragment() {
 
         img_camera1.setOnClickListener {
             changeBackImage()
+
         }
 
         img_camera2.setOnClickListener {
