@@ -168,6 +168,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="13dp"
                         android:layout_marginBottom="62dp"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toTopOf="@+id/vp_banner"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -179,10 +180,10 @@
                         android:id="@+id/layout_noRecent"
                         android:layout_width="match_parent"
                         android:layout_height="161dp"
+                        android:visibility="gone"
                         android:layout_marginTop="16dp"
                         android:layout_marginStart="20dp"
-                        android:layout_marginEnd="20dp"
-                        android:background="@drawable/corner_primarypink_fill_6dp">
+                        android:layout_marginEnd="20dp">
 
                         <TextView
                             android:id="@+id/text"

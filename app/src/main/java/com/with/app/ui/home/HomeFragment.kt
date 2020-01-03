@@ -11,15 +11,12 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.request.RequestOptions
 import com.with.app.R
+import com.with.app.extension.*
 import com.with.app.manage.RecentViewsHelper
 import com.with.app.manage.RequestManager
 import com.with.app.ui.home.recyclerview.*
 import com.with.app.ui.postlist.PostListFragment
 import com.with.app.ui.region.ChangeRegionActivity
-import com.with.app.extension.gone
-import com.with.app.extension.load
-import com.with.app.extension.safeEnqueue
-import com.with.app.extension.setLinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.ext.android.inject
 
@@ -62,17 +59,25 @@ class HomeFragment : Fragment() {
         tab_layout.setupWithViewPager(vp_banner, true)
 
         btn_mate.setOnClickListener {
-            if (requestManager.regionManager.code.isEmpty()) {
-                val intent = Intent(context, ChangeRegionActivity::class.java)
-                startActivityForResult(intent, REGIONCHANGE_REQCODE)
-            } else {
-                val fragment_post_list = PostListFragment()
-                activity?.supportFragmentManager
-                    ?.beginTransaction()
-                    ?.addToBackStack(null)
-                    ?.replace(R.id.main_container, fragment_post_list)
-                    ?.commit()
-            }
+            goWith()
+        }
+
+        btn_firstGoWith.setOnClickListener {
+            goWith()
+        }
+    }
+
+    private fun goWith(){
+        if (requestManager.regionManager.code.isEmpty()) {
+            val intent = Intent(context, ChangeRegionActivity::class.java)
+            startActivityForResult(intent, REGIONCHANGE_REQCODE)
+        } else {
+            val fragment_post_list = PostListFragment()
+            activity?.supportFragmentManager
+                ?.beginTransaction()
+                ?.addToBackStack(null)
+                ?.replace(R.id.main_container, fragment_post_list)
+                ?.commit()
         }
     }
 
@@ -152,6 +157,8 @@ class HomeFragment : Fragment() {
 
         var boardIdx = recentViewsHelper.readView()
         if (boardIdx.isNotEmpty()) {
+            rv_recent_bulletin.visible()
+            layout_noRecent.gone()
             requestManager.requestLatelyBoard(boardIdx)
                 .safeEnqueue(
                     onSuccess = {
@@ -159,6 +166,10 @@ class HomeFragment : Fragment() {
                         recBulletinAdapter.notifyDataSetChanged()
                     }
                 )
+        }
+        else{
+            rv_recent_bulletin.gone()
+            layout_noRecent.visible()
         }
 
     }
