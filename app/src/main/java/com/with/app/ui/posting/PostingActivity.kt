@@ -162,8 +162,8 @@ class PostingActivity : AppCompatActivity() {
     private fun showSettingPopup() {
         MaterialDialog(this).show {
             customView(R.layout.dialog_posting)
-            btn_ok.setOnClickListener { finish() }
-            btn_cancle.setOnClickListener { dismiss() }
+            btn_dialog_mypage_ok.setOnClickListener { finish() }
+            btn_dialog_mypage_cancle.setOnClickListener { dismiss() }
         }
     }
 

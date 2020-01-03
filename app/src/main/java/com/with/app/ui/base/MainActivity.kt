@@ -12,6 +12,7 @@ import com.with.app.ui.chatlist.ChatListFragment
 import com.with.app.ui.home.HomeFragment
 import com.with.app.ui.mypage.MyPageFragment
 import com.with.app.extension.toast
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -36,6 +37,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        bn_bottom_navi.itemIconTintList = null
 
         val fragment_home = HomeFragment()
         supportFragmentManager.beginTransaction().replace(R.id.main_container, fragment_home).commit()

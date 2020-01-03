@@ -10,7 +10,6 @@
         android:id="@+id/bn_bottom_navi"
         android:layout_width="0dp"
         android:layout_height="56dp"
-        app:itemIconTint="@drawable/navi_bottom_color"
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
