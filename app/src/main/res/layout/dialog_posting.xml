@@ -8,12 +8,14 @@
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="19dp"
         android:layout_marginStart="24dp"
+        android:layout_marginTop="19dp"
         android:lineSpacingExtra="5sp"
+        android:layout_marginEnd="60dp"
         android:text="이 페이지를 벗어나시겠습니까?"
         android:textColor="@color/colorBlack"
         android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
