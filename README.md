@@ -140,6 +140,14 @@ extension function의 사용
 
     <br></br>
     <br></br>
+    
+### ConstraintLayout 
+
+모든 뷰를 ConstraintLayout을 이용하여 XML 레이아웃 작성.
+ - 채팅과 Custom Dialog은 ConstraintLayout의 match_parent 버그로 사용할 수 없는 이유로 다른 레이아웃으로 작성
+
+    <br></br>
+    <br></br>
 
 ### Developer
 
