@@ -37,21 +37,20 @@ class EvaluateActivity : AppCompatActivity() {
     }
 
     private fun setData() {
+        showLoading(loading)
         requestManager.requestChatList().safeEnqueue(
             onSuccess = {
                 if (it.success) {
                     val data = it.data
-                    Log.e("data", data.toString())
                     for (item in data) if (item.evalFlag == 2) evalData.add(item)
                     setListener()
+                    hideLoading(loading)
                 }
             }
         )
     }
 
     private fun setListener() {
-        loading.playAnimation()
-        loading.loop(true)
 
         evalContainer.visibility = View.GONE
 
@@ -97,12 +96,8 @@ class EvaluateActivity : AppCompatActivity() {
                         evalContainer.visibility = View.VISIBLE
                         evalContainer.startAnimation(animationEval)
 
-                        if (count > 1) {
-                            btn_left.visibility = View.VISIBLE
-                        }
-                        if (count == totalCount) {
-                            btn_right.visibility = View.GONE
-                        }
+                        if (count > 1) btn_left.visible()
+                        if (count == totalCount) btn_right.gone()
                     },
                     onError = {
                         toast("네트워크 통신 오류")
@@ -116,7 +111,7 @@ class EvaluateActivity : AppCompatActivity() {
         btn_left.setOnClickListener {
             var evalCount = tv_elevation_count.text.toString().toInt()
             var dataPosition = evalCount - 1
-            btn_right.visibility = View.VISIBLE
+            btn_right.visible()
 
             requestManager.requestNoEvaluation(RoomIdData(evalData[dataPosition].roomId))
                 .safeEnqueue(
@@ -131,12 +126,8 @@ class EvaluateActivity : AppCompatActivity() {
                         tv_elevation_count.text = currentCount
                         container.load(this, evalData[0].regionImgE, loadingContainer, evalContainer)
 
-                        if (count > 1) {
-                            btn_left.visibility = View.VISIBLE
-                        }
-                        if (count == 1) {
-                            btn_left.visibility = View.GONE
-                        }
+                        if (count > 1) btn_left.visible()
+                        if (count == 1) btn_left.gone()
                     },
                     onError = {
                         toast("네트워크 통신 오류")
@@ -145,8 +136,6 @@ class EvaluateActivity : AppCompatActivity() {
                         toast("네트워크 통신 오류")
                     }
                 )
-
-
         }
 
         btn_elevation_bottom.setOnTouchListener { v, event ->
@@ -169,24 +158,21 @@ class EvaluateActivity : AppCompatActivity() {
                                 onSuccess = {
                                     tv_elevation_intro.text = "감사합니다\n앞으로도 W!TH해요 :)"
                                     btn_elevation_bottom.text = "위드하기"
-                                    btn_left.visibility = View.GONE
-                                    btn_right.visibility = View.GONE
-                                    btn_elevation_top.visibility = View.GONE
-                                    container.setImageResource(R.drawable.evaluationimg)
+                                    btn_left.gone()
+                                    btn_right.gone()
+                                    btn_elevation_top.gone()
+                                    // container.setImageResource(R.drawable.evaluationimg)
 
                                 },
                                 onFailure = {
                                     toast("네트워크 통신 오류")
-                                    Log.e("onFailure", it.toString())
                                 },
                                 onError = {
                                     toast("네트워크 통신 오류")
-                                    Log.e("onError", it.toString())
                                 }
                             )
 
                     } else {
-                        Log.e("id", evalData[dataPosition].roomId)
                         requestManager.requestPutDisLike(RoomIdData(evalData[dataPosition].roomId))
                             .safeEnqueue(
                                 onSuccess = {
@@ -197,12 +183,8 @@ class EvaluateActivity : AppCompatActivity() {
                                     btn_elevation_bottom.text = "별로였어요"
                                     tv_elevation_count.text = count.toString()
                                     container.load(this, evalData[0].regionImgE, loadingContainer, evalContainer)
-                                    if (count > 1) {
-                                        btn_left.visibility = View.VISIBLE
-                                    }
-                                    if (count == totalCount) {
-                                        btn_right.visibility = View.GONE
-                                    }
+                                    if (count > 1) btn_left.visible()
+                                    if (count == totalCount) btn_right.gone()
                                 },
                                 onFailure = {
                                     toast("네트워크 통신 오류")
@@ -213,8 +195,6 @@ class EvaluateActivity : AppCompatActivity() {
                                     Log.e("onError", it.toString())
                                 }
                             )
-
-
                     }
                 }
             }
@@ -239,15 +219,15 @@ class EvaluateActivity : AppCompatActivity() {
                                 onSuccess = {
                                     tv_elevation_intro.text = "감사합니다\n앞으로도 W!TH해요 :)"
                                     btn_elevation_bottom.text = "위드하기"
-                                    btn_elevation_top.visibility = View.GONE
-                                    btn_close.visibility = View.GONE
-                                    img_person.visibility = View.GONE
-                                    tv_elevation_count.visibility = View.GONE
-                                    tv_elevation_div.visibility = View.GONE
-                                    tv_elevation_count_total.visibility = View.GONE
-                                    btn_left.visibility = View.GONE
-                                    btn_right.visibility = View.GONE
-                                    container.setImageResource(R.drawable.evaluationimg)
+                                    btn_elevation_top.gone()
+                                    btn_close.gone()
+                                    img_person.gone()
+                                    tv_elevation_count.gone()
+                                    tv_elevation_div.gone()
+                                    tv_elevation_count_total.gone()
+                                    btn_left.gone()
+                                    btn_right.gone()
+                                    // container.setImageResource(R.drawable.evaluationimg)
                                 },
                                 onFailure = {
                                     toast("네트워크 통신 오류")
@@ -256,8 +236,6 @@ class EvaluateActivity : AppCompatActivity() {
                                     toast("네트워크 통신 오류")
                                 }
                             )
-
-
                     } else {
                         requestManager.requestPutLike(RoomIdData(evalData[dataPosition].roomId))
                             .safeEnqueue(
@@ -270,14 +248,10 @@ class EvaluateActivity : AppCompatActivity() {
                                     btn_elevation_top.text = "즐거웠어요"
                                     btn_elevation_bottom.text = "별로였어요"
                                     tv_elevation_count.text = count_string
-                                    btn_close.visibility = View.VISIBLE
+                                    btn_close.visible()
                                     container.load(this, evalData[0].regionImgE, loadingContainer, evalContainer)
-                                    if (count > 1) {
-                                        btn_left.visibility = View.VISIBLE
-                                    }
-                                    if (count == totalCount) {
-                                        btn_right.visibility = View.GONE
-                                    }
+                                    if (count > 1) btn_left.visible()
+                                    if (count == totalCount) btn_right.gone()
                                 },
                                 onFailure = {
                                     toast("네트워크 통신 오류")
@@ -286,8 +260,6 @@ class EvaluateActivity : AppCompatActivity() {
                                     toast("네트워크 통신 오류")
                                 }
                             )
-
-
                     }
                 }
             }
@@ -305,9 +277,7 @@ class EvaluateActivity : AppCompatActivity() {
                 }
                 finish()
             }
-            btn_eval_no.setOnClickListener {
-                dismiss()
-            }
+            btn_eval_no.setOnClickListener { dismiss() }
         }
     }
 }

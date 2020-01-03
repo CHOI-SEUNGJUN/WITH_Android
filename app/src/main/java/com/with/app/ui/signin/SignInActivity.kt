@@ -81,13 +81,11 @@ class SignInActivity : AppCompatActivity() {
 
 
         btn_login.setOnClickListener {
+            if(edt_signin_email.text.toString().isEmpty() || edt_signin_password.text.toString().isEmpty()) {
+                return@setOnClickListener
+            }
             showLoading(loading)
-            requestManager.requestSignIn(
-                RequestSignInData(
-                    edt_signin_email.text.toString(),
-                    edt_signin_password.text.toString()
-                )
-            )
+            requestManager.requestSignIn(RequestSignInData(edt_signin_email.text.toString(), edt_signin_password.text.toString()))
                 .safeEnqueue(
                     onSuccess = {
                         if (it.success && it.message == "로그인 성공") {

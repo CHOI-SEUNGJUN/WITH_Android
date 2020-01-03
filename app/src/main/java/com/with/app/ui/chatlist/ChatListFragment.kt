@@ -81,7 +81,6 @@ class ChatListFragment : Fragment() {
                 onSuccess = {
                     if (it.success) {
                         responseData = it.data
-                        Log.e("data", responseData.toString())
                         for (item in responseData) {
                             if (item.evalFlag == 2) {
                                 tv_name.text = "${requestManager.authManager.name}님"
@@ -130,8 +129,6 @@ class ChatListFragment : Fragment() {
                 }
             }
         )
-        if(data.isEmpty()) {
-            activity?.hideLoading(loading)
-        }
+        if(data.isEmpty()) activity?.hideLoading(loading)
     }
 }

@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class RequestManager(val context: Context, val authManager: AuthManager, val regionManager: RegionManager) {
 
     private companion object {
-        const val BASE_URL = "http://18.222.189.150:3000"
+        const val BASE_URL = "http://13.209.245.213:3000"
     }
 
     private val retrofit = Retrofit.Builder()
