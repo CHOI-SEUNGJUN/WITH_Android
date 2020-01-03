@@ -238,9 +238,9 @@ class SignUpActivity : AppCompatActivity() {
             val birth = edt_birth.text.toString()
 
 
-
-            if (userID.isEmpty() || password.isEmpty() || name.isEmpty() || birth.isEmpty() || profileImg == null || !b_id || !b_pw || !b_pwck || gender == 0) {
+            if (userID.isEmpty() || password.isEmpty() || name.isEmpty() || profileImg == null || birth.isEmpty() || !b_id || !b_pw || !b_pwck || gender == 0) {
                 toast("회원가입 조건에 맞게 모두 채워주세요!")
+
                 return@setOnClickListener
             }
 
@@ -254,15 +254,23 @@ class SignUpActivity : AppCompatActivity() {
                 profileImg
             ).safeEnqueue(
                 onSuccess = {
-                    it.success
-                    showSuccessPopup()
-                },
+                    if (it.success && it.message == "회원가입 성공") {
+                        showSuccessPopup()
+                    } else {
+                        toast(it.message)
+                    }
+                }
+                ,
                 onError = {
                     toast("네트워크 연결 오류")
                     Log.e("error", it.toString())
                 },
                 onFailure = {
                     toast("회원가입 실패")
+                    tv_email_warning.visibility = View.VISIBLE
+                    edt_signup_email.setBackgroundResource(R.drawable.corner_border_error_6dp)
+                    edt_signup_email.requestFocus()
+
                     Log.e("failure", it.message())
                 }
             )
