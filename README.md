@@ -1,18 +1,43 @@
+
+
 # W!TH Android
 
 ### W!TH - 위드
+
 안전하고 간편한 여행 동행 플랫폼 'W!TH'
 
 ***
-![WITH 그림자](https://user-images.githubusercontent.com/50166893/71722574-a783cd80-2e6c-11ea-82a1-eb62218093d0.jpg){: width : 40%}
+![WITH 그림자](https://user-images.githubusercontent.com/50166893/71722574-a783cd80-2e6c-11ea-82a1-eb62218093d0.jpg){: .alineleft}
+
+
+
+## W!TH Project Repositories
+
+* <a href="https://github.com/TEAM-WITH/WITH-Android">Android</a>
+
+  Android Strudio Client
+  
+* <a href="https://github.com/TEAM-WITH/WITH-iOS">iOS</a>
+
+  
+
+* <a href="https://github.com/TEAM-WITH/WITH_Server">Server</a>
+
+​       Node.js API Server
+
+
+
 
 
 ### Work Flow
+
 ********
 ![위드 work-flow](https://user-images.githubusercontent.com/50166893/71722841-cafb4800-2e6d-11ea-82e8-eaabaecbc864.PNG)
 
 
+
 ### 패키지 구조
+
 패키지별 설명
 
 **********
@@ -28,7 +53,10 @@
 
 
 
+
+
 ### 사용 라이브러리
+
 라이브러리
 
 **********
@@ -42,7 +70,10 @@
 
 
 
+
+
 ### 핵심기능
+
 핵심기능 구현 방법
 
 **********
@@ -90,7 +121,9 @@
 
 
 
+
 ### lamda
+
 lamda 사용
 
 ***********
@@ -99,7 +132,10 @@ lamda 사용
 
 
 
+
+
 ### extension function
+
 extension function의 사용
 
 **********
@@ -111,6 +147,9 @@ extension function의 사용
 - ViewExt
 
 
+
+
+
 ### Developer
 
 개발자
@@ -119,12 +158,3 @@ extension function의 사용
 **최승준**(CHOI-SEUNGJUN)
 **조현아**(whgusdk98)
 **석영현**(yeonghyeonSeok)
-
-
-
-### W!TH의 다른 프로젝트
-
-************
-
-- TEAM W!TH 
-<https://github.com/TEAM-WITH>
