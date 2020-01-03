@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.request.RequestOptions
@@ -48,8 +49,7 @@ class HomeFragment : Fragment(), PlaceClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        loading.playAnimation()
-        loading.loop(true)
+        activity?.showLoading(loading)
 
         recentViewsHelper = RecentViewsHelper(context!!)
         makeWithMateList()
@@ -84,9 +84,8 @@ class HomeFragment : Fragment(), PlaceClickListener {
                 onSuccess = {
                     it.let {
                         img_main_background.load(context!!, it.data.regionImgH, requestOptions)
-                        loading.pauseAnimation()
+                        activity?.hideLoading(loading)
                         homeContainer.visible()
-                        loadingContainer.gone()
                     }
                 })
     }
@@ -164,6 +163,7 @@ class HomeFragment : Fragment(), PlaceClickListener {
 
     private fun goToPostList() {
         activity?.supportFragmentManager?.beginTransaction()
+            ?.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left,R.anim.exit_to_right)
             ?.addToBackStack(null)
             ?.replace(R.id.main_container, postListFragment)
             ?.commit()

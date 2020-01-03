@@ -81,9 +81,7 @@ class SignInActivity : AppCompatActivity() {
 
 
         btn_login.setOnClickListener {
-            loading.visible()
-            loading.playAnimation()
-            loading.loop(true)
+            showLoading(loading)
             requestManager.requestSignIn(
                 RequestSignInData(
                     edt_signin_email.text.toString(),
@@ -100,20 +98,17 @@ class SignInActivity : AppCompatActivity() {
                             startActivity(Intent(this, MainActivity::class.java))
                             finish()
                         } else {
-                            loading.pauseAnimation()
-                            loading.gone()
+                            hideLoading(loading)
                             toast("로그인에 실패하였습니다.")
                         }
                     },
                     onFailure = {
-                        loading.pauseAnimation()
-                        loading.gone()
-                        //TODO : 아이디 오류인지 비밀번호 오류인지 구분 => 경고메세지 띄워주기
+                        hideLoading(loading)
                         toast("로그인에 실패하였습니다.")
                     },
                     onError = {
                         loading.pauseAnimation()
-                        loading.gone()
+                        hideLoading(loading)
                         toast("네트워크 통신 오류")
                     }
                 )
